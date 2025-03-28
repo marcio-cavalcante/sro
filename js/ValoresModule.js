@@ -170,6 +170,7 @@ export class ValoresModule {
         const descricaoInput = document.createElement('input');
         descricaoInput.type = 'text';
         descricaoInput.name = 'tarifaPendDesc';
+        descricaoInput.className = 'tarifaPendDesc';
         if (isFirst) descricaoInput.id = 'tarifaPendDesc';
 
         const valorLabel = document.createElement('label');
@@ -198,7 +199,7 @@ export class ValoresModule {
         this.createTarifaRow(this.elements.tarifasInputs);
     }
 
-    // CORRIGIDO: Método para calcular todos os valores de uma vez
+    // Método para calcular todos os valores de uma vez
     calcularTodosValores() {
         console.log("Iniciando cálculo de valores...");
         
@@ -210,10 +211,8 @@ export class ValoresModule {
         alert('Cálculos realizados com sucesso!');
     }
 
-    // CORRIGIDO: Método para calcular o rateio automaticamente
+    // Método para calcular o rateio automaticamente
     calcularRateio() {
-        console.log("Calculando rateio básico...");
-        
         if (!this.elements.valorSolicitado || !this.elements.repasseSolicitado || !this.elements.contrapartidaSolicitado) {
             console.error("Elementos para cálculo de rateio não encontrados!");
             return;
@@ -252,23 +251,17 @@ export class ValoresModule {
             return;
         }
 
-        console.log(`Calculando com: valorTotal=${valorTotal}, percentualRP=${percentualRP}%, percentualCP=${percentualCP}%`);
-
         // Calcular valores
         const valorRP = (valorTotal * percentualRP) / 100;
         const valorCP = (valorTotal * percentualCP) / 100;
-
-        console.log(`Resultados: valorRP=${valorRP}, valorCP=${valorCP}`);
 
         // Atualizar campos de saída
         this.elements.repasseSolicitado.value = formatToString(valorRP);
         this.elements.contrapartidaSolicitado.value = formatToString(valorCP);
     }
 
-    // CORRIGIDO: Método para calcular o rateio vigente
+    // Método para calcular o rateio após ajuste do valor de execução vigente
     calcularRateioVigente() {
-        console.log("Calculando rateio vigente...");
-        
         if (!this.elements.valorSolicitado || !this.elements.valorCtefAjustado ||
             !this.elements.repasseAjustado || !this.elements.contrapartidaAjustado ||
             !this.elements.cpExecVigente) {

@@ -35,9 +35,7 @@ const DesbloqueioManager = (function() {
         // Configurar botão de calcular valores
         const btnCalcularValores = document.getElementById('btnCalcularValores');
         if (btnCalcularValores) {
-            console.log("Configurando botão de calcular valores...");
             btnCalcularValores.addEventListener('click', function() {
-                console.log("Botão Calcular Valores clicado");
                 valoresModule.calcularTodosValores();
             });
         } else {

@@ -3,26 +3,59 @@ document.getElementById('operacaoForm').addEventListener('submit', function(even
     const operacaoInput = document.getElementById('operacao').value;
 
     // Limpeza de toda a página
+    // function limparFormulario() {
+    //     const textInputs = document.querySelectorAll('input[type="text"], textarea');
+    //     textInputs.forEach(input => {
+    //         input.value = '';
+    //     });
+
+    //     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    //     checkboxes.forEach(checkbox => {
+    //         checkbox.checked = false;
+    //     });
+
+    //     const radioButtons = document.querySelectorAll('input[type="radio"]');
+    //     radioButtons.forEach(radio => {
+    //         radio.checked = false;
+    //     });
+
+    //     const selects = document.querySelectorAll('select');
+    //     selects.forEach(select => {
+    //         select.selectedIndex = 0;
+    //     });
+    // }
+
     function limparFormulario() {
+        // Limpar inputs do tipo texto e áreas de texto
         const textInputs = document.querySelectorAll('input[type="text"], textarea');
         textInputs.forEach(input => {
             input.value = '';
         });
-
+    
+        // Limpar checkboxes
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(checkbox => {
             checkbox.checked = false;
         });
-
+    
+        // Limpar botões de rádio
         const radioButtons = document.querySelectorAll('input[type="radio"]');
         radioButtons.forEach(radio => {
             radio.checked = false;
         });
-
+    
+        // Limpar selects
         const selects = document.querySelectorAll('select');
         selects.forEach(select => {
             select.selectedIndex = 0;
         });
+    
+        // Limpar inputs dinâmicos no contêiner etiquetasDaOperacaoContainer
+        const etiquetasContainer = document.getElementById('etiquetasDaOperacaoContainer');
+        if (etiquetasContainer) {
+            // Remove todos os inputs existentes no contêiner
+            etiquetasContainer.innerHTML = ''; 
+        }
     }
 
     limparFormulario();
@@ -138,25 +171,22 @@ console.log(etiquetasArray);
             document.getElementById('gestor').value = result.gestor || '-';
             // document.getElementById('etiquetasDaOperacao').value = etiquetasArray || '-';
 
-  
-  // Função para exibir as etiquetas no container
-  const container = document.getElementById("etiquetasDaOperacaoContainer");
-  
-  etiquetasArray.forEach(etiqueta => {
-    const input = document.createElement("input");
-    input.type = "text";
-    input.value = etiqueta; // Define o valor como o texto da etiqueta
-    input.readOnly = true; // Torna o input apenas leitura
-    input.className = "etiqueta-input"; // Classe para estilização (opcional)
-    container.appendChild(input); // Adiciona o input ao container
-  });
-
-
-
+            // Função para exibir as etiquetas no container
+            const container = document.getElementById("etiquetasDaOperacaoContainer");
+            
+            etiquetasArray.forEach(etiqueta => {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.value = etiqueta; // Define o valor como o texto da etiqueta
+                input.readOnly = true; // Torna o input apenas leitura
+                input.className = "etiqueta-input"; // Classe para estilização (opcional)
+                container.appendChild(input); // Adiciona o input ao container
+            });
 
             document.getElementById('repasseContrato').innerHTML = formatNumber(result.vr) || '-';
             document.getElementById('contrapartidaContrato').innerHTML = formatNumber(result.cp1) || '-';
             document.getElementById('investimentoContrato').innerHTML = formatNumber(result.vi) || '-';
+
 
             // Atribuindo valores à tabela de desbloqueio Contrato de Repasse
             percentRpContrato = (parseFloat(parseToNumber(result.vr)) / parseFloat(parseToNumber(result.vi)) * 100).toFixed(2)
@@ -181,6 +211,18 @@ console.log(etiquetasArray);
 
             percentCpVigente = (parseFloat(parseToNumber(result.cp1)) / parseFloat(parseToNumber(result.valorExecucaoVigente)) * 100).toFixed(2)
             document.getElementById('percentCpVigente').innerHTML = percentCpVigente || '-';
+
+            // Valores atribuidos à tabela de controle de desbloqueios e saldos
+            document.getElementById('repasseDesbloqueado').innerHTML = formatNumber(result.vrDesbloqueado) || '-';
+            document.getElementById('contrapartidaDesbloqueada').innerHTML = formatNumber(result.cpDesbloqueado) || '-';
+
+            saldoRpDesbloquear = parseFloat(parseToNumber(result.vr)) - parseFloat(parseToNumber(result.vrDesbloqueado))
+            document.getElementById('repasseSaldoDesbloquear').innerHTML = formatForDisplay(saldoRpDesbloquear) || '-';
+
+            saldoCpDesbloquear = parseFloat(parseToNumber(result.cp1)) - parseFloat(parseToNumber(result.cpDesbloqueado))
+            document.getElementById('contrapartidaSaldoDesbloquear').innerHTML = formatForDisplay(saldoCpDesbloquear) || '-';
+
+
         })
         .catch(error => {
             console.error("Error fetching or processing CSV:", error);

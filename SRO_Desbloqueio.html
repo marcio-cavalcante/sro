@@ -92,11 +92,6 @@
                             <input type="text" id="gestor" name="gestor" readonly>
                         </div>
 
-                        <!-- <div class="form-row">
-                            <label for="etiquetasDaOperacao">Etiquetas:</label>
-                            <input type="text" id="etiquetasDaOperacao" name="etiquetasDaOperacao" readonly>
-                        </div> -->
-
                         <div class="form-row">
                             <label for="etiquetasDaOperacao">Etiquetas:</label>
                             <div id="etiquetasDaOperacaoContainer"></div>
@@ -419,6 +414,7 @@
                         <label for="objDesbloqueio"><b>O que está sendo desbloqueado:</b></label>
                         <select id="objDesbloqueio" name="objDesbloqueio">
                             <option value="" selected disabled>Escolha uma opção</option>
+                            <option value="MEDICAO">MEDIÇÃO</option>
                             <option value="RRE">RRE</option>
                             <option value="BM">BM</option>
                             <option value="PLE">PLE</option>
@@ -478,7 +474,32 @@
                                 <td>Saldo Reprogramar</td>
                                 <td id="saldoExecVigente">-</td>
                                 <td>-</td>
-                            </tr>                                
+                            </tr>
+                            
+                            <tr class="linha-desbloqueio">
+                                <th class="cabecalho-desbloqueio">LIBERAÇÕES</th>
+                                <th class="cabecalho-desbloqueio">Desbloqueado R$</th>
+                                <th class="cabecalho-desbloqueio">Saldo a desbloquear R$</th>
+
+                            </tr>
+                            
+                            <tr class="linha-desbloqueio">
+                                <td>Repasse</td>
+                                <td id="repasseDesbloqueado">-</td>
+                                <td id="repasseSaldoDesbloquear">-</td>
+                            </tr>
+                            <tr class="linha-desbloqueio">
+                                <td>Contrapartida</td>
+                                <td id="contrapartidaDesbloqueada">-</td>
+                                <td id="contrapartidaSaldoDesbloquear">-</td>
+                            </tr>
+                            <tr class="linha-desbloqueio">
+                                <td>Investimento</td>
+                                <td id="investimentoDesbloqueado">-</td>
+                                <td id="investimentoSaldoDesbloquear">-</td>
+                            </tr>
+
+
                         </tbody>
                         </table>
                         <hr>
@@ -521,6 +542,9 @@
                                 <input type="text" id="contrapartidaAjusteManual" name="contrapartidaAjusteManual" value="">
                             </div>
                         </div>
+                        
+                    <button id="btnCalcularValores" type="button">Calcular Valores</button>
+
                     </div>
     
                     
@@ -536,7 +560,7 @@
                         <div id="tarifasInputs">
                             <div class="tarifaRow">
                                 <label for="tarifaPendDesc">Descrição:</label>
-                                <input type="text" id="tarifaPendDesc" name="tarifaPendDesc" value="">
+                                <input type="text" class="tarifaPendDesc" id="tarifaPendDesc" name="tarifaPendDesc" value="">
                                 
                                 <label for="tarifaPendValor">Valor:</label>
                                 <input type="text" id="tarifaPendValor" name="tarifaPendValor" value="">
@@ -685,7 +709,7 @@
                 <div class="checklist13">
                     <h2>Ações Administrativas</h2>
                     <button id="btnVerificarRadios" type="button">Verificar Pendências</button>
-                    <button id="btnCalcularValores" type="button">Calcular Valores</button>
+                    <!-- <button id="btnCalcularValores" type="button">Calcular Valores</button> -->
                 </div>
 
                 <div class="checklist14">

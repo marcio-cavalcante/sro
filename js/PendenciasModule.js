@@ -54,59 +54,59 @@ export class PendenciasModule {
             },
             "pcpParcelaAnterior": {
                 aprovado: "",
-                faltando: "- Registrar/anexar no Transferegov.br a comprovação da execução financeira referente à última autorização de saque.",
-                reprovado: "- A comprovação da execução financeira referente à última autorização de saque possui pendências a serem sanadas antes do desbloqueio.",
+                faltando: "Registrar/anexar no Transferegov.br a comprovação da execução financeira referente à última autorização de saque.",
+                reprovado: "A comprovação da execução financeira referente à última autorização de saque possui pendências a serem sanadas antes do desbloqueio.",
                 naPcp: ""
             },
             "apontamentosReuni": {
                 sem: "",
-                com: "- Atender demais apontamentos listados no Relatório Anexo."
+                com: "Atender demais apontamentos listados no Relatório Anexo."
             },
             "temParecerTgov": {
                 simParecerTgov: "",
-                naoParecerTgov: "- CR sem solicitação de prorrogação de execução financeira, tal prazo pode ser prorrogado, desde que o pedido contenha a motivação e justificativa e que não fique caracterizada culpa do Convenente e comprove benefício da execução do objeto."
+                naoParecerTgov: "CR sem solicitação de prorrogação de execução financeira, tal prazo pode ser prorrogado, desde que o pedido contenha a motivação e justificativa e que não fique caracterizada culpa do Convenente e comprove benefício da execução do objeto."
             },
             "temArtFiscalizacao": {
                 simArtFiscRegistradaReuni: "",
                 simArtFiscNaoRegistradaReuni: "",
-                naoArtFiscalizacao: "- Deverá ser apresentada ART/RRT do(a) responsável pela fiscalização da obra."
+                naoArtFiscalizacao: "Deverá ser apresentada ART/RRT do(a) responsável pela fiscalização da obra."
             },
             "temArtExecucao": {
                 simArtExecRegistradaReuni: "",
                 simArtExecNaoRegistradaReuni: "",
-                naoArtExecucao: "- Deverá ser apresentada ART/RRT do(a) responsável pela execução da obra."
+                naoArtExecucao: "Deverá ser apresentada ART/RRT do(a) responsável pela execução da obra."
             },
             "temAprovProjAcessib": {
                 simAprovProjAcessib: "",
-                naoAprovProjAcessib: "- Apresentar declaração que o Convenente recebeu e aprovou o Projeto Executivo de Acessibilidade e que sua execução se dará de forma a garantir o cumprimento dos itens previstos na Lista de Verificação de Acessibilidade, para desbloqueio da primeira parcela de CR vinculados aos exercícios financeiros a partir de 2018, conforme IN MPDG nº 002/2017.",
+                naoAprovProjAcessib: "Apresentar declaração que o Convenente recebeu e aprovou o Projeto Executivo de Acessibilidade e que sua execução se dará de forma a garantir o cumprimento dos itens previstos na Lista de Verificação de Acessibilidade, para desbloqueio da primeira parcela de CR vinculados aos exercícios financeiros a partir de 2018, conforme IN MPDG nº 002/2017.",
                 naAprovProjAcessib: ""
             },
             "ordemServico": {
                 simOrdemServico: "",
-                naoOrdemServico: "- Apresentar Ordem de Serviço/Compra para o fornecedor, para solicitação de desbloqueio da primeira parcela do CTEF."
+                naoOrdemServico: "Apresentar Ordem de Serviço/Compra para o fornecedor, para solicitação de desbloqueio da primeira parcela do CTEF."
             },
             "laudoConfAcessib": {
                 simLaudoConfAcessib: "",
-                naoLaudoConfAcessib: "- Apresentar Laudo de Conformidade em Acessibilidade, para solicitação de desbloqueio da última parcela de CR vinculados aos exercícios financeiros a partir de 2018 (IN MPDG nº 002/2018).",
+                naoLaudoConfAcessib: "Apresentar Laudo de Conformidade em Acessibilidade, para solicitação de desbloqueio da última parcela de CR vinculados aos exercícios financeiros a partir de 2018 (IN MPDG nº 002/2018).",
                 naLaudoConfAcessib: ""
             },
             "docRecObj": {
                 simDocRecObj: "",
-                naoDocRecObj: "- Apresentar documento que comprove o recebimento do objeto do CR, por parte do Convenente, para solicitação de desbloqueio da última parcela de CR vinculados aos exercícios financeiros a partir de 2018 (IN MPDG nº 002/2018 e suas alterações).",
+                naoDocRecObj: "Apresentar documento que comprove o recebimento do objeto do CR, por parte do Convenente, para solicitação de desbloqueio da última parcela de CR vinculados aos exercícios financeiros a partir de 2018 (IN MPDG nº 002/2018 e suas alterações).",
                 naDocRecObj: ""
             },
             "controleTecnologico": {
                 simControleTecnologico: "",
-                naoControleTecnologico: "- Apresentar o Laudo Técnico de Controle Tecnológico, com os resultados dos ensaios realizados em cada etapa dos serviços conforme exigências normativas do DNIT.",
+                naoControleTecnologico: "Apresentar o Laudo Técnico de Controle Tecnológico, com os resultados dos ensaios realizados em cada etapa dos serviços conforme exigências normativas do DNIT.",
                 naControleTecnologico: ""
             },
             "placaObra": {
                 simPlacaObra: "",
-                naoPlacaObra: "- Apresentar relatório fotográfico comprovando a instalação da placa de obra em conformidade com o manual do Governo Federal vigente. Reforçando que o Contratado deve afixar a placa de obra em local visível, e mantê-la em bom estado de conservação obrigatoriamente durante todo o período de execução da obra."
+                naoPlacaObra: "Apresentar relatório fotográfico comprovando a instalação da placa de obra em conformidade com o manual do Governo Federal vigente. Reforçando que o Contratado deve afixar a placa de obra em local visível, e mantê-la em bom estado de conservação obrigatoriamente durante todo o período de execução da obra."
             },
             "placaInauguracao": {
                 simPlacaInauguracao: "",
-                naoPlacaInauguracao: "- Apresentar declaração do Representante Legal do Convenente informando que não haverá instalação de placa de inauguração de obra ou, caso o Convenente opte pela instalação de placa, apresentar registro fotográfico georreferenciado que demonstre a conformidade da placa com o Manual Visual de Placas e Adesivos de Obras."
+                naoPlacaInauguracao: "Apresentar declaração do Representante Legal do Convenente informando que não haverá instalação de placa de inauguração de obra ou, caso o Convenente opte pela instalação de placa, apresentar registro fotográfico georreferenciado que demonstre a conformidade da placa com o Manual Visual de Placas e Adesivos de Obras."
             },
             "relatorioExecucao": {
                 simRelatorioExecucao: "",

@@ -272,7 +272,7 @@ nav li:hover a { border-left-width: 8px; padding-left: 20px; }
   transition: var(--transition-bounce); position: relative; overflow: hidden;
 }
 .checklist > div:hover {
-  transform: translateY(-5px); box-shadow: var(--shadow-hover);
+  box-shadow: var(--shadow-hover);
 }
 .checklist > div::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -464,6 +464,9 @@ nav li:hover a { border-left-width: 8px; padding-left: 20px; }
 #assinatura { width: 150px; max-width: 100%; }
 #objeto { width: 90%; max-width: 100%; }
 #etiquetasDaOperacao { width: 90%; max-width: 100%; }
+.tarifaPendDesc { width: 60%; max-width: 100%; }
+
+
 
 /* Misc form styles */
 input::placeholder { color: var(--text-light); opacity: 0.7; }
@@ -481,7 +484,7 @@ label + input[type="checkbox"], label + input[type="radio"] { margin-left: 8px; 
 
 /* Estilos para a tabela de controle de desbloqueio */
 #controleDesbloqueio {
-  width: 90%;
+  width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   box-shadow: var(--shadow);
@@ -494,8 +497,8 @@ label + input[type="checkbox"], label + input[type="radio"] { margin-left: 8px; 
 #controleDesbloqueio th,
 #controleDesbloqueio td {
   border: 1px solid var(--border);
-  padding: 12px;
-  text-align: left;
+  padding: 8px;
+  text-align: center;
   position: relative;
   width: 33.33%;
   word-wrap: break-word;
@@ -719,6 +722,27 @@ textarea {
   padding: 5px;
   border-bottom: 1px solid #eee;
 }
+
+/* Etiquetas da operação */
+.etiqueta-input {
+  background-color: #46C09F !important;
+  color: #fff !important;
+  font-size: 85% !important;
+  padding: .45em .8em !important;
+  margin: 4px 0 !important;
+  border-radius: 10rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  vertical-align: baseline !important;
+  box-sizing: border-box !important;
+  font-family: Arial,Helvetica,sans-serif !important;
+}
+
+
+
+
 
 /* Responsive design */
 @media (max-width: 1200px) {
