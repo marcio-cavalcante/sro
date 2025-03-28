@@ -32,7 +32,7 @@ document.getElementById('operacaoForm').addEventListener('submit', function(even
         .then(response => response.text())
         .then(data => {
             const rows = data.split('\n').map(row => row.split('|'));
-            const headers = rows[0];            
+            const headers = rows[0];
             const operacaoIndex = headers.indexOf('operacao');
             const dvIndex = headers.indexOf('dv');
             const convenioIndex = headers.indexOf('convenioTgov');
@@ -52,9 +52,8 @@ document.getElementById('operacaoForm').addEventListener('submit', function(even
             const cCorrenteIndex = headers.indexOf('cCorrente');
             const obtvIndex = headers.indexOf('obtv');
             const gestorIndex = headers.indexOf('gestor');
-            const etiquetasDaOperacaoIndex = headers.findIndex(header => 
-                header.trim().startsWith('etiquetasDaOperacao'));
-            
+            const etiquetasDaOperacaoIndex = headers.indexOf('etiquetasDaOperacao');
+
             let result = {};
             for (let i = 1; i < rows.length; i++) {
                 if (rows[i][operacaoIndex] === operacaoInput) {
@@ -70,31 +69,22 @@ document.getElementById('operacaoForm').addEventListener('submit', function(even
                         vi: rows[i][viIndex],
                         vr: rows[i][vrIndex],
                         cp1: rows[i][cp1Index],
+
                         vrDesbloqueado: rows[i][vrDesbloqueadoIndex],
                         cpDesbloqueado: rows[i][cpDesbloqueadoIndex],
+
                         valorExecucaoVigente: rows[i][valorExecucaoVigenteIndex],
+
                         cAgencia: rows[i][cAgenciaIndex],
                         agencia: rows[i][agenciaIndex],
                         cCorrente: rows[i][cCorrenteIndex],
                         obtv: rows[i][obtvIndex],
                         gestor: rows[i][gestorIndex],
-                        etiquetasDaOperacao: rows[i][etiquetasDaOperacaoIndex] || ''
+                        etiquetasDaOperacao: rows[i][etiquetasDaOperacaoIndex]                        
                     };
                     break;
                 }
             }
-
-
-
-            // Exemplo de string recebida
-const etiquetasDaOperacaoDicionario = result.etiquetasDaOperacao;
-
-// Convertendo a string em um array, separando pelos ","
-const etiquetasArray = etiquetasDaOperacaoDicionario.split(",").map(item => item.trim());
-
-console.log(etiquetasArray);
-
-
 
             // Função para formatar o número para "999.999,99"
             function formatNumber(number) {
@@ -136,23 +126,10 @@ console.log(etiquetasArray);
             document.getElementById('cCorrente').value = result.cCorrente || '-';
             document.getElementById('obtv').value = result.obtv || '-';
             document.getElementById('gestor').value = result.gestor || '-';
-            // document.getElementById('etiquetasDaOperacao').value = etiquetasArray || '-';
 
-  
-  // Função para exibir as etiquetas no container
-  const container = document.getElementById("etiquetasDaOperacaoContainer");
-  
-  etiquetasArray.forEach(etiqueta => {
-    const input = document.createElement("input");
-    input.type = "text";
-    input.value = etiqueta; // Define o valor como o texto da etiqueta
-    input.readOnly = true; // Torna o input apenas leitura
-    input.className = "etiqueta-input"; // Classe para estilização (opcional)
-    container.appendChild(input); // Adiciona o input ao container
-  });
-
-
-
+            console.log("etiquetasDaOperacao from CSV:", result.etiquetasDaOperacao);
+            document.getElementById('etiquetasDaOperacao').value = result.etiquetasDaOperacao || '-';
+            // document.getElementById('etiquetasDaOperacao').value = result.etiquetasDaOperacao || '-'
 
             document.getElementById('repasseContrato').innerHTML = formatNumber(result.vr) || '-';
             document.getElementById('contrapartidaContrato').innerHTML = formatNumber(result.cp1) || '-';
@@ -181,8 +158,6 @@ console.log(etiquetasArray);
 
             percentCpVigente = (parseFloat(parseToNumber(result.cp1)) / parseFloat(parseToNumber(result.valorExecucaoVigente)) * 100).toFixed(2)
             document.getElementById('percentCpVigente').innerHTML = percentCpVigente || '-';
-        })
-        .catch(error => {
-            console.error("Error fetching or processing CSV:", error);
         });
+
 });
