@@ -2,36 +2,32 @@ document.getElementById('operacaoForm').addEventListener('submit', function(even
     event.preventDefault();
     const operacaoInput = document.getElementById('operacao').value;
 
-    // Função para limpar todos os campos do formulário
+    // Limpeza de toda a página
     function limparFormulario() {
-        // Limpar campos de texto e áreas de texto
         const textInputs = document.querySelectorAll('input[type="text"], textarea');
         textInputs.forEach(input => {
             input.value = '';
         });
 
-        // Desmarcar checkboxes
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(checkbox => {
             checkbox.checked = false;
         });
 
-        // Desmarcar radio buttons
         const radioButtons = document.querySelectorAll('input[type="radio"]');
         radioButtons.forEach(radio => {
             radio.checked = false;
         });
 
-        // Resetar selects para a opção padrão (se houver uma)
         const selects = document.querySelectorAll('select');
         selects.forEach(select => {
-            select.selectedIndex = 0; // Define para o primeiro item
+            select.selectedIndex = 0;
         });
     }
 
-    // Limpa o formulário antes de carregar novos dados
     limparFormulario();
 
+    // Tratamento do arquivo Tudo Ogu para captura dos dados
     fetch('Planilha_Tudo_Ogu.csv')
         .then(response => response.text())
         .then(data => {
@@ -48,7 +44,15 @@ document.getElementById('operacaoForm').addEventListener('submit', function(even
             const viIndex = headers.indexOf('vi');
             const vrIndex = headers.indexOf('vr');
             const cp1Index = headers.indexOf('cp1');
+            const vrDesbloqueadoIndex = headers.indexOf('vrDesbloqueado');
+            const cpDesbloqueadoIndex = headers.indexOf('cpDesbloqueado');
             const valorExecucaoVigenteIndex = headers.indexOf('valorExecucaoVigente');
+            const cAgenciaIndex = headers.indexOf('cAgencia');
+            const agenciaIndex = headers.indexOf('agencia');
+            const cCorrenteIndex = headers.indexOf('cCorrente');
+            const obtvIndex = headers.indexOf('obtv');
+            const gestorIndex = headers.indexOf('gestor');
+            const etiquetasDaOperacaoIndex = headers.indexOf('etiquetasDaOperacao');
 
             let result = {};
             for (let i = 1; i < rows.length; i++) {
@@ -65,7 +69,18 @@ document.getElementById('operacaoForm').addEventListener('submit', function(even
                         vi: rows[i][viIndex],
                         vr: rows[i][vrIndex],
                         cp1: rows[i][cp1Index],
-                        valorExecucaoVigente: rows[i][valorExecucaoVigenteIndex]
+
+                        vrDesbloqueado: rows[i][vrDesbloqueadoIndex],
+                        cpDesbloqueado: rows[i][cpDesbloqueadoIndex],
+
+                        valorExecucaoVigente: rows[i][valorExecucaoVigenteIndex],
+
+                        cAgencia: rows[i][cAgenciaIndex],
+                        agencia: rows[i][agenciaIndex],
+                        cCorrente: rows[i][cCorrenteIndex],
+                        obtv: rows[i][obtvIndex],
+                        gestor: rows[i][gestorIndex],
+                        etiquetasDaOperacao: rows[i][etiquetasDaOperacaoIndex]                        
                     };
                     break;
                 }
@@ -80,11 +95,10 @@ document.getElementById('operacaoForm').addEventListener('submit', function(even
                 return '-';
             }
 
-
             // Função para realizar cálculos convertendo o valor para o formato numérico do JavaScript
             function parseToNumber(number) {
                 if (number) {
-                    return parseFloat(number.replace('.', '').replace(',', '.')); // Transforma para número padrão
+                    return parseFloat(number.replace('.', '').replace(',', '.'));
                 }
                 return null;
             }
@@ -96,6 +110,7 @@ document.getElementById('operacaoForm').addEventListener('submit', function(even
                 }
                 return '-';
             }
+
             document.getElementById('operation').value = result.operacao + '-' + result.dv || 'nao achada'
             document.getElementById('convenio').value = result.convenio || '-';
             document.getElementById('tomador').value = result.tomador || '-';
@@ -106,6 +121,13 @@ document.getElementById('operacaoForm').addEventListener('submit', function(even
             document.getElementById('vi').value = formatNumber(result.vi) || '-';
             document.getElementById('rp').value = formatNumber(result.vr) || '-';
             document.getElementById('cp').value = formatNumber(result.cp1) || '-';
+            document.getElementById('cAgencia').value = result.cAgencia || '-';
+            document.getElementById('agencia').value = result.agencia || '-';
+            document.getElementById('cCorrente').value = result.cCorrente || '-';
+            document.getElementById('obtv').value = result.obtv || '-';
+            document.getElementById('gestor').value = result.gestor || '-';
+            document.getElementById('etiquetasDaOperacao').value = result.etiquetasDaOperacao || '-'
+
             document.getElementById('repasseContrato').innerHTML = formatNumber(result.vr) || '-';
             document.getElementById('contrapartidaContrato').innerHTML = formatNumber(result.cp1) || '-';
             document.getElementById('investimentoContrato').innerHTML = formatNumber(result.vi) || '-';
