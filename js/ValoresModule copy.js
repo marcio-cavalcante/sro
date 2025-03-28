@@ -12,7 +12,7 @@ export class ValoresModule {
 
     init() {
         this.cacheElements();
-        this.setupMinimalEventListeners();
+        this.setupEventListeners();
         this.initializeForms();
     }
 
@@ -46,64 +46,68 @@ export class ValoresModule {
         this.elements.instrumentoNumero = document.getElementById('instrumentoNumero');
     }
 
-    setupMinimalEventListeners() {
-        // Manter apenas event listeners para formatação de valores e visibilidade de campos
-        
-        // 1. Formatação de valores durante entrada
+    setupEventListeners() {
+        if (this.elements.primeiroDesbloq) {
+            this.elements.primeiroDesbloq.addEventListener('change', () => this.handleDesbloqueioChange());
+            this.elements.intermediarioDesbloq.addEventListener('change', () => this.handleDesbloqueioChange());
+            this.elements.ultimoDesbloq.addEventListener('change', () => this.handleDesbloqueioChange());
+        }
+
+        if (this.elements.rreRadio) {
+            this.elements.rreRadio.addEventListener('change', () => this.toggleChecklists56());
+            this.elements.raeRadio.addEventListener('change', () => this.toggleChecklists56());
+        }
+
         if (this.elements.valorSolicitado) {
             this.elements.valorSolicitado.addEventListener('input', () => {
                 this.elements.valorSolicitado.value = formatarValor(this.elements.valorSolicitado.value);
             });
+            this.elements.valorSolicitado.addEventListener('blur', () => this.calcularRateio());
         }
-        
+
         if (this.elements.valorCtefAjustado) {
             this.elements.valorCtefAjustado.addEventListener('input', () => {
                 this.elements.valorCtefAjustado.value = formatarValor(this.elements.valorCtefAjustado.value);
             });
+            this.elements.valorCtefAjustado.addEventListener('blur', () => this.calcularRateioVigente());
         }
-        
+
         if (this.elements.repasseAjusteManual) {
             this.elements.repasseAjusteManual.addEventListener('input', () => {
                 this.elements.repasseAjusteManual.value = formatarValor(this.elements.repasseAjusteManual.value);
             });
         }
-        
+
         if (this.elements.contrapartidaAjusteManual) {
             this.elements.contrapartidaAjusteManual.addEventListener('input', () => {
                 this.elements.contrapartidaAjusteManual.value = formatarValor(this.elements.contrapartidaAjusteManual.value);
             });
         }
-        
-        // 2. Gerenciamento de tarifas
+
         if (this.elements.tarifasPendentes) {
             this.elements.tarifasPendentes.addEventListener('change', () => this.toggleTarifasPendentes());
         }
-        
+
         if (this.elements.addTarifaRow) {
             this.elements.addTarifaRow.addEventListener('click', (event) => this.addTarifaRow(event));
-        }
-        
-        // 3. Atualização de número da parcela quando a ordem de desbloqueio muda
-        if (this.elements.primeiroDesbloq) {
-            this.elements.primeiroDesbloq.addEventListener('change', () => this.atualizarParcelaNumero());
-            this.elements.intermediarioDesbloq.addEventListener('change', () => this.atualizarParcelaNumero());
-            this.elements.ultimoDesbloq.addEventListener('change', () => this.atualizarParcelaNumero());
         }
     }
 
     initializeForms() {
         this.gerarNumeros('parcelaNumero');
         this.gerarNumeros('instrumentoNumero');
-        // Estado inicial
+        this.toggleChecklists1234();
+        this.toggleChecklists56();
+    }
+
+    handleDesbloqueioChange() {
         this.atualizarParcelaNumero();
+        this.toggleChecklists1234();
     }
 
     gerarNumeros(selectId, max = 100) {
         const selectElement = document.getElementById(selectId);
-        if (!selectElement) {
-            console.warn(`Select element '${selectId}' não encontrado.`);
-            return;
-        }
+        if (!selectElement) return;
 
         selectElement.innerHTML = '';
 
@@ -123,16 +127,102 @@ export class ValoresModule {
     atualizarParcelaNumero() {
         if (!this.elements.parcelaNumeroSelect) return;
 
-        if (this.elements.primeiroDesbloq && this.elements.primeiroDesbloq.checked) {
+        if (this.elements.primeiroDesbloq.checked) {
             this.elements.parcelaNumeroSelect.innerHTML = '';
             const option = document.createElement('option');
             option.value = 1;
             option.textContent = '1';
             this.elements.parcelaNumeroSelect.appendChild(option);
-        } else if ((this.elements.intermediarioDesbloq && this.elements.intermediarioDesbloq.checked) || 
-                   (this.elements.ultimoDesbloq && this.elements.ultimoDesbloq.checked)) {
+        } else if (this.elements.intermediarioDesbloq.checked || this.elements.ultimoDesbloq.checked) {
             this.gerarNumeros('parcelaNumero');
         }
+    }
+
+    toggleChecklists1234() {
+        if (!this.elements.checklist3 || !this.elements.checklist4) return;
+
+        this.elements.checklist3.style.display = 'none';
+        this.elements.checklist4.style.display = 'none';
+
+        if (this.elements.primeiroDesbloq.checked) {
+            this.elements.checklist3.style.display = 'flex';
+        } else if (this.elements.ultimoDesbloq.checked) {
+            this.elements.checklist4.style.display = 'flex';
+        }
+    }
+
+    toggleChecklists56() {
+        if (!this.elements.checklist5 || !this.elements.checklist6) return;
+
+        this.elements.checklist5.style.display = 'none';
+        this.elements.checklist6.style.display = 'none';
+
+        if (this.elements.rreRadio.checked) {
+            this.elements.checklist5.style.display = 'block';
+        } else if (this.elements.raeRadio.checked) {
+            this.elements.checklist6.style.display = 'block';
+        }
+    }
+
+    calcularRateio() {
+        if (!this.elements.valorSolicitado || !this.elements.repasseSolicitado || !this.elements.contrapartidaSolicitado) return;
+
+        const valorTotal = parseToNumber(this.elements.valorSolicitado.value);
+
+        if (valorTotal === null) {
+            alert('Digite um valor válido!');
+            return;
+        }
+
+        const percentualRPText = this.elements.percentRpVigente.textContent;
+        const percentualCPText = this.elements.percentCpVigente.textContent;
+
+        const percentualRP = parseFloat(percentualRPText.replace('%', '').trim());
+        const percentualCP = parseFloat(percentualCPText.replace('%', '').trim());
+
+        if (isNaN(percentualRP) || isNaN(percentualCP)) {
+            console.error('Percentuais inválidos:', percentualRPText, percentualCPText);
+            return;
+        }
+
+        const valorRP = (valorTotal * percentualRP) / 100;
+        const valorCP = (valorTotal * percentualCP) / 100;
+
+        this.elements.repasseSolicitado.value = formatToString(valorRP);
+        this.elements.contrapartidaSolicitado.value = formatToString(valorCP);
+    }
+
+    calcularRateioVigente() {
+        if (!this.elements.valorSolicitado || !this.elements.valorCtefAjustado ||
+            !this.elements.repasseAjustado || !this.elements.contrapartidaAjustado ||
+            !this.elements.cpExecVigente) return;
+
+        const valorTotalVigente = parseToNumber(this.elements.valorSolicitado.value);
+        const novoValorExecVigente = parseToNumber(this.elements.valorCtefAjustado.value);
+
+        if (valorTotalVigente === null || novoValorExecVigente === null) {
+            alert('Digite valores válidos!');
+            return;
+        }
+
+        let cpExecVigenteText = this.elements.cpExecVigente.textContent;
+        cpExecVigenteText = cpExecVigenteText.replace('R$', '').trim();
+        const novaCpVigente = parseToNumber(cpExecVigenteText);
+
+        if (novaCpVigente === null) {
+            console.error('Valor de CP vigente inválido:', cpExecVigenteText);
+            return;
+        }
+
+        const novoRpVigente = novoValorExecVigente - novaCpVigente;
+        const novoPercentRpVig = (novoRpVigente / novoValorExecVigente) * 100;
+        const novoPercentCpVig = (novaCpVigente / novoValorExecVigente) * 100;
+
+        const valorRPNovo = (valorTotalVigente * novoPercentRpVig) / 100;
+        const valorCPNovo = (valorTotalVigente * novoPercentCpVig) / 100;
+
+        this.elements.repasseAjustado.value = formatToString(valorRPNovo);
+        this.elements.contrapartidaAjustado.value = formatToString(valorCPNovo);
     }
 
     toggleTarifasPendentes() {
@@ -196,135 +286,5 @@ export class ValoresModule {
         if (!this.elements.tarifasInputs) return;
 
         this.createTarifaRow(this.elements.tarifasInputs);
-    }
-
-    // CORRIGIDO: Método para calcular todos os valores de uma vez
-    calcularTodosValores() {
-        console.log("Iniciando cálculo de valores...");
-        
-        // Realizar os cálculos
-        this.calcularRateio();
-        this.calcularRateioVigente();
-        
-        // Exibir mensagem de confirmação
-        alert('Cálculos realizados com sucesso!');
-    }
-
-    // CORRIGIDO: Método para calcular o rateio automaticamente
-    calcularRateio() {
-        console.log("Calculando rateio básico...");
-        
-        if (!this.elements.valorSolicitado || !this.elements.repasseSolicitado || !this.elements.contrapartidaSolicitado) {
-            console.error("Elementos para cálculo de rateio não encontrados!");
-            return;
-        }
-
-        // Verificar se o valor solicitado está preenchido
-        if (!this.elements.valorSolicitado.value || this.elements.valorSolicitado.value.trim() === '') {
-            console.warn("Valor solicitado vazio, não é possível calcular o rateio.");
-            return;
-        }
-
-        // Obter o valor total solicitado
-        const valorTotal = parseToNumber(this.elements.valorSolicitado.value);
-
-        if (valorTotal === null || isNaN(valorTotal) || valorTotal <= 0) {
-            console.warn(`Valor total inválido: ${valorTotal}`);
-            alert('Digite um valor válido para o desbloqueio!');
-            return;
-        }
-
-        // Obter percentuais de repasse e contrapartida
-        const percentualRPText = this.elements.percentRpVigente ? this.elements.percentRpVigente.textContent : '';
-        const percentualCPText = this.elements.percentCpVigente ? this.elements.percentCpVigente.textContent : '';
-
-        if (!percentualRPText || !percentualCPText) {
-            console.error("Percentuais RP ou CP não encontrados");
-            return;
-        }
-
-        // Converter percentuais para números
-        const percentualRP = parseFloat(percentualRPText.replace('%', '').trim());
-        const percentualCP = parseFloat(percentualCPText.replace('%', '').trim());
-
-        if (isNaN(percentualRP) || isNaN(percentualCP)) {
-            console.error('Percentuais inválidos:', percentualRPText, percentualCPText);
-            return;
-        }
-
-        console.log(`Calculando com: valorTotal=${valorTotal}, percentualRP=${percentualRP}%, percentualCP=${percentualCP}%`);
-
-        // Calcular valores
-        const valorRP = (valorTotal * percentualRP) / 100;
-        const valorCP = (valorTotal * percentualCP) / 100;
-
-        console.log(`Resultados: valorRP=${valorRP}, valorCP=${valorCP}`);
-
-        // Atualizar campos de saída
-        this.elements.repasseSolicitado.value = formatToString(valorRP);
-        this.elements.contrapartidaSolicitado.value = formatToString(valorCP);
-    }
-
-    // CORRIGIDO: Método para calcular o rateio vigente
-    calcularRateioVigente() {
-        console.log("Calculando rateio vigente...");
-        
-        if (!this.elements.valorSolicitado || !this.elements.valorCtefAjustado ||
-            !this.elements.repasseAjustado || !this.elements.contrapartidaAjustado ||
-            !this.elements.cpExecVigente) {
-            console.error("Elementos para cálculo de rateio vigente não encontrados!");
-            return;
-        }
-
-        // Verificar se os valores necessários estão preenchidos
-        if (!this.elements.valorSolicitado.value || !this.elements.valorCtefAjustado.value) {
-            console.warn("Valores necessários vazios, não é possível calcular o rateio vigente.");
-            return;
-        }
-
-        // Obter os valores necessários
-        const valorTotalVigente = parseToNumber(this.elements.valorSolicitado.value);
-        const novoValorExecVigente = parseToNumber(this.elements.valorCtefAjustado.value);
-
-        if (valorTotalVigente === null || isNaN(valorTotalVigente) || 
-            novoValorExecVigente === null || isNaN(novoValorExecVigente)) {
-            console.warn(`Valores inválidos: valorTotalVigente=${valorTotalVigente}, novoValorExecVigente=${novoValorExecVigente}`);
-            alert('Digite valores válidos para o cálculo de rateio vigente!');
-            return;
-        }
-
-        // Obter valor da contrapartida vigente
-        let cpExecVigenteText = this.elements.cpExecVigente.textContent;
-        console.log(`CP Exec Vigente (texto): "${cpExecVigenteText}"`);
-        
-        // Limpar o valor para conversão
-        cpExecVigenteText = cpExecVigenteText.replace(/[R$\s.]/g, '').replace(',', '.');
-        console.log(`CP Exec Vigente (limpo): "${cpExecVigenteText}"`);
-        
-        const novaCpVigente = parseFloat(cpExecVigenteText);
-
-        if (isNaN(novaCpVigente)) {
-            console.error('Valor de CP vigente inválido:', cpExecVigenteText);
-            return;
-        }
-
-        console.log(`Calculando rateio vigente com: valorTotalVigente=${valorTotalVigente}, novoValorExecVigente=${novoValorExecVigente}, novaCpVigente=${novaCpVigente}`);
-
-        // Calcular valores 
-        const novoRpVigente = novoValorExecVigente - novaCpVigente;
-        const novoPercentRpVig = (novoRpVigente / novoValorExecVigente) * 100;
-        const novoPercentCpVig = (novaCpVigente / novoValorExecVigente) * 100;
-
-        console.log(`Percentuais calculados: RP=${novoPercentRpVig}%, CP=${novoPercentCpVig}%`);
-
-        // Aplicar os novos percentuais ao valor solicitado
-        const valorRPNovo = (valorTotalVigente * novoPercentRpVig) / 100;
-        const valorCPNovo = (valorTotalVigente * novoPercentCpVig) / 100;
-
-        console.log(`Valores finais: RP=${valorRPNovo}, CP=${valorCPNovo}`);
-
-        // Atualizar campos de saída
-        this.elements.repasseAjustado.value = formatToString(valorRPNovo);
-        this.elements.contrapartidaAjustado.value = formatToString(valorCPNovo);
     }
 }

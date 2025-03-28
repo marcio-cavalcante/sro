@@ -150,75 +150,8 @@ export class PendenciasModule {
 
     init() {
         this.cacheElements();
-        this.configuraGruposDeSelecao();
-        this.configuraRadiosEspecificos();
-        this.configuraSelects();
-    }
-
-    configuraSelects() {
-        // Array com todas as configurações (nome do grupo, id do radio "Com pendência", id do dropdown)
-        const configuracoes = [
-            { 
-                nomeGrupo: "ofSolicitacaoDesbl", 
-                radioComPendencia: "pendOfSolicitacaoDesbl", 
-                dropdownId: "pendenciasOfSolicitacaoDesbl" 
-            },
-            { 
-                nomeGrupo: "rreDesbl", 
-                radioComPendencia: "pendRreDesbl", 
-                dropdownId: "pendenciasRreDesbl" 
-            },
-            { 
-                nomeGrupo: "relFornecedoresDesbl", 
-                radioComPendencia: "pendRelFornecedoresDesbl", 
-                dropdownId: "pendenciasRelFornecedoresDesbl" 
-            },
-            { 
-                nomeGrupo: "pleBmDesbl", 
-                radioComPendencia: "pendPleBmDesbl", 
-                dropdownId: "pendenciasPleBmDesbl" 
-            },
-            { 
-                nomeGrupo: "placaObraDesbl", 
-                radioComPendencia: "pendPlacaObraDesbl", 
-                dropdownId: "pendenciasPlacaObraDesbl" 
-            }
-        ];
-    
-        // Configurar cada grupo
-        configuracoes.forEach(config => {
-            const dropdown = document.getElementById(config.dropdownId);
-            
-            if (!dropdown) {
-                console.warn(`Dropdown ${config.dropdownId} não encontrado`);
-                return;
-            }
-            
-            // Configurar o radio "Com pendência"
-            const radioPendencia = document.getElementById(config.radioComPendencia);
-            if (radioPendencia) {
-                radioPendencia.addEventListener('change', () => {
-                    dropdown.disabled = false;
-                });
-                
-                // Verificar estado inicial
-                if (radioPendencia.checked) {
-                    dropdown.disabled = false;
-                }
-            } else {
-                console.warn(`Radio ${config.radioComPendencia} não encontrado`);
-            }
-            
-            // Configurar todos os outros radios do mesmo grupo para desabilitar o dropdown
-            const todosRadiosDoGrupo = document.getElementsByName(config.nomeGrupo);
-            Array.from(todosRadiosDoGrupo).forEach(radio => {
-                if (radio.id !== config.radioComPendencia) {
-                    radio.addEventListener('change', () => {
-                        dropdown.disabled = true;
-                    });
-                }
-            });
-        });
+        // Configurar apenas os event listeners essenciais para a interface do usuário
+        this.configuraVisibilidadeCampos();
     }
 
     cacheElements() {
@@ -242,184 +175,149 @@ export class PendenciasModule {
         this.elements.pendenciasOfSolicitacaoDesbl = document.getElementById('pendenciasOfSolicitacaoDesbl');
     }
 
-    configuraGruposDeSelecao() {
+    configuraVisibilidadeCampos() {
+        // Configurar a visibilidade dos dropdowns de pendências com base nos radios
         this.gruposDeSelecao.forEach(grupo => {
-            this.togglePendenciasDropdown(grupo.nomeGrupoRadio, grupo.idDropdown, grupo.radioComPendencia);
-            this.handlePendenciasDropdown(grupo.idDropdown);
-        });
-    }
-
-    configuraRadiosEspecificos() {
-        Object.keys(this.mensagensRadios).forEach(nomeGrupo => {
-            const mensagens = this.mensagensRadios[nomeGrupo];
-            const radios = document.getElementsByName(nomeGrupo);
-
-            radios.forEach(radio => {
-                // Remover listeners existentes
-                const newRadio = radio.cloneNode(true);
-                radio.parentNode.replaceChild(newRadio, radio);
-                
-                // Adicionar novo listener ao elemento clonado
-                newRadio.addEventListener("change", () => this.verificarRadios(nomeGrupo, mensagens));
-            });
-
-            // Verificar estado inicial
-            const radioAtivo = Array.from(document.getElementsByName(nomeGrupo)).find(radio => radio.checked);
-            if (radioAtivo && mensagens[radioAtivo.value]) {
-                this.verificarRadios(nomeGrupo, mensagens);
-            }
-        });
-
-        // Configurar listeners para medição apta a desbloqueio
-        if (this.elements.radiosAptoDesbl) {
-            Array.from(this.elements.radiosAptoDesbl).forEach(radio => {
-                const newRadio = radio.cloneNode(true);
-                radio.parentNode.replaceChild(newRadio, radio);
-                newRadio.addEventListener('change', () => this.atualizarTextarea());
-            });
-            // Atualizar a referência após a clonagem
-            this.elements.radiosAptoDesbl = document.getElementsByName('aptoDesbl');
-        }
-
-        // Configurar listener para valor solicitado
-        if (this.elements.valorSolicitado) {
-            const newElement = this.elements.valorSolicitado.cloneNode(true);
-            this.elements.valorSolicitado.parentNode.replaceChild(newElement, this.elements.valorSolicitado);
-            newElement.addEventListener('change', () => this.atualizarTextarea());
-            this.elements.valorSolicitado = newElement;
-        }
-
-        // Configurar listeners para outros campos
-        this.configureEventListener(this.elements.objDesbloqueio, 'change', () => this.atualizarTextarea());
-        this.configureEventListener(this.elements.instrumentoNumero, 'change', () => this.atualizarTextarea());
-        this.configureEventListener(this.elements.primeiroDesbloq, 'change', () => this.atualizarTextarea());
-        this.configureEventListener(this.elements.intermediarioDesbloq, 'change', () => this.atualizarTextarea());
-        this.configureEventListener(this.elements.ultimoDesbloq, 'change', () => this.atualizarTextarea());
-        this.configureEventListener(this.elements.parcelaNumero, 'change', () => this.atualizarTextarea());
-    }
-
-    configureEventListener(element, eventType, callback) {
-        if (element) {
-            const newElement = element.cloneNode(true);
-            element.parentNode.replaceChild(newElement, element);
-            newElement.addEventListener(eventType, callback);
+            const radios = document.getElementsByName(grupo.nomeGrupoRadio);
+            const dropdown = document.getElementById(grupo.idDropdown);
             
-            // Atualizar a referência no objeto elements para o elemento clonado
-            Object.keys(this.elements).forEach(key => {
-                if (this.elements[key] === element) {
-                    this.elements[key] = newElement;
-                }
-            });
-            return newElement;
-        }
-        return null;
-    }
-
-    verificarRadios(nomeDoGrupo, mensagens) {
-        // Remove pendências antigas relacionadas ao grupo atual
-        const chavesMensagens = Object.values(mensagens);
-        this.pendencias = this.pendencias.filter(pendencia => !chavesMensagens.includes(pendencia));
-
-        // Adiciona nova pendência com base na seleção atual
-        const selecionado = Array.from(document.getElementsByName(nomeDoGrupo)).find(radio => radio.checked);
-        if (selecionado && mensagens[selecionado.value]) {
-            const novaPendencia = mensagens[selecionado.value];
-            if (novaPendencia) {
-                this.pendencias.push(novaPendencia);
+            if (radios.length && dropdown) {
+                radios.forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        dropdown.disabled = (radio.value !== grupo.radioComPendencia);
+                    });
+                });
+                
+                // Estado inicial
+                const radioAtivo = Array.from(radios).find(r => r.checked);
+                dropdown.disabled = (!radioAtivo || radioAtivo.value !== grupo.radioComPendencia);
+            }
+        });
+        
+        // Configurar visibilidade de checklists baseado na seleção de ordem de desbloqueio
+        if (this.elements.primeiroDesbloq && this.elements.ultimoDesbloq) {
+            const checklist3 = document.querySelector('.checklist3');
+            const checklist4 = document.querySelector('.checklist4');
+            
+            if (checklist3 && checklist4) {
+                const updateChecklists = () => {
+                    checklist3.style.display = this.elements.primeiroDesbloq.checked ? 'flex' : 'none';
+                    checklist4.style.display = this.elements.ultimoDesbloq.checked ? 'flex' : 'none';
+                };
+                
+                this.elements.primeiroDesbloq.addEventListener('change', updateChecklists);
+                this.elements.intermediarioDesbloq.addEventListener('change', updateChecklists);
+                this.elements.ultimoDesbloq.addEventListener('change', updateChecklists);
+                
+                // Estado inicial
+                updateChecklists();
             }
         }
+        
+        // Configurar visibilidade de checklists baseado na seleção de RRE/RAE
+        const rreRadio = document.getElementById('rre');
+        const raeRadio = document.getElementById('rae');
+        
+        if (rreRadio && raeRadio) {
+            const checklist5 = document.querySelector('.checklist5');
+            const checklist6 = document.querySelector('.checklist6');
+            
+            if (checklist5 && checklist6) {
+                const updateRreRae = () => {
+                    checklist5.style.display = rreRadio.checked ? 'block' : 'none';
+                    checklist6.style.display = raeRadio.checked ? 'block' : 'none';
+                };
+                
+                rreRadio.addEventListener('change', updateRreRae);
+                raeRadio.addEventListener('change', updateRreRae);
+                
+                // Estado inicial
+                updateRreRae();
+            }
+        }
+        
+        // Configurar visibilidade de tarifas pendentes
+        if (this.elements.tarifasPendentes) {
+            const tarifasInputs = document.getElementById('tarifasInputs');
+            const tarifaPendDesc = document.getElementById('tarifaPendDesc');
+            const tarifaPendValor = document.getElementById('tarifaPendValor');
+            
+            if (tarifasInputs && tarifaPendDesc && tarifaPendValor) {
+                this.elements.tarifasPendentes.addEventListener('change', () => {
+                    const isChecked = this.elements.tarifasPendentes.checked;
+                    tarifaPendDesc.disabled = isChecked;
+                    tarifaPendValor.disabled = isChecked;
+                    
+                    if (isChecked) {
+                        tarifaPendDesc.value = '';
+                        tarifaPendValor.value = '';
+                        
+                        // Limpar todas as linhas adicionais
+                        const rows = tarifasInputs.querySelectorAll('.tarifaRow:not(:first-child)');
+                        rows.forEach(row => row.remove());
+                    }
+                });
+            }
+        }
+    }
 
+    // CORRIGIDO: Método para verificar todas as pendências de uma vez
+    verificarTodasPendencias() {
+        // Limpar array de pendências antes de começar
+        this.pendencias = [];
+        
+        // 1. Verificar os radios específicos primeiro
+        Object.keys(this.mensagensRadios).forEach(nomeGrupo => {
+            const radios = document.getElementsByName(nomeGrupo);
+            // Se não encontrou os radios, pular
+            if (!radios || radios.length === 0) return;
+            
+            const selecionado = Array.from(radios).find(radio => radio.checked);
+            if (selecionado && this.mensagensRadios[nomeGrupo][selecionado.value]) {
+                const novaPendencia = this.mensagensRadios[nomeGrupo][selecionado.value];
+                if (novaPendencia && novaPendencia.trim() !== '') {
+                    this.pendencias.push(novaPendencia);
+                }
+            }
+        });
+        
+        // 2. Verificar os dropdowns de pendências
+        this.gruposDeSelecao.forEach(grupo => {
+            const radios = document.getElementsByName(grupo.nomeGrupoRadio);
+            // Se não encontrou os radios, pular
+            if (!radios || radios.length === 0) return;
+            
+            const dropdown = document.getElementById(grupo.idDropdown);
+            // Se não encontrou o dropdown, pular
+            if (!dropdown) return;
+            
+            // Verificar se o radio "com pendência" está selecionado
+            const radioComPend = Array.from(radios).find(r => r.checked && r.value === grupo.radioComPendencia);
+            
+            // Se o radio está selecionado e o dropdown tem um valor
+            if (radioComPend && dropdown.value) {
+                const textoPendencia = this.textosPorGrupo[grupo.idDropdown][dropdown.value];
+                if (textoPendencia && textoPendencia.trim() !== '') {
+                    this.pendencias.push(textoPendencia);
+                }
+            }
+        });
+        
+        // 3. Atualizar textarea com as pendências coletadas
         this.atualizarTextarea();
+        
+        console.log("Pendências encontradas:", this.pendencias);
         return this.pendencias;
     }
 
-    handlePendenciasDropdown(idDropdown) {
-        const selectPendencias = document.getElementById(idDropdown);
-        if (!selectPendencias) {
-            console.warn(`Dropdown ${idDropdown} não encontrado`);
-            return;
-        }
-
-        // Remover event listeners existentes
-        const clonedSelect = selectPendencias.cloneNode(true);
-        selectPendencias.parentNode.replaceChild(clonedSelect, selectPendencias);
-
-        // Adicionar evento de change ao dropdown clonado
-        clonedSelect.addEventListener("change", () => {
-            // Obter os textos específicos deste grupo
-            const textosDesteGrupo = this.textosPorGrupo[idDropdown] || {};
-            const valoresTexto = Object.values(textosDesteGrupo);
-
-            // Remover apenas as pendências relacionadas a este dropdown específico
-            this.pendencias = this.pendencias.filter(pendencia => !valoresTexto.includes(pendencia));
-
-            // Adicionar nova pendência baseada na seleção
-            const valorSelecionado = clonedSelect.value;
-            if (valorSelecionado && this.textosPorGrupo[idDropdown] && this.textosPorGrupo[idDropdown][valorSelecionado]) {
-                const textoPendencia = this.textosPorGrupo[idDropdown][valorSelecionado];
-                this.pendencias.push(textoPendencia);
-            }
-
-            this.atualizarTextarea();
-        });
-    }
-
-    togglePendenciasDropdown(nomeGrupoRadio, idDropdown, radioComPendencia) {
-        // Obter todos os elementos diretamente, sem cache
-        const radios = document.getElementsByName(nomeGrupoRadio);
-        const pendenciasDropdown = document.getElementById(idDropdown);
-        
-        if (!radios.length) {
-            console.error(`ERRO: Radios '${nomeGrupoRadio}' não encontrados!`);
-            return;
-        }
-        
-        if (!pendenciasDropdown) {
-            console.error(`ERRO: Dropdown '${idDropdown}' não encontrado!`);
-            return;
-        }
-                
-        // Remover todos os event listeners anteriores
-        const newRadios = [];
-        radios.forEach(radio => {
-            // Criar uma cópia do radio original
-            const newRadio = radio.cloneNode(true);
-            // Substituir o original pela cópia
-            radio.parentNode.replaceChild(newRadio, radio);
-            // Guardar a referência para a cópia
-            newRadios.push(newRadio);
-        });
-        
-        // Adicionar novos event listeners
-        newRadios.forEach(radio => {
-            // Usar uma função anônima para manter o contexto 'this'
-            radio.addEventListener('change', (e) => {                
-                if (radio.value === radioComPendencia && radio.checked) {
-                    pendenciasDropdown.disabled = false;
-                } else {
-                    pendenciasDropdown.disabled = true;
-                }
-            });
-        });
-        
-        // Verificar e aplicar o estado inicial dos radios
-        const radioChecked = Array.from(newRadios).find(r => r.checked);
-        if (radioChecked) {
-            if (radioChecked.value === radioComPendencia) {
-                pendenciasDropdown.disabled = false;
-            } else {
-                pendenciasDropdown.disabled = true;
-            }
-        } else {
-            pendenciasDropdown.disabled = true;
-        }
-    }
-    
     atualizarTextarea() {
-        if (!this.elements.textareaApontamento) return;
+        if (!this.elements.textareaApontamento) {
+            console.error("Textarea de apontamento não encontrada!");
+            return;
+        }
 
         // Obter o radio selecionado
-        const radioSelecionado = Array.from(document.getElementsByName('aptoDesbl') || []).find(radio => radio.checked);
+        const radioSelecionado = Array.from(this.elements.radiosAptoDesbl || []).find(radio => radio.checked);
 
         if (radioSelecionado && radioSelecionado.value === "naoAptoDesbl") {
             // Obter o valor da medição do campo adequado
@@ -440,21 +338,28 @@ export class PendenciasModule {
             const contrapartidaAjusteManual = this.elements.contrapartidaAjusteManual || { value: "R$ --" };
             const valorCpAjusteManualMedicao = contrapartidaAjusteManual.value || "R$ --";
 
-            let repasseApontamento = 0;
-            let contrapartidaApontamento = 0;
-            if (parseFloat(valorRpAjusteManualMedicao) > 0) {
+            let repasseApontamento = "";
+            let contrapartidaApontamento = "";
+            
+            // Verificar valores para determinar qual usar (Manual > Ajustado > Solicitado)
+            if (valorRpAjusteManualMedicao && valorRpAjusteManualMedicao !== "R$ --" && parseFloat(valorRpAjusteManualMedicao.replace(/[^\d,-]/g, '').replace(',', '.')) > 0) {
                 repasseApontamento = valorRpAjusteManualMedicao;
-            } else if (parseFloat(valorRpAjustadoMedicao) > 0) {
+            } else if (valorRpAjustadoMedicao && valorRpAjustadoMedicao !== "R$ --" && parseFloat(valorRpAjustadoMedicao.replace(/[^\d,-]/g, '').replace(',', '.')) > 0) {
                 repasseApontamento = valorRpAjustadoMedicao;
-            } else if (parseFloat(valorRepasseMedicao) > 0) {
+            } else if (valorRepasseMedicao && valorRepasseMedicao !== "R$ --" && parseFloat(valorRepasseMedicao.replace(/[^\d,-]/g, '').replace(',', '.')) > 0) {
                 repasseApontamento = valorRepasseMedicao;
+            } else {
+                repasseApontamento = "0,00";
             }
-            if (parseFloat(valorCpAjusteManualMedicao) > 0) {
+            
+            if (valorCpAjusteManualMedicao && valorCpAjusteManualMedicao !== "R$ --" && parseFloat(valorCpAjusteManualMedicao.replace(/[^\d,-]/g, '').replace(',', '.')) > 0) {
                 contrapartidaApontamento = valorCpAjusteManualMedicao;
-            } else if (parseFloat(valorCpAjustadoMedicao) > 0) {
+            } else if (valorCpAjustadoMedicao && valorCpAjustadoMedicao !== "R$ --" && parseFloat(valorCpAjustadoMedicao.replace(/[^\d,-]/g, '').replace(',', '.')) > 0) {
                 contrapartidaApontamento = valorCpAjustadoMedicao;
-            } else if (parseFloat(valorContrapartidaMedicao) > 0) {
+            } else if (valorContrapartidaMedicao && valorContrapartidaMedicao !== "R$ --" && parseFloat(valorContrapartidaMedicao.replace(/[^\d,-]/g, '').replace(',', '.')) > 0) {
                 contrapartidaApontamento = valorContrapartidaMedicao;
+            } else {
+                contrapartidaApontamento = "0,00";
             }
 
             const ctefsValores = this.capturarCtefsNomesValores();
@@ -485,8 +390,8 @@ export class PendenciasModule {
 
             let percentEvolucao = 0;
             if (this.elements.valorSolicitado && this.elements.viExecVigente) {
-                const valorSolicitadoValue = parseFloat((this.elements.valorSolicitado.value).replace(/[^\d,-]/g, '').replace(',', '.'));
-                const viExecVigenteValue = parseFloat((this.elements.viExecVigente.textContent).replace(/[^\d,-]/g, '').replace(',', '.'));
+                const valorSolicitadoValue = parseFloat((this.elements.valorSolicitado.value || "0,00").replace(/[^\d,-]/g, '').replace(',', '.'));
+                const viExecVigenteValue = parseFloat((this.elements.viExecVigente.textContent || "0,00").replace(/[^\d,-]/g, '').replace(',', '.'));
 
                 if (!isNaN(valorSolicitadoValue) && !isNaN(viExecVigenteValue) && viExecVigenteValue !== 0) {
                     percentEvolucao = (valorSolicitadoValue / viExecVigenteValue) * 100;
@@ -540,7 +445,7 @@ export class PendenciasModule {
 
             this.elements.textareaApontamento.value = textoFinal;
         } else if (radioSelecionado && radioSelecionado.value === "simAptoDesbl") {
-            // Se "Sim" for selecionado, limpar a textarea ou definir texto padrão de aprovação
+            // Se "Sim" for selecionado, definir texto padrão de aprovação
             this.elements.textareaApontamento.value = "Medição aprovada para desbloqueio.";
         } else {
             // Estado inicial ou indefinido
@@ -568,7 +473,9 @@ export class PendenciasModule {
             if (selectCtef && inputValor) {
                 const ctef = selectCtef.value;
                 // Obtém o nome da empresa do texto exibido na opção selecionada
-                const nomeEmpresa = selectCtef.options[selectCtef.selectedIndex].text;
+                const nomeEmpresa = selectCtef.options[selectCtef.selectedIndex] ? 
+                                  selectCtef.options[selectCtef.selectedIndex].text : 
+                                  'Empresa não selecionada';
                 const valor = inputValor.value;
 
                 // Adiciona o CTEF e o valor ao array de empresas

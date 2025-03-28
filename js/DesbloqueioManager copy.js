@@ -7,53 +7,41 @@ const DesbloqueioManager = (function() {
     let valoresModule;
 
     function init() {
-        console.log("Inicializando DesbloqueioManager...");
-        
         pendenciasModule = new PendenciasModule();
         pendenciasModule.init();
 
         valoresModule = new ValoresModule();
         valoresModule.init();
 
-        // Configurar botão de verificar pendências
+        // MODIFICADO: Configurar botão de verificar pendências para usar o novo método
         const btnVerificarRadios = document.getElementById('btnVerificarRadios');
         if (btnVerificarRadios) {
-            console.log("Configurando botão de verificar pendências...");
             btnVerificarRadios.addEventListener('click', function() {
-                console.log("Botão Verificar Pendências clicado");
                 // Usar o novo método para verificar todas as pendências de uma vez
                 const pendencias = pendenciasModule.verificarTodasPendencias();
-                console.log('Pendências encontradas:', pendencias);
+                console.log('Pendências atuais:', pendencias);
                 
                 // Feedback visual para o usuário
-                alert(`Verificação de pendências concluída. Foram encontradas ${pendencias.length} pendências.`);
+                alert('Verificação de pendências concluída. Foram encontradas ' + pendencias.length + ' pendências.');
             });
-        } else {
-            console.warn("Botão de verificar pendências não encontrado!");
         }
         
-        // Configurar botão de calcular valores
+        // ADICIONADO: Novo botão para calcular valores
         const btnCalcularValores = document.getElementById('btnCalcularValores');
         if (btnCalcularValores) {
-            console.log("Configurando botão de calcular valores...");
             btnCalcularValores.addEventListener('click', function() {
-                console.log("Botão Calcular Valores clicado");
                 valoresModule.calcularTodosValores();
             });
-        } else {
-            console.warn("Botão de calcular valores não encontrado!");
         }
         
-        // Configurar listeners para os radios de aptidão de desbloqueio
+        // ADICIONADO: Configurar listeners para os radios de aptidão de desbloqueio
         const radiosSim = document.getElementById('simAptoDesbl');
         const radiosNao = document.getElementById('naoAptoDesbl');
         const textareaApontamento = document.getElementById('apontamentoDesbloqueio');
         
         if (radiosSim && radiosNao && textareaApontamento) {
-            console.log("Configurando listeners para radios de aptidão...");
             radiosSim.addEventListener('change', function() {
                 if (this.checked) {
-                    console.log("Radio 'Sim' selecionado para aptidão");
                     // Texto padrão para medição aprovada
                     textareaApontamento.value = "Medição aprovada para desbloqueio.";
                 }
@@ -61,17 +49,12 @@ const DesbloqueioManager = (function() {
             
             radiosNao.addEventListener('change', function() {
                 if (this.checked) {
-                    console.log("Radio 'Não' selecionado para aptidão");
                     // Limpar textarea, será preenchida pelo botão de verificação
                     textareaApontamento.value = "";
-                    alert('Selecione os problemas nas opções acima e depois clique no botão "Verificar Pendências" para gerar o texto do apontamento.');
+                    alert('Clique no botão "Verificar Pendências" para gerar o texto do apontamento.');
                 }
             });
-        } else {
-            console.warn("Radios de aptidão ou textarea não encontrados!");
         }
-
-        console.log("DesbloqueioManager inicializado com sucesso!");
     }
 
     return {
@@ -81,7 +64,4 @@ const DesbloqueioManager = (function() {
     };
 })();
 
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("DOM totalmente carregado. Iniciando DesbloqueioManager...");
-    DesbloqueioManager.init();
-});
+document.addEventListener('DOMContentLoaded', DesbloqueioManager.init);

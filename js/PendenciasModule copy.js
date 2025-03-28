@@ -107,6 +107,16 @@ export class PendenciasModule {
             "placaInauguracao": {
                 simPlacaInauguracao: "",
                 naoPlacaInauguracao: "- Apresentar declaração do Representante Legal do Convenente informando que não haverá instalação de placa de inauguração de obra ou, caso o Convenente opte pela instalação de placa, apresentar registro fotográfico georreferenciado que demonstre a conformidade da placa com o Manual Visual de Placas e Adesivos de Obras."
+            },
+            "relatorioExecucao": {
+                simRelatorioExecucao: "",
+                naoRelatorioExecucao: "Gerar o Relatório de Execução 'Documentos de Liquidação incluídos'."
+            },
+            "depositoCp": {
+                simDepositoCp: "",
+                naoDepositoCp: "Depositar a contrapartida referente a parcela a ser desbloqueada, conforme discriminado acima, realizando a respectiva classificação no TransfereGov.",
+                parcialDepositoCp: "Depositar o valor complementar da contrapartida, de xxxx,xxx e classificar para possibilitar o desbloqueio da parcela.",
+                naDepositoCp: ""
             }
         };
         this.gruposDeSelecao = [
@@ -142,6 +152,73 @@ export class PendenciasModule {
         this.cacheElements();
         this.configuraGruposDeSelecao();
         this.configuraRadiosEspecificos();
+        this.configuraSelects();
+    }
+
+    configuraSelects() {
+        // Array com todas as configurações (nome do grupo, id do radio "Com pendência", id do dropdown)
+        const configuracoes = [
+            { 
+                nomeGrupo: "ofSolicitacaoDesbl", 
+                radioComPendencia: "pendOfSolicitacaoDesbl", 
+                dropdownId: "pendenciasOfSolicitacaoDesbl" 
+            },
+            { 
+                nomeGrupo: "rreDesbl", 
+                radioComPendencia: "pendRreDesbl", 
+                dropdownId: "pendenciasRreDesbl" 
+            },
+            { 
+                nomeGrupo: "relFornecedoresDesbl", 
+                radioComPendencia: "pendRelFornecedoresDesbl", 
+                dropdownId: "pendenciasRelFornecedoresDesbl" 
+            },
+            { 
+                nomeGrupo: "pleBmDesbl", 
+                radioComPendencia: "pendPleBmDesbl", 
+                dropdownId: "pendenciasPleBmDesbl" 
+            },
+            { 
+                nomeGrupo: "placaObraDesbl", 
+                radioComPendencia: "pendPlacaObraDesbl", 
+                dropdownId: "pendenciasPlacaObraDesbl" 
+            }
+        ];
+    
+        // Configurar cada grupo
+        configuracoes.forEach(config => {
+            const dropdown = document.getElementById(config.dropdownId);
+            
+            if (!dropdown) {
+                console.warn(`Dropdown ${config.dropdownId} não encontrado`);
+                return;
+            }
+            
+            // Configurar o radio "Com pendência"
+            const radioPendencia = document.getElementById(config.radioComPendencia);
+            if (radioPendencia) {
+                radioPendencia.addEventListener('change', () => {
+                    dropdown.disabled = false;
+                });
+                
+                // Verificar estado inicial
+                if (radioPendencia.checked) {
+                    dropdown.disabled = false;
+                }
+            } else {
+                console.warn(`Radio ${config.radioComPendencia} não encontrado`);
+            }
+            
+            // Configurar todos os outros radios do mesmo grupo para desabilitar o dropdown
+            const todosRadiosDoGrupo = document.getElementsByName(config.nomeGrupo);
+            Array.from(todosRadiosDoGrupo).forEach(radio => {
+                if (radio.id !== config.radioComPendencia) {
+                    radio.addEventListener('change', () => {
+                        dropdown.disabled = true;
+                    });
+                }
+            });
+        });
     }
 
     cacheElements() {
@@ -163,12 +240,10 @@ export class PendenciasModule {
         this.elements.viExecVigente = document.getElementById('viExecVigente');
         this.elements.tarifasPendentes = document.getElementById('tarifasPendentes');
         this.elements.pendenciasOfSolicitacaoDesbl = document.getElementById('pendenciasOfSolicitacaoDesbl');
-        console.log("Elementos cacheados:", this.elements);
     }
 
     configuraGruposDeSelecao() {
         this.gruposDeSelecao.forEach(grupo => {
-            console.log("Grupo:", grupo);
             this.togglePendenciasDropdown(grupo.nomeGrupoRadio, grupo.idDropdown, grupo.radioComPendencia);
             this.handlePendenciasDropdown(grupo.idDropdown);
         });
@@ -180,11 +255,16 @@ export class PendenciasModule {
             const radios = document.getElementsByName(nomeGrupo);
 
             radios.forEach(radio => {
-                radio.addEventListener("change", () => this.verificarRadios(nomeGrupo, mensagens));
+                // Remover listeners existentes
+                const newRadio = radio.cloneNode(true);
+                radio.parentNode.replaceChild(newRadio, radio);
+                
+                // Adicionar novo listener ao elemento clonado
+                newRadio.addEventListener("change", () => this.verificarRadios(nomeGrupo, mensagens));
             });
 
             // Verificar estado inicial
-            const radioAtivo = Array.from(radios).find(radio => radio.checked);
+            const radioAtivo = Array.from(document.getElementsByName(nomeGrupo)).find(radio => radio.checked);
             if (radioAtivo && mensagens[radioAtivo.value]) {
                 this.verificarRadios(nomeGrupo, mensagens);
             }
@@ -193,36 +273,46 @@ export class PendenciasModule {
         // Configurar listeners para medição apta a desbloqueio
         if (this.elements.radiosAptoDesbl) {
             Array.from(this.elements.radiosAptoDesbl).forEach(radio => {
-                radio.addEventListener('change', () => this.atualizarTextarea());
+                const newRadio = radio.cloneNode(true);
+                radio.parentNode.replaceChild(newRadio, radio);
+                newRadio.addEventListener('change', () => this.atualizarTextarea());
             });
+            // Atualizar a referência após a clonagem
+            this.elements.radiosAptoDesbl = document.getElementsByName('aptoDesbl');
         }
 
         // Configurar listener para valor solicitado
         if (this.elements.valorSolicitado) {
-            this.elements.valorSolicitado.addEventListener('change', () => this.atualizarTextarea());
+            const newElement = this.elements.valorSolicitado.cloneNode(true);
+            this.elements.valorSolicitado.parentNode.replaceChild(newElement, this.elements.valorSolicitado);
+            newElement.addEventListener('change', () => this.atualizarTextarea());
+            this.elements.valorSolicitado = newElement;
         }
 
-        // Configurar listener para instrumento de desbloqueio
-        if (this.elements.objDesbloqueio) {
-            this.elements.objDesbloqueio.addEventListener('change', () => this.atualizarTextarea());
-        }
-        if (this.elements.instrumentoNumero) {
-            this.elements.instrumentoNumero.addEventListener('change', () => this.atualizarTextarea());
-        }
+        // Configurar listeners para outros campos
+        this.configureEventListener(this.elements.objDesbloqueio, 'change', () => this.atualizarTextarea());
+        this.configureEventListener(this.elements.instrumentoNumero, 'change', () => this.atualizarTextarea());
+        this.configureEventListener(this.elements.primeiroDesbloq, 'change', () => this.atualizarTextarea());
+        this.configureEventListener(this.elements.intermediarioDesbloq, 'change', () => this.atualizarTextarea());
+        this.configureEventListener(this.elements.ultimoDesbloq, 'change', () => this.atualizarTextarea());
+        this.configureEventListener(this.elements.parcelaNumero, 'change', () => this.atualizarTextarea());
+    }
 
-        // Configurar listener para ordem do desbloqueio
-        if (this.elements.primeiroDesbloq) {
-            this.elements.primeiroDesbloq.addEventListener('change', () => this.atualizarTextarea());
+    configureEventListener(element, eventType, callback) {
+        if (element) {
+            const newElement = element.cloneNode(true);
+            element.parentNode.replaceChild(newElement, element);
+            newElement.addEventListener(eventType, callback);
+            
+            // Atualizar a referência no objeto elements para o elemento clonado
+            Object.keys(this.elements).forEach(key => {
+                if (this.elements[key] === element) {
+                    this.elements[key] = newElement;
+                }
+            });
+            return newElement;
         }
-        if (this.elements.intermediarioDesbloq) {
-            this.elements.intermediarioDesbloq.addEventListener('change', () => this.atualizarTextarea());
-        }
-        if (this.elements.ultimoDesbloq) {
-            this.elements.ultimoDesbloq.addEventListener('change', () => this.atualizarTextarea());
-        }
-        if (this.elements.parcelaNumero) {
-            this.elements.parcelaNumero.addEventListener('change', () => this.atualizarTextarea());
-        }
+        return null;
     }
 
     verificarRadios(nomeDoGrupo, mensagens) {
@@ -245,13 +335,16 @@ export class PendenciasModule {
 
     handlePendenciasDropdown(idDropdown) {
         const selectPendencias = document.getElementById(idDropdown);
-        if (!selectPendencias) return;
+        if (!selectPendencias) {
+            console.warn(`Dropdown ${idDropdown} não encontrado`);
+            return;
+        }
 
-        // Remover listener existente para evitar duplicação
+        // Remover event listeners existentes
         const clonedSelect = selectPendencias.cloneNode(true);
         selectPendencias.parentNode.replaceChild(clonedSelect, selectPendencias);
 
-        // Adicionar evento de change ao dropdown
+        // Adicionar evento de change ao dropdown clonado
         clonedSelect.addEventListener("change", () => {
             // Obter os textos específicos deste grupo
             const textosDesteGrupo = this.textosPorGrupo[idDropdown] || {};
@@ -271,80 +364,62 @@ export class PendenciasModule {
         });
     }
 
-    
     togglePendenciasDropdown(nomeGrupoRadio, idDropdown, radioComPendencia) {
+        // Obter todos os elementos diretamente, sem cache
         const radios = document.getElementsByName(nomeGrupoRadio);
         const pendenciasDropdown = document.getElementById(idDropdown);
-    
-        console.log("togglePendenciasDropdown - nomeGrupoRadio:", nomeGrupoRadio, "idDropdown:", idDropdown, "radioComPendencia:", radioComPendencia);
-    
-        if (!radios.length || !pendenciasDropdown) {
-            console.warn("Radios ou dropdown não encontrados");
+        
+        if (!radios.length) {
+            console.error(`ERRO: Radios '${nomeGrupoRadio}' não encontrados!`);
             return;
         }
-    
-        console.log("pendenciasDropdown:", pendenciasDropdown);
-        console.log("Tipo de pendenciasDropdown:", typeof pendenciasDropdown); // ADICIONADO
-    
-        // Remover listeners existentes para evitar duplicação
+        
+        if (!pendenciasDropdown) {
+            console.error(`ERRO: Dropdown '${idDropdown}' não encontrado!`);
+            return;
+        }
+                
+        // Remover todos os event listeners anteriores
+        const newRadios = [];
         radios.forEach(radio => {
-            const clonedRadio = radio.cloneNode(true);
-            radio.parentNode.replaceChild(clonedRadio, radio);
+            // Criar uma cópia do radio original
+            const newRadio = radio.cloneNode(true);
+            // Substituir o original pela cópia
+            radio.parentNode.replaceChild(newRadio, radio);
+            // Guardar a referência para a cópia
+            newRadios.push(newRadio);
         });
-    
-        // Adicionar novos listeners
-        document.getElementsByName(nomeGrupoRadio).forEach(radio => {
-            radio.addEventListener("change", () => {
-                console.log("Radio mudou:", radio.value, radio.checked);
-                console.log("this dentro do listener:", this);
+        
+        // Adicionar novos event listeners
+        newRadios.forEach(radio => {
+            // Usar uma função anônima para manter o contexto 'this'
+            radio.addEventListener('change', (e) => {                
                 if (radio.value === radioComPendencia && radio.checked) {
-                    // Se "Com pendência" for selecionado
-                    console.log("Habilitando dropdown");
-                    pendenciasDropdown.required = true;
                     pendenciasDropdown.disabled = false;
-    
-                    console.log("Dropdown required:", pendenciasDropdown.required);
-                    console.log("Dropdown disabled:", pendenciasDropdown.disabled);
-    
-                    console.log("Dropdown style:", pendenciasDropdown.style.cssText);
                 } else {
-                    // Se outra opção for selecionada
-                    console.log("Desabilitando dropdown");
-                    pendenciasDropdown.required = false;
                     pendenciasDropdown.disabled = true;
-    
-                    console.log("Dropdown required:", pendenciasDropdown.required);
-                    console.log("Dropdown disabled:", pendenciasDropdown.disabled);
-    
-                    console.log("Dropdown style:", pendenciasDropdown.style.cssText);
-    
-                    // Remover qualquer pendência relacionada a este grupo
-                    const textosDesteGrupo = this.textosPorGrupo[idDropdown] || {};
-                    const valoresTexto = Object.values(textosDesteGrupo);
-                    this.pendencias = this.pendencias.filter(pendencia => !valoresTexto.includes(pendencia));
-    
-                    this.atualizarTextarea();
                 }
             });
         });
-    
-        // Definir estado inicial do dropdown
-        const radioAtivo = Array.from(radios).find(radio => radio.checked);
-        if (radioAtivo && radioAtivo.value === radioComPendencia) {
-            pendenciasDropdown.required = true;
-            pendenciasDropdown.disabled = false;
+        
+        // Verificar e aplicar o estado inicial dos radios
+        const radioChecked = Array.from(newRadios).find(r => r.checked);
+        if (radioChecked) {
+            if (radioChecked.value === radioComPendencia) {
+                pendenciasDropdown.disabled = false;
+            } else {
+                pendenciasDropdown.disabled = true;
+            }
         } else {
-            pendenciasDropdown.required = false;
             pendenciasDropdown.disabled = true;
         }
     }
     
-
     atualizarTextarea() {
         if (!this.elements.textareaApontamento) return;
 
         // Obter o radio selecionado
-        const radioSelecionado = Array.from(this.elements.radiosAptoDesbl || []).find(radio => radio.checked);
+        const radioSelecionado = Array.from(document.getElementsByName('aptoDesbl') || []).find(radio => radio.checked);
 
         if (radioSelecionado && radioSelecionado.value === "naoAptoDesbl") {
             // Obter o valor da medição do campo adequado
