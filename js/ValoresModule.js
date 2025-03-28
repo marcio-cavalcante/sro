@@ -201,16 +201,12 @@ export class ValoresModule {
 
     // Método para calcular todos os valores de uma vez
     calcularTodosValores() {
-        console.log("Iniciando cálculo de valores...");
         
         // Realizar os cálculos
         this.calcularRateio();
         this.calcularRateioVigente();
         
-        // Exibir mensagem de confirmação
-        alert('Cálculos realizados com sucesso!');
     }
-
 
 
 
@@ -222,15 +218,15 @@ calcularRateio() {
     try {
         // Verificação dos elementos essenciais
         if (!this.elements.valorSolicitado) {
-            throw new Error("Elemento valorSolicitado não encontrado!");
+            throw new Error("Valor solicitado não preenchido!");
         }
         
         if (!this.elements.repasseSolicitado) {
-            throw new Error("Elemento repasseSolicitado não encontrado!");
+            throw new Error("Erro em encontrar o valor de repasse solicitado!");
         }
         
         if (!this.elements.contrapartidaSolicitado) {
-            throw new Error("Elemento contrapartidaSolicitado não encontrado!");
+            throw new Error("Erro em encontrar o valor de contrapartida solicitada!");
         }
         
         // Verificar se o valor solicitado está preenchido
@@ -257,7 +253,6 @@ calcularRateio() {
         if (this.elements.repasseSaldoDesbloquear) {
             const saldoRPTexto = this.elements.repasseSaldoDesbloquear.textContent.replace(/[^0-9,.]/g, '');
             saldoRepasseDesbloquear = parseToNumber(saldoRPTexto);
-            console.log(`Saldo de repasse disponível: ${saldoRepasseDesbloquear}`);
         } else {
             console.warn("Elemento repasseSaldoDesbloquear não encontrado");
             // Usar valor exemplo se elemento não for encontrado
@@ -277,7 +272,6 @@ calcularRateio() {
         
         // Calcular saldo total disponível
         const saldoTotalDisponivel = saldoRepasseDesbloquear + saldoContrapartidaDesbloquear;
-        console.log(`Saldo total disponível: ${saldoTotalDisponivel}`);
         
         // Verificar se o valor solicitado excede o saldo total disponível
         if (valorTotal > saldoTotalDisponivel) {
@@ -296,7 +290,6 @@ calcularRateio() {
         if (this.elements.percentRpVigente) {
             const percentualRPText = this.elements.percentRpVigente.textContent.replace('%', '').trim();
             percentualRP = parseFloat(percentualRPText);
-            console.log(`Percentual RP: ${percentualRP}%`);
         } else {
             console.warn("Elemento percentRpVigente não encontrado, usando valor padrão");
             percentualRP = 57.32; // Valor padrão baseado no exemplo
@@ -305,7 +298,6 @@ calcularRateio() {
         if (this.elements.percentCpVigente) {
             const percentualCPText = this.elements.percentCpVigente.textContent.replace('%', '').trim();
             percentualCP = parseFloat(percentualCPText);
-            console.log(`Percentual CP: ${percentualCP}%`);
         } else {
             console.warn("Elemento percentCpVigente não encontrado, usando valor padrão");
             percentualCP = 42.68; // Valor padrão baseado no exemplo
@@ -330,7 +322,6 @@ calcularRateio() {
             valorCP = saldoContrapartidaDesbloquear;
             valorRP = valorTotal - valorCP;
             
-            console.log(`Valores ajustados: RP=${valorRP}, CP=${valorCP}`);
             alert(`A contrapartida foi ajustada para ${formatToString(valorCP)} pois o valor calculado excede o saldo disponível.`);
         }
         
@@ -344,9 +335,7 @@ calcularRateio() {
             
             // Recalcular com o novo total
             valorRP = saldoRepasseDesbloquear;
-            
-            console.log(`Valores reajustados: RP=${valorRP}, CP=${valorCP}, Total=${novoTotal}`);
-            
+                        
             // Atualizar o campo de valor solicitado
             this.elements.valorSolicitado.value = formatToString(novoTotal);
         }
@@ -358,7 +347,6 @@ calcularRateio() {
         // Formatação e atualização dos campos
         this.elements.repasseSolicitado.value = formatToString(valorRP);
         this.elements.contrapartidaSolicitado.value = formatToString(valorCP);
-        console.log(`Valores finais: RP=${formatToString(valorRP)}, CP=${formatToString(valorCP)}`);
         
         // Forçar atualização visual
         this.elements.repasseSolicitado.dispatchEvent(new Event('change'));
@@ -418,20 +406,14 @@ calcularRateio() {
             return;
         }
 
-        console.log(`Calculando rateio vigente com: valorTotalVigente=${valorTotalVigente}, novoValorExecVigente=${novoValorExecVigente}, novaCpVigente=${novaCpVigente}`);
-
         // Calcular valores 
         const novoRpVigente = novoValorExecVigente - novaCpVigente;
         const novoPercentRpVig = (novoRpVigente / novoValorExecVigente) * 100;
         const novoPercentCpVig = (novaCpVigente / novoValorExecVigente) * 100;
 
-        console.log(`Percentuais calculados: RP=${novoPercentRpVig}%, CP=${novoPercentCpVig}%`);
-
         // Aplicar os novos percentuais ao valor solicitado
         const valorRPNovo = (valorTotalVigente * novoPercentRpVig) / 100;
         const valorCPNovo = (valorTotalVigente * novoPercentCpVig) / 100;
-
-        console.log(`Valores finais: RP=${valorRPNovo}, CP=${valorCPNovo}`);
 
         // Atualizar campos de saída
         this.elements.repasseAjustado.value = formatToString(valorRPNovo);
