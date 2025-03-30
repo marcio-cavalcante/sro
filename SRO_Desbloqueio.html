@@ -657,10 +657,16 @@
                     </div>
 
                     <!-- PRESTAÇÃO DE CONTAS FINAL -->
-                <div class="checklist10">
-                    <h2>Prestação de Contas Final</h2>
-                    <p>Verificar regramentos</p>
-                </div>
+                    <div class="checklist10">
+                        <h2>Prestação de Contas Final</h2>
+                        <div class="form-group">
+                            <label for="prestacaoContasFinal">Instruções para Prestação de Contas Final:</label><br>
+                            <textarea id="prestacaoContasFinal" name="prestacaoContasFinal" readonly rows="5" cols="60"></textarea>
+                            <div class="buttons-group">
+                                <button id="btnCopiarPCF" type="button" class="btn-copiar">Copiar Apontamento de PCF</button>
+                            </div>
+                        </div>
+                    </div>
 
                 <!-- PENDÊNCIAS / CONDICIONANTES PARA DESBLOQUEIO -->
                 <div class="checklist11">
@@ -668,6 +674,10 @@
                     <div class="form-group">
                         <label for="apontamentoDesbloqueio">Apontamentos:</label><br>
                         <textarea id="apontamentoDesbloqueio" name="apontamentoDesbloqueio" readonly rows="6" cols="60"></textarea>
+                        <div class="buttons-group">
+                            <button id="btnCopiarApontamento" type="button" class="btn-copiar">Apontamento REUNI</button>
+                            <button id="btnCopiarSituacaoAtual" type="button" class="btn-copiar btn-situacao">Situação Atual</button>
+                        </div>
                     </div>
                 </div>
 
@@ -703,13 +713,18 @@
                         <label for="arquivarDocs">Arquivar documentos / Dossiê digital</label>
                         <input type="checkbox" id="arquivarDocs" name="arquivarDocs" value="valor">
                     </div>
+
+                    <div class="buttons-group">
+                        <button id="btnCopiarApontamentoPC" type="button" class="btn-copiar">Apontamento REUNI</button>
+                        <button id="btnCopiarSituacaoPC" type="button" class="btn-copiar btn-situacao">Situação Atual</button>
+                    </div>
+
                 </div>
 
-                <!-- ANÁLISES PROCESSUAIS -->
-                <div class="checklist13">
+                 <!-- ANÁLISES PROCESSUAIS -->
+                 <div class="checklist13">
                     <h2>Ações Administrativas</h2>
-                    <button id="btnVerificarRadios" type="button">Verificar Pendências</button>
-                    <!-- <button id="btnCalcularValores" type="button">Calcular Valores</button> -->
+                    <!-- O botão de verificar pendências foi removido conforme solicitado -->
                 </div>
 
                 <div class="checklist14">
@@ -732,5 +747,6 @@
     <script src="./js/script.js"></script>
     <script src="./js/DesbloqueioManager.js" type="module"></script>
     <script src="./js/empresas-executoras.js"></script>
+    <script src="./js/PCFModule.js" type="module"></script>
 </body>
 </html>

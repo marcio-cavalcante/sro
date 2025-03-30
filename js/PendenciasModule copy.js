@@ -282,8 +282,8 @@ export class PendenciasModule {
         }
     }
 
-     // CORRIGIDO: Método para verificar todas as pendências de uma vez
-     verificarTodasPendencias() {
+    // CORRIGIDO: Método para verificar todas as pendências de uma vez
+    verificarTodasPendencias() {
         // Limpar array de pendências antes de começar
         this.pendencias = [];
         
@@ -302,51 +302,34 @@ export class PendenciasModule {
             }
         });
         
-// 2. Verificar os dropdowns de pendências
-this.gruposDeSelecao.forEach(grupo => {
-    const radios = document.getElementsByName(grupo.nomeGrupoRadio);
-    // Se não encontrou os radios, pular
-    if (!radios || radios.length === 0) return;
-    
-    const dropdown = document.getElementById(grupo.idDropdown);
-    // Se não encontrou o dropdown, pular
-    if (!dropdown) return;
-    
-    // Verificar se o radio "com pendência" está selecionado
-    const radioComPend = Array.from(radios).find(r => r.checked && r.value === grupo.radioComPendencia);
-    
-    // Se o radio está selecionado e o dropdown tem um valor
-    if (radioComPend && dropdown.value) {
-        const textoPendencia = this.textosPorGrupo[grupo.idDropdown][dropdown.value];
-        if (textoPendencia && textoPendencia.trim() !== '') {
-            this.pendencias.push(textoPendencia);
-        }
-    }
-});
+        // 2. Verificar os dropdowns de pendências
+        this.gruposDeSelecao.forEach(grupo => {
+            const radios = document.getElementsByName(grupo.nomeGrupoRadio);
+            // Se não encontrou os radios, pular
+            if (!radios || radios.length === 0) return;
+            
+            const dropdown = document.getElementById(grupo.idDropdown);
+            // Se não encontrou o dropdown, pular
+            if (!dropdown) return;
+            
+            // Verificar se o radio "com pendência" está selecionado
+            const radioComPend = Array.from(radios).find(r => r.checked && r.value === grupo.radioComPendencia);
+            
+            // Se o radio está selecionado e o dropdown tem um valor
+            if (radioComPend && dropdown.value) {
+                const textoPendencia = this.textosPorGrupo[grupo.idDropdown][dropdown.value];
+                if (textoPendencia && textoPendencia.trim() !== '') {
+                    this.pendencias.push(textoPendencia);
+                }
+            }
+        });
         
-       // 3. Verificar os dropdowns específicos (notaFiscal e tributos)
-       const notaFiscalDropdown = document.getElementById('notaFiscal');
-       if (notaFiscalDropdown && notaFiscalDropdown.value) {
-           const notaFiscalPendencia = this.textosPorGrupo['notaFiscal'][notaFiscalDropdown.value];
-           if (notaFiscalPendencia && notaFiscalPendencia.trim() !== '') {
-               this.pendencias.push(notaFiscalPendencia);
-           }
-       }
-       
-       const tributosDropdown = document.getElementById('tributos');
-       if (tributosDropdown && tributosDropdown.value) {
-           const tributosPendencia = this.textosPorGrupo['tributos'][tributosDropdown.value];
-           if (tributosPendencia && tributosPendencia.trim() !== '') {
-               this.pendencias.push(tributosPendencia);
-           }
-       }
-       
-       // 4. Atualizar textarea com as pendências coletadas
-       this.atualizarTextarea();
-       
-       console.log("Pendências encontradas:", this.pendencias);
-       return this.pendencias;
-   }
+        // 3. Atualizar textarea com as pendências coletadas
+        this.atualizarTextarea();
+        
+        console.log("Pendências encontradas:", this.pendencias);
+        return this.pendencias;
+    }
 
     //Atualização da TEXTAREA que recebe o apontamento com as pendências para desbloqueio
     atualizarTextarea() {

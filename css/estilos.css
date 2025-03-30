@@ -740,8 +740,38 @@ textarea {
   font-family: Arial,Helvetica,sans-serif !important;
 }
 
+/* Estilo para o grupo de botões dos apontamentos */
+/* Estilo específico para botão de copiar apontamento */
+.btn-copiar {
+  background: linear-gradient(135deg, #2ea44f, #22863a);
+  margin-top: 15px;
+  display: block;
+  width: auto;
+  margin-left: 0;
+}
+.btn-copiar:hover {
+  background: linear-gradient(135deg, #34c759, #28a745);
+}
 
+/* Estilo para o grupo de botões */
+.buttons-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
 
+.buttons-group button {
+  margin: 0;
+}
+
+/* Estilo específico para o segundo botão */
+.btn-situacao {
+  background: linear-gradient(135deg, #0366d6, #044289);
+}
+
+.btn-situacao:hover {
+  background: linear-gradient(135deg, #2188ff, #0366d6);
+}
 
 
 /* Responsive design */
