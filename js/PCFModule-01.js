@@ -8,16 +8,7 @@ export class PCFModule {
     init() {
         this.cacheElements();
         this.setupEventListeners();
-        
-        // Atualizar o texto imediatamente
-        setTimeout(() => {
-            this.atualizarTextoPCF();
-        }, 50);
-        
-        // E também após um tempo maior para garantir que outros componentes carregaram
-        setTimeout(() => {
-            this.atualizarTextoPCF();
-        }, 500);
+        this.atualizarTextoPCF();
     }
 
     cacheElements() {
@@ -25,84 +16,36 @@ export class PCFModule {
         this.elements.btnCopiarPCF = document.getElementById('btnCopiarPCF');
         this.elements.assinaturaInput = document.getElementById('assinatura');
         this.elements.operacaoForm = document.getElementById('operacaoForm');
-        this.elements.ultimoDesbloq = document.getElementById('ultimoDesbloq');
     }
 
     setupEventListeners() {
         // Verificar se todos os elementos necessários foram encontrados
-        if (!this.elements.textareaPCF || !this.elements.btnCopiarPCF) {
-            console.warn("Elementos essenciais de Prestação de Contas Final não encontrados");
+        if (!this.elements.textareaPCF || !this.elements.btnCopiarPCF || 
+            !this.elements.assinaturaInput || !this.elements.operacaoForm) {
+            console.warn("Elementos de Prestação de Contas Final não encontrados");
             return;
         }
+        
+        // Atualizar o texto quando o valor da assinatura mudar
+        this.elements.assinaturaInput.addEventListener('change', () => this.atualizarTextoPCF());
         
         // Adicionar evento ao botão de copiar
         this.elements.btnCopiarPCF.addEventListener('click', () => this.copiarTextoPCF());
         
         // Adicionar evento para quando o formulário de operação for submetido
-        if (this.elements.operacaoForm) {
-            this.elements.operacaoForm.addEventListener('submit', () => {
-                // Esperar um pouco para que os campos sejam preenchidos
-                setTimeout(() => this.atualizarTextoPCF(), 1000);
-            });
-        }
-        
-        // Adicionar evento para quando a data de assinatura mudar
-        if (this.elements.assinaturaInput) {
-            this.elements.assinaturaInput.addEventListener('change', () => this.atualizarTextoPCF());
-        }
-        
-        // Adicionar evento para quando o último desbloqueio for selecionado
-        if (this.elements.ultimoDesbloq) {
-            this.elements.ultimoDesbloq.addEventListener('change', () => {
-                if (this.elements.ultimoDesbloq.checked) {
-                    this.atualizarTextoPCF();
-                }
-            });
-        }
-        
-        // Adicionar evento para garantir que o texto é atualizado quando a div for mostrada
-        const checklist10 = document.querySelector('.checklist10');
-        if (checklist10) {
-            // Usar MutationObserver para detectar mudanças de visibilidade
-            const observer = new MutationObserver((mutationsList) => {
-                for (const mutation of mutationsList) {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                        // Se a div ficar visível, atualizar o texto
-                        if (checklist10.style.display !== 'none') {
-                            this.atualizarTextoPCF();
-                        }
-                    }
-                }
-            });
-            
-            observer.observe(checklist10, { attributes: true });
-        }
+        this.elements.operacaoForm.addEventListener('submit', () => {
+            // Esperar um pouco para que os campos sejam preenchidos
+            setTimeout(() => this.atualizarTextoPCF(), 1000);
+        });
     }
 
     atualizarTextoPCF() {
-        console.log("Atualizando texto PCF...");
-        
-        // Verificar se a textarea existe
-        if (!this.elements.textareaPCF) {
-            console.warn("Textarea de PCF não encontrada");
-            return;
-        }
-        
-        // Verificar se o último desbloqueio está selecionado
-        if (this.elements.ultimoDesbloq && !this.elements.ultimoDesbloq.checked) {
-            console.log("Último desbloqueio não está selecionado, texto PCF não será atualizado");
-            return;
-        }
-        
         // Obter a data de assinatura
-        let dataAssinaturaStr = '';
-        if (this.elements.assinaturaInput) {
-            dataAssinaturaStr = this.elements.assinaturaInput.value.trim();
-        }
+        const dataAssinaturaStr = this.elements.assinaturaInput.value.trim();
         
-        // Se não houver data, não mostrar mensagem
+        // Se não houver data, limpar a textarea
         if (!dataAssinaturaStr) {
-            console.log("Data de assinatura não encontrada");
+            this.elements.textareaPCF.value = '';
             return;
         }
         
@@ -152,13 +95,12 @@ export class PCFModule {
         
         // Atualizar a textarea
         this.elements.textareaPCF.value = texto;
-        console.log("Texto PCF atualizado com sucesso:", texto.substring(0, 30) + "...");
     }
 
     copiarTextoPCF() {
         // Verificar se há conteúdo na textarea
         if (!this.elements.textareaPCF.value.trim()) {
-            alert("Não há conteúdo para copiar. Verifique se a data de assinatura foi informada corretamente e se o último desbloqueio está selecionado.");
+            alert("Não há conteúdo para copiar. Verifique se a data de assinatura foi informada corretamente.");
             return;
         }
         

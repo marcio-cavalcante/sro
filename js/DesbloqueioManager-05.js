@@ -12,21 +12,12 @@ const DesbloqueioManager = (function() {
         // Inicializar os módulos
         pendenciasModule = new PendenciasModule();
         pendenciasModule.init();
-    
+
         valoresModule = new ValoresModule();
         valoresModule.init();
         
         pcfModule = new PCFModule();
         pcfModule.init();
-    
-        // Garantir que os dropdowns sejam inicializados corretamente
-        garantirInicializacaoDropdowns();
-        
-        // Configurar listeners para a ordem de desbloqueio (afeta o parcelaNumero)
-        setupOrdemDesbloqueioListeners();
-        
-        // Configurar funcionalidades da seção de tarifas pendentes
-        setupTarifasPendentesListeners();
 
         // Garantir que os dropdowns sejam inicializados
         garantirInicializacaoDropdowns();
@@ -56,70 +47,45 @@ const DesbloqueioManager = (function() {
         // Configurar botão de copiar apontamento
         setupBotaoCopiarApontamento();
         
-        // Configurar visibilidade inicial das divs checklist11 e checklist12
-    const checklist11 = document.querySelector('.checklist11');
-    const checklist12 = document.querySelector('.checklist12');
-    
-    if (checklist11) checklist11.style.display = 'none';
-    if (checklist12) checklist12.style.display = 'none';
-    
-    // Configurar listeners para os radios de aptidão de desbloqueio
-    const radiosSim = document.getElementById('simAptoDesbl');
-    const radiosNao = document.getElementById('naoAptoDesbl');
-    const textareaApontamento = document.getElementById('apontamentoDesbloqueio');
+        // Configurar listeners para os radios de aptidão de desbloqueio
+        const radiosSim = document.getElementById('simAptoDesbl');
+        const radiosNao = document.getElementById('naoAptoDesbl');
+        const textareaApontamento = document.getElementById('apontamentoDesbloqueio');
+        const checklist11 = document.querySelector('.checklist11');
+        const checklist12 = document.querySelector('.checklist12');
         
-    if (radiosSim && radiosNao && textareaApontamento) {
-        radiosSim.addEventListener('change', function() {
-            if (this.checked) {
-                // Texto padrão para medição aprovada
-                textareaApontamento.value = "Medição aprovada para desbloqueio.";
-                
-                // Alterar visibilidade das divs
-                if (checklist11) checklist11.style.display = 'none';
-                if (checklist12) checklist12.style.display = 'block';
-            }
-        });
+        // Desabilitar as divs de checklist11 e checklist12 inicialmente
+        if (checklist11) checklist11.style.display = 'none';
+        if (checklist12) checklist12.style.display = 'none';
         
-        radiosNao.addEventListener('change', function() {
-            if (this.checked) {
-                // Limpar textarea inicialmente
-                textareaApontamento.value = "";
-                
-                // Alterar visibilidade das divs
-                if (checklist11) checklist11.style.display = 'block';
-                if (checklist12) checklist12.style.display = 'none';
-                
-                // Executar imediatamente a verificação de pendências
-                pendenciasModule.verificarTodasPendencias();
-            }
-        });
-    } else {
-        console.warn("Elementos para aptidão de desbloqueio não encontrados");
-    }
-
-    // Verificar checklist10 sempre que o último desbloqueio for selecionado
-    const ultimoDesbloq = document.getElementById('ultimoDesbloq');
-    const checklist10 = document.querySelector('.checklist10');
-    
-    if (ultimoDesbloq && checklist10) {
-        // Função para atualizar a visibilidade
-        const updateChecklist10 = () => {
-            checklist10.style.display = ultimoDesbloq.checked ? 'block' : 'none';
+        if (radiosSim && radiosNao && textareaApontamento) {
+            radiosSim.addEventListener('change', function() {
+                if (this.checked) {
+                    // Texto padrão para medição aprovada
+                    textareaApontamento.value = "Medição aprovada para desbloqueio.";
+                    
+                    // Alterar visibilidade das divs
+                    if (checklist11) checklist11.style.display = 'none';
+                    if (checklist12) checklist12.style.display = 'block';
+                }
+            });
             
-            // Se ficar visível, forçar atualização do PCF
-            if (ultimoDesbloq.checked && pcfModule) {
-                setTimeout(() => {
-                    pcfModule.atualizarTextoPCF();
-                }, 100);
-            }
-        };
-        
-        // Adicionar o evento
-        ultimoDesbloq.addEventListener('change', updateChecklist10);
-        
-        // Estado inicial
-        updateChecklist10();
-    }
+            radiosNao.addEventListener('change', function() {
+                if (this.checked) {
+                    // Limpar textarea inicialmente
+                    textareaApontamento.value = "";
+                    
+                    // Alterar visibilidade das divs
+                    if (checklist11) checklist11.style.display = 'block';
+                    if (checklist12) checklist12.style.display = 'none';
+                    
+                    // Executar imediatamente a verificação de pendências que antes era feita pelo botão
+                    const pendencias = pendenciasModule.verificarTodasPendencias();
+                }
+            });
+        } else {
+            console.warn("Radios de aptidão ou textarea não encontrados!");
+        }
 
         setupBotaoCopiarSituacaoAtual(); // Função encarregada de copiar textos de apontamento e situação atual quando não for feito desblqueio
         setupBotaoCopiarApontamentoDesbloqueio()
@@ -160,58 +126,58 @@ function setupBotaoCopiarSituacaoAtual() {
 
     // Função para garantir que os dropdowns sejam inicializados corretamente
     function garantirInicializacaoDropdowns() {
-    // Inicializar dropdown parcelaNumero
-    const parcelaNumeroSelect = document.getElementById('parcelaNumero');
-    if (parcelaNumeroSelect) {
-        // Limpar conteúdo atual
-        parcelaNumeroSelect.innerHTML = '';
-        
-        // Adicionar opção padrão
-        const optionDefault = document.createElement('option');
-        optionDefault.value = '';
-        optionDefault.textContent = 'Selecione';
-        parcelaNumeroSelect.appendChild(optionDefault);
-        
-        // Adicionar números
-        for (let i = 1; i <= 100; i++) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.textContent = i;
-            parcelaNumeroSelect.appendChild(option);
-        }
-        
-        // Verificar se o primeiro desbloqueio está selecionado
-        const primeiroDesbloq = document.getElementById('primeiroDesbloq');
-        if (primeiroDesbloq && primeiroDesbloq.checked) {
+        // Inicializar dropdown parcelaNumero
+        const parcelaNumeroSelect = document.getElementById('parcelaNumero');
+        if (parcelaNumeroSelect) {
+            // Limpar conteúdo atual
             parcelaNumeroSelect.innerHTML = '';
-            const option = document.createElement('option');
-            option.value = 1;
-            option.textContent = '1';
-            parcelaNumeroSelect.appendChild(option);
-            parcelaNumeroSelect.value = 1;
+            
+            // Adicionar opção padrão
+            const optionDefault = document.createElement('option');
+            optionDefault.value = '';
+            optionDefault.textContent = 'Selecione';
+            parcelaNumeroSelect.appendChild(optionDefault);
+            
+            // Adicionar números
+            for (let i = 1; i <= 100; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                parcelaNumeroSelect.appendChild(option);
+            }
+            
+            // Verificar se o primeiro desbloqueio está selecionado
+            const primeiroDesbloq = document.getElementById('primeiroDesbloq');
+            if (primeiroDesbloq && primeiroDesbloq.checked) {
+                parcelaNumeroSelect.innerHTML = '';
+                const option = document.createElement('option');
+                option.value = 1;
+                option.textContent = '1';
+                parcelaNumeroSelect.appendChild(option);
+                parcelaNumeroSelect.value = 1;
+            }
         }
-    }
         
-   // Inicializar dropdown instrumentoNumero
-   const instrumentoNumeroSelect = document.getElementById('instrumentoNumero');
-   if (instrumentoNumeroSelect) {
-       // Limpar conteúdo atual
-       instrumentoNumeroSelect.innerHTML = '';
-       
-       // Adicionar opção padrão
-       const optionDefault = document.createElement('option');
-       optionDefault.value = '';
-       optionDefault.textContent = 'Selecione';
-       instrumentoNumeroSelect.appendChild(optionDefault);
-       
-       // Adicionar números
-       for (let i = 1; i <= 100; i++) {
-           const option = document.createElement('option');
-           option.value = i;
-           option.textContent = i;
-           instrumentoNumeroSelect.appendChild(option);
-       }
-   }
+        // Inicializar dropdown instrumentoNumero
+        const instrumentoNumeroSelect = document.getElementById('instrumentoNumero');
+        if (instrumentoNumeroSelect) {
+            // Limpar conteúdo atual
+            instrumentoNumeroSelect.innerHTML = '';
+            
+            // Adicionar opção padrão
+            const optionDefault = document.createElement('option');
+            optionDefault.value = '';
+            optionDefault.textContent = 'Selecione';
+            instrumentoNumeroSelect.appendChild(optionDefault);
+            
+            // Adicionar números
+            for (let i = 1; i <= 100; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                instrumentoNumeroSelect.appendChild(option);
+            }
+        }
     }
     
     // Função para configurar os listeners da ordem de desbloqueio
@@ -284,30 +250,29 @@ function setupBotaoCopiarSituacaoAtual() {
         
         // Evento para o checkbox tarifasPendentes
         tarifasPendentes.addEventListener('change', function() {
-            const isChecked = this.checked;
-            
-            // Obter as linhas de tarifa
-            const rows = tarifasInputs.querySelectorAll('.tarifaRow');
-            
-            // Obter os inputs de tarifas
-            const allInputs = tarifasInputs.querySelectorAll('input[type="text"]');
-            
-            if (isChecked) {
-                // Desabilitar e limpar os inputs existentes
+            if (this.checked) {
+                // Ocultar todo o conteúdo exceto o próprio checkbox
+                const allChildren = tarifasInputs.querySelectorAll('*');
+                allChildren.forEach(child => {
+                    child.style.display = 'none';
+                });
+                
+                // Também ocultar o botão de adicionar
+                addTarifaRow.style.display = 'none';
+                
+                // Limpar todos os campos de input
+                const allInputs = tarifasInputs.querySelectorAll('input[type="text"]');
                 allInputs.forEach(input => {
-                    input.disabled = true;
                     input.value = '';
                 });
-                
-                // Ocultar o botão de adicionar
-                addTarifaRow.style.display = 'none';
             } else {
-                // Habilitar os inputs
-                allInputs.forEach(input => {
-                    input.disabled = false;
+                // Restaurar a exibição
+                const allChildren = tarifasInputs.querySelectorAll('*');
+                allChildren.forEach(child => {
+                    child.style.display = '';
                 });
                 
-                // Mostrar o botão de adicionar
+                // Também mostrar o botão de adicionar
                 addTarifaRow.style.display = '';
             }
         });
