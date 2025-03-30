@@ -7,7 +7,6 @@ const DesbloqueioManager = (function() {
     let valoresModule;
 
     function init() {
-        console.log("Inicializando DesbloqueioManager...");
         
         pendenciasModule = new PendenciasModule();
         pendenciasModule.init();
@@ -18,12 +17,9 @@ const DesbloqueioManager = (function() {
         // Configurar botão de verificar pendências
         const btnVerificarRadios = document.getElementById('btnVerificarRadios');
         if (btnVerificarRadios) {
-            console.log("Configurando botão de verificar pendências...");
             btnVerificarRadios.addEventListener('click', function() {
-                console.log("Botão Verificar Pendências clicado");
                 // Usar o novo método para verificar todas as pendências de uma vez
                 const pendencias = pendenciasModule.verificarTodasPendencias();
-                console.log('Pendências encontradas:', pendencias);
                 
                 // Feedback visual para o usuário
                 alert(`Verificação de pendências concluída. Foram encontradas ${pendencias.length} pendências.`);
@@ -48,10 +44,8 @@ const DesbloqueioManager = (function() {
         const textareaApontamento = document.getElementById('apontamentoDesbloqueio');
         
         if (radiosSim && radiosNao && textareaApontamento) {
-            console.log("Configurando listeners para radios de aptidão...");
             radiosSim.addEventListener('change', function() {
                 if (this.checked) {
-                    console.log("Radio 'Sim' selecionado para aptidão");
                     // Texto padrão para medição aprovada
                     textareaApontamento.value = "Medição aprovada para desbloqueio.";
                 }
@@ -59,7 +53,6 @@ const DesbloqueioManager = (function() {
             
             radiosNao.addEventListener('change', function() {
                 if (this.checked) {
-                    console.log("Radio 'Não' selecionado para aptidão");
                     // Limpar textarea, será preenchida pelo botão de verificação
                     textareaApontamento.value = "";
                     alert('Selecione os problemas nas opções acima e depois clique no botão "Verificar Pendências" para gerar o texto do apontamento.');
@@ -69,7 +62,6 @@ const DesbloqueioManager = (function() {
             console.warn("Radios de aptidão ou textarea não encontrados!");
         }
 
-        console.log("DesbloqueioManager inicializado com sucesso!");
     }
 
     return {
@@ -80,6 +72,5 @@ const DesbloqueioManager = (function() {
 })();
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("DOM totalmente carregado. Iniciando DesbloqueioManager...");
     DesbloqueioManager.init();
 });

@@ -2,29 +2,6 @@ document.getElementById('operacaoForm').addEventListener('submit', function(even
     event.preventDefault();
     const operacaoInput = document.getElementById('operacao').value;
 
-    // Limpeza de toda a página
-    // function limparFormulario() {
-    //     const textInputs = document.querySelectorAll('input[type="text"], textarea');
-    //     textInputs.forEach(input => {
-    //         input.value = '';
-    //     });
-
-    //     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    //     checkboxes.forEach(checkbox => {
-    //         checkbox.checked = false;
-    //     });
-
-    //     const radioButtons = document.querySelectorAll('input[type="radio"]');
-    //     radioButtons.forEach(radio => {
-    //         radio.checked = false;
-    //     });
-
-    //     const selects = document.querySelectorAll('select');
-    //     selects.forEach(select => {
-    //         select.selectedIndex = 0;
-    //     });
-    // }
-
     function limparFormulario() {
         // Limpar inputs do tipo texto e áreas de texto
         const textInputs = document.querySelectorAll('input[type="text"], textarea');
@@ -117,17 +94,11 @@ document.getElementById('operacaoForm').addEventListener('submit', function(even
                 }
             }
 
-
-
             // Exemplo de string recebida
-const etiquetasDaOperacaoDicionario = result.etiquetasDaOperacao;
+            const etiquetasDaOperacaoDicionario = result.etiquetasDaOperacao;
 
-// Convertendo a string em um array, separando pelos ","
-const etiquetasArray = etiquetasDaOperacaoDicionario.split(",").map(item => item.trim());
-
-console.log(etiquetasArray);
-
-
+            // Convertendo a string em um array, separando pelos ","
+            const etiquetasArray = etiquetasDaOperacaoDicionario.split(",").map(item => item.trim());
 
             // Função para formatar o número para "999.999,99"
             function formatNumber(number) {

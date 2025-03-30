@@ -44,6 +44,18 @@ export class PendenciasModule {
                 "Faltando": "Apresentar o Relatório Fotográfico da Placa de Obra",
                 "Documento Desconforme": "Corrigir Relatório Fotográfico da Placa de Obra desconforme",
                 "Outra": "DIGITAR O APONTAMENTO: Relatório Fotográfico da Placa de Obra"
+            },
+            "notaFiscal": {
+                "Documento Conforme": "",
+                "Dados Com Divergencia": "A nota fiscal apresentada possui dados divergentes em relação aos dados inseridos no TransfereGov.",
+                "Nao Autenticavel": "Não foi possível verificar a autenticidade da nota fiscal apresentada no site emissor. Deverá ser verificado junto ao emitente a situação do documento.",
+                "Outras Pendencias": "DIGITAR O APONTAMENTO: Nota Fiscal",
+                "Nao Aplicavel": "",
+            },
+            "tributos": {
+                "Dados Conformes": "",
+                "Dados Divergentes": "Deverá ser verificado o item tributo em Documentos de Liquidação por possuir divegência entre o valor inserido no TransfereGov e o constante do corpo da Nota Fiscal.",
+                "Nao Aplicavel": "",
             }
         };
         this.mensagensRadios = {
@@ -117,7 +129,16 @@ export class PendenciasModule {
                 naoDepositoCp: "Depositar a contrapartida referente a parcela a ser desbloqueada, conforme discriminado acima, realizando a respectiva classificação no TransfereGov.",
                 parcialDepositoCp: "Depositar o valor complementar da contrapartida, de xxxx,xxx e classificar para possibilitar o desbloqueio da parcela.",
                 naDepositoCp: ""
+            },
+            "docLiquidacao": {
+                incDocLiquidacao: "",
+                naoIncDocLiquidacao: "Inserir documentação fiscal e tributária, se for o caso, referente a presente medição na aba Documentos de Liquidação, gerando respectivo Relatório de Execução.",
             }
+
+
+
+
+
         };
         this.gruposDeSelecao = [
             {
@@ -310,6 +331,7 @@ export class PendenciasModule {
         return this.pendencias;
     }
 
+    //Atualização da TEXTAREA que recebe o apontamento com as pendências para desbloqueio
     atualizarTextarea() {
         if (!this.elements.textareaApontamento) {
             console.error("Textarea de apontamento não encontrada!");
