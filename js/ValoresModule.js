@@ -10,6 +10,9 @@ export class ValoresModule {
         this.cacheElements();
         this.setupEventListeners();
         this.initializeForms();
+        this.gerarNumeros('parcelaNumero');
+        this.gerarNumeros('instrumentoNumero');
+        this.atualizarParcelaNumero();
     }
 
     cacheElements() {
@@ -101,7 +104,10 @@ export class ValoresModule {
 
     initializeForms() {
         // Qualquer inicialização necessária
-        console.log("ValoresModule inicializado");
+        this.gerarNumeros('parcelaNumero');
+        this.gerarNumeros('instrumentoNumero');
+        // Estado inicial
+        this.atualizarParcelaNumero();
     }
 
     // Método para calcular todos os valores de uma vez
@@ -393,4 +399,88 @@ export class ValoresModule {
             return false;
         }
     }
+
+
+
 }
+
+// Função para gerar as opções numéricas nos selects
+function gerarNumeros(selectId, max = 100) {
+    const selectElement = document.getElementById(selectId);
+    if (!selectElement) {
+        console.warn(`Select element '${selectId}' não encontrado.`);
+        return;
+    }
+
+    // Limpar conteúdo atual
+    selectElement.innerHTML = '';
+
+    // Adicionar opção padrão
+    const optionSelecione = document.createElement('option');
+    optionSelecione.value = '';
+    optionSelecione.textContent = 'Selecione';
+    selectElement.appendChild(optionSelecione);
+
+    // Adicionar números
+    for (let i = 1; i <= max; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i;
+        selectElement.appendChild(option);
+    }
+}
+
+// Função para atualizar o parcelaNumero com base na seleção do desbloqueio
+function atualizarParcelaNumero() {
+    const parcelaNumeroSelect = document.getElementById('parcelaNumero');
+    if (!parcelaNumeroSelect) return;
+
+    const primeiroDesbloq = document.getElementById('primeiroDesbloq');
+    const intermediarioDesbloq = document.getElementById('intermediarioDesbloq');
+    const ultimoDesbloq = document.getElementById('ultimoDesbloq');
+
+    if (primeiroDesbloq && primeiroDesbloq.checked) {
+        // Se for primeiro desbloqueio, mostra apenas a opção 1
+        parcelaNumeroSelect.innerHTML = '';
+        const option = document.createElement('option');
+        option.value = 1;
+        option.textContent = '1';
+        parcelaNumeroSelect.appendChild(option);
+        parcelaNumeroSelect.value = 1; // Seleciona automaticamente
+    } else if ((intermediarioDesbloq && intermediarioDesbloq.checked) || 
+               (ultimoDesbloq && ultimoDesbloq.checked)) {
+        // Se for intermediário ou último, regenera todas as opções
+        gerarNumeros('parcelaNumero');
+    }
+}
+
+// Função para inicializar os selects
+function inicializarSelects() {
+    // Inicializar o select instrumentoNumero
+    gerarNumeros('instrumentoNumero');
+    
+    // Inicializar parcelaNumero e configurar para refletir a seleção atual
+    atualizarParcelaNumero();
+    
+    // Adicionar event listeners aos radios de desbloqueio
+    const primeiroDesbloq = document.getElementById('primeiroDesbloq');
+    const intermediarioDesbloq = document.getElementById('intermediarioDesbloq');
+    const ultimoDesbloq = document.getElementById('ultimoDesbloq');
+    
+    if (primeiroDesbloq) {
+        primeiroDesbloq.addEventListener('change', atualizarParcelaNumero);
+    }
+    
+    if (intermediarioDesbloq) {
+        intermediarioDesbloq.addEventListener('change', atualizarParcelaNumero);
+    }
+    
+    if (ultimoDesbloq) {
+        ultimoDesbloq.addEventListener('change', atualizarParcelaNumero);
+    }
+}
+
+// Chamar a função de inicialização quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', function() {
+    inicializarSelects();
+});

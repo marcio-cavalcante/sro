@@ -312,6 +312,7 @@ export class PendenciasModule {
         }
     }
 
+    
      // CORRIGIDO: Método para verificar todas as pendências de uma vez
      verificarTodasPendencias() {
         // Limpar array de pendências antes de começar
