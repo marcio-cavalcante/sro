@@ -93,6 +93,11 @@
                         </div>
 
                         <div class="form-row">
+                            <label for="emails">Contato:</label>
+                            <input type="text" id="emails" name="emails" readonly>
+                        </div>
+
+                        <div class="form-row">
                             <label for="etiquetasDaOperacao">Etiquetas:</label>
                             <div id="etiquetasDaOperacaoContainer"></div>
                         </div>
@@ -414,7 +419,7 @@
                         <label for="objDesbloqueio"><b>O que está sendo desbloqueado:</b></label>
                         <select id="objDesbloqueio" name="objDesbloqueio">
                             <option value="" selected disabled>Escolha uma opção</option>
-                            <option value="MEDICAO">MEDIÇÃO</option>
+                            <option value="MEDIÇÃO">MEDIÇÃO</option>
                             <option value="RRE">RRE</option>
                             <option value="BM">BM</option>
                             <option value="PLE">PLE</option>
@@ -531,7 +536,11 @@
                             </div>
                         </div>
                         <hr>
-    
+
+
+
+                                                
+
                         <!-- AJUSTE MANUAL -->
                         <div class="calculo-section">
                             <h3>AJUSTE MANUAL</h3>
@@ -543,7 +552,7 @@
                             </div>
                         </div>
                         
-                    <button id="btnCalcularValores" type="button">Calcular Valores</button>
+                    <!-- <button id="btnCalcularValores" type="button">Calcular Valores</button> -->
 
                     </div>
     
@@ -675,6 +684,7 @@
                         <label for="apontamentoDesbloqueio">Apontamentos:</label><br>
                         <textarea id="apontamentoDesbloqueio" name="apontamentoDesbloqueio" readonly rows="6" cols="60"></textarea>
                         <div class="buttons-group">
+                            <button id="btnEnviarPendencias" type="button" class="btn-copiar">Enviar Pendências</button>
                             <button id="btnCopiarApontamento" type="button" class="btn-copiar">Apontamento REUNI</button>
                             <button id="btnCopiarSituacaoAtual" type="button" class="btn-copiar btn-situacao">Situação Atual</button>
                         </div>

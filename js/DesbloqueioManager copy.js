@@ -12,12 +12,21 @@ const DesbloqueioManager = (function() {
         // Inicializar os módulos
         pendenciasModule = new PendenciasModule();
         pendenciasModule.init();
-
+    
         valoresModule = new ValoresModule();
         valoresModule.init();
         
         pcfModule = new PCFModule();
         pcfModule.init();
+    
+        // Garantir que os dropdowns sejam inicializados corretamente
+        garantirInicializacaoDropdowns();
+        
+        // Configurar listeners para a ordem de desbloqueio (afeta o parcelaNumero)
+        // setupOrdemDesbloqueioListeners();
+        
+        // Configurar funcionalidades da seção de tarifas pendentes
+        // setupTarifasPendentesListeners();
 
         // Garantir que os dropdowns sejam inicializados
         garantirInicializacaoDropdowns();
@@ -47,52 +56,78 @@ const DesbloqueioManager = (function() {
         // Configurar botão de copiar apontamento
         setupBotaoCopiarApontamento();
         
-        // Configurar listeners para os radios de aptidão de desbloqueio
-        const radiosSim = document.getElementById('simAptoDesbl');
-        const radiosNao = document.getElementById('naoAptoDesbl');
-        const textareaApontamento = document.getElementById('apontamentoDesbloqueio');
-        const checklist11 = document.querySelector('.checklist11');
-        const checklist12 = document.querySelector('.checklist12');
+        // Configurar visibilidade inicial das divs checklist11 e checklist12
+    const checklist11 = document.querySelector('.checklist11');
+    const checklist12 = document.querySelector('.checklist12');
+    
+    if (checklist11) checklist11.style.display = 'none';
+    if (checklist12) checklist12.style.display = 'none';
+    
+    // Configurar listeners para os radios de aptidão de desbloqueio
+    const radiosSim = document.getElementById('simAptoDesbl');
+    const radiosNao = document.getElementById('naoAptoDesbl');
+    const textareaApontamento = document.getElementById('apontamentoDesbloqueio');
         
-        // Desabilitar as divs de checklist11 e checklist12 inicialmente
-        if (checklist11) checklist11.style.display = 'none';
-        if (checklist12) checklist12.style.display = 'none';
+    if (radiosSim && radiosNao && textareaApontamento) {
+        radiosSim.addEventListener('change', function() {
+            if (this.checked) {
+                // Texto padrão para medição aprovada
+                textareaApontamento.value = "Medição aprovada para desbloqueio.";
+                
+                // Alterar visibilidade das divs
+                if (checklist11) checklist11.style.display = 'none';
+                if (checklist12) checklist12.style.display = 'block';
+            }
+        });
         
-        if (radiosSim && radiosNao && textareaApontamento) {
-            radiosSim.addEventListener('change', function() {
-                if (this.checked) {
-                    // Texto padrão para medição aprovada
-                    textareaApontamento.value = "Medição aprovada para desbloqueio.";
-                    
-                    // Alterar visibilidade das divs
-                    if (checklist11) checklist11.style.display = 'none';
-                    if (checklist12) checklist12.style.display = 'block';
-                }
-            });
+        radiosNao.addEventListener('change', function() {
+            if (this.checked) {
+                // Limpar textarea inicialmente
+                textareaApontamento.value = "";
+                
+                // Alterar visibilidade das divs
+                if (checklist11) checklist11.style.display = 'block';
+                if (checklist12) checklist12.style.display = 'none';
+                
+                // Executar imediatamente a verificação de pendências
+                pendenciasModule.verificarTodasPendencias();
+            }
+        });
+    } else {
+        console.warn("Elementos para aptidão de desbloqueio não encontrados");
+    }
+
+    // Verificar checklist10 sempre que o último desbloqueio for selecionado
+    const ultimoDesbloq = document.getElementById('ultimoDesbloq');
+    const checklist10 = document.querySelector('.checklist10');
+    
+    if (ultimoDesbloq && checklist10) {
+        // Função para atualizar a visibilidade
+        const updateChecklist10 = () => {
+            checklist10.style.display = ultimoDesbloq.checked ? 'block' : 'none';
             
-            radiosNao.addEventListener('change', function() {
-                if (this.checked) {
-                    // Limpar textarea inicialmente
-                    textareaApontamento.value = "";
-                    
-                    // Alterar visibilidade das divs
-                    if (checklist11) checklist11.style.display = 'block';
-                    if (checklist12) checklist12.style.display = 'none';
-                    
-                    // Executar imediatamente a verificação de pendências que antes era feita pelo botão
-                    const pendencias = pendenciasModule.verificarTodasPendencias();
-                }
-            });
-        } else {
-            console.warn("Radios de aptidão ou textarea não encontrados!");
-        }
+            // Se ficar visível, forçar atualização do PCF
+            if (ultimoDesbloq.checked && pcfModule) {
+                setTimeout(() => {
+                    pcfModule.atualizarTextoPCF();
+                }, 100);
+            }
+        };
+        
+        // Adicionar o evento
+        ultimoDesbloq.addEventListener('change', updateChecklist10);
+        
+        // Estado inicial
+        updateChecklist10();
+    }
 
         setupBotaoCopiarSituacaoAtual(); // Função encarregada de copiar textos de apontamento e situação atual quando não for feito desblqueio
         setupBotaoCopiarApontamentoDesbloqueio()
         setupBotaoCopiarSituacaoDesbloqueio()
+        inicializarSelects();
     }
 
-    // Função para implementar o botão situaçao atual pendencia desbloqueio
+    // Função para implementar o botão
 function setupBotaoCopiarSituacaoAtual() {
     const btnCopiarSituacaoAtual = document.getElementById('btnCopiarSituacaoAtual');
     const valorSolicitadoInput = document.getElementById('valorSolicitado');
@@ -126,58 +161,58 @@ function setupBotaoCopiarSituacaoAtual() {
 
     // Função para garantir que os dropdowns sejam inicializados corretamente
     function garantirInicializacaoDropdowns() {
-        // Inicializar dropdown parcelaNumero
-        const parcelaNumeroSelect = document.getElementById('parcelaNumero');
-        if (parcelaNumeroSelect) {
-            // Limpar conteúdo atual
-            parcelaNumeroSelect.innerHTML = '';
-            
-            // Adicionar opção padrão
-            const optionDefault = document.createElement('option');
-            optionDefault.value = '';
-            optionDefault.textContent = 'Selecione';
-            parcelaNumeroSelect.appendChild(optionDefault);
-            
-            // Adicionar números
-            for (let i = 1; i <= 100; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = i;
-                parcelaNumeroSelect.appendChild(option);
-            }
-            
-            // Verificar se o primeiro desbloqueio está selecionado
-            const primeiroDesbloq = document.getElementById('primeiroDesbloq');
-            if (primeiroDesbloq && primeiroDesbloq.checked) {
-                parcelaNumeroSelect.innerHTML = '';
-                const option = document.createElement('option');
-                option.value = 1;
-                option.textContent = '1';
-                parcelaNumeroSelect.appendChild(option);
-                parcelaNumeroSelect.value = 1;
-            }
+    // Inicializar dropdown parcelaNumero
+    const parcelaNumeroSelect = document.getElementById('parcelaNumero');
+    if (parcelaNumeroSelect) {
+        // Limpar conteúdo atual
+        parcelaNumeroSelect.innerHTML = '';
+        
+        // Adicionar opção padrão
+        const optionDefault = document.createElement('option');
+        optionDefault.value = '';
+        optionDefault.textContent = 'Selecione';
+        parcelaNumeroSelect.appendChild(optionDefault);
+        
+        // Adicionar números
+        for (let i = 1; i <= 100; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            parcelaNumeroSelect.appendChild(option);
         }
         
-        // Inicializar dropdown instrumentoNumero
-        const instrumentoNumeroSelect = document.getElementById('instrumentoNumero');
-        if (instrumentoNumeroSelect) {
-            // Limpar conteúdo atual
-            instrumentoNumeroSelect.innerHTML = '';
-            
-            // Adicionar opção padrão
-            const optionDefault = document.createElement('option');
-            optionDefault.value = '';
-            optionDefault.textContent = 'Selecione';
-            instrumentoNumeroSelect.appendChild(optionDefault);
-            
-            // Adicionar números
-            for (let i = 1; i <= 100; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = i;
-                instrumentoNumeroSelect.appendChild(option);
-            }
+        // Verificar se o primeiro desbloqueio está selecionado
+        const primeiroDesbloq = document.getElementById('primeiroDesbloq');
+        if (primeiroDesbloq && primeiroDesbloq.checked) {
+            parcelaNumeroSelect.innerHTML = '';
+            const option = document.createElement('option');
+            option.value = 1;
+            option.textContent = '1';
+            parcelaNumeroSelect.appendChild(option);
+            parcelaNumeroSelect.value = 1;
         }
+    }
+        
+   // Inicializar dropdown instrumentoNumero
+   const instrumentoNumeroSelect = document.getElementById('instrumentoNumero');
+   if (instrumentoNumeroSelect) {
+       // Limpar conteúdo atual
+       instrumentoNumeroSelect.innerHTML = '';
+       
+       // Adicionar opção padrão
+       const optionDefault = document.createElement('option');
+       optionDefault.value = '';
+       optionDefault.textContent = 'Selecione';
+       instrumentoNumeroSelect.appendChild(optionDefault);
+       
+       // Adicionar números
+       for (let i = 1; i <= 100; i++) {
+           const option = document.createElement('option');
+           option.value = i;
+           option.textContent = i;
+           instrumentoNumeroSelect.appendChild(option);
+       }
+   }
     }
     
     // Função para configurar os listeners da ordem de desbloqueio
@@ -237,111 +272,160 @@ function setupBotaoCopiarSituacaoAtual() {
         });
     }
     
+    
     // Função para configurar os listeners da seção de tarifas pendentes
-    function setupTarifasPendentesListeners() {
-        const tarifasPendentes = document.getElementById('tarifasPendentes');
-        const tarifasInputs = document.getElementById('tarifasInputs');
-        const addTarifaRow = document.getElementById('addTarifaRow');
-        
-        if (!tarifasPendentes || !tarifasInputs || !addTarifaRow) {
-            console.warn("Elementos de tarifas pendentes não encontrados");
-            return;
-        }
-        
-        // Evento para o checkbox tarifasPendentes
-        tarifasPendentes.addEventListener('change', function() {
-            if (this.checked) {
-                // Ocultar todo o conteúdo exceto o próprio checkbox
-                const allChildren = tarifasInputs.querySelectorAll('*');
-                allChildren.forEach(child => {
-                    child.style.display = 'none';
-                });
-                
-                // Também ocultar o botão de adicionar
-                addTarifaRow.style.display = 'none';
-                
-                // Limpar todos os campos de input
-                const allInputs = tarifasInputs.querySelectorAll('input[type="text"]');
-                allInputs.forEach(input => {
-                    input.value = '';
-                });
-            } else {
-                // Restaurar a exibição
-                const allChildren = tarifasInputs.querySelectorAll('*');
-                allChildren.forEach(child => {
-                    child.style.display = '';
-                });
-                
-                // Também mostrar o botão de adicionar
-                addTarifaRow.style.display = '';
-            }
-        });
-        
-        // Evento para o botão de adicionar linha de tarifa
-        addTarifaRow.addEventListener('click', function() {
-            // Criar nova linha
-            const novaTarifaRow = document.createElement('div');
-            novaTarifaRow.className = 'tarifaRow';
-            
-            // Criar elementos da linha
-            const descLabel = document.createElement('label');
-            descLabel.textContent = 'Descrição:';
-            
-            const descInput = document.createElement('input');
-            descInput.type = 'text';
-            descInput.className = 'tarifaPendDesc';
-            descInput.name = 'tarifaPendDesc';
-            
-            const valorLabel = document.createElement('label');
-            valorLabel.textContent = 'Valor:';
-            
-            const valorInput = document.createElement('input');
-            valorInput.type = 'text';
-            valorInput.name = 'tarifaPendValor';
-            
-            // Adicionar elementos à linha
-            novaTarifaRow.appendChild(descLabel);
-            novaTarifaRow.appendChild(descInput);
-            novaTarifaRow.appendChild(valorLabel);
-            novaTarifaRow.appendChild(valorInput);
-            
-            // Adicionar linha ao container
-            tarifasInputs.appendChild(novaTarifaRow);
-        });
+function setupTarifasPendentesListeners() {
+    const tarifasPendentes = document.getElementById('tarifasPendentes');
+    const tarifasInputs = document.getElementById('tarifasInputs');
+    const addTarifaRow = document.getElementById('addTarifaRow');
+    
+    if (!tarifasPendentes || !tarifasInputs || !addTarifaRow) {
+        console.warn("Elementos de tarifas pendentes não encontrados");
+        return;
     }
+    
+    // Evento para o checkbox tarifasPendentes
+    tarifasPendentes.addEventListener('change', function() {
+        const isChecked = this.checked;
+        
+        // Se estiver marcado, esconder todo o conteúdo exceto o próprio checkbox
+        if (isChecked) {
+            // Esconder todas as linhas
+            const rows = tarifasInputs.querySelectorAll('.tarifaRow');
+            rows.forEach(row => {
+                row.style.display = 'none';
+            });
+            
+            // Esconder o botão
+            addTarifaRow.style.display = 'none';
+            
+            // Limpar valores
+            const allInputs = tarifasInputs.querySelectorAll('input[type="text"]');
+            allInputs.forEach(input => {
+                input.value = '';
+            });
+        } else {
+            // Mostrar a primeira linha (ou todas)
+            const rows = tarifasInputs.querySelectorAll('.tarifaRow');
+            rows.forEach(row => {
+                row.style.display = '';
+            });
+            
+            // Mostrar o botão
+            addTarifaRow.style.display = '';
+        }
+    });
+    
+    // Evento para o botão de adicionar linha de tarifa
+    addTarifaRow.addEventListener('click', function() {
+        // Criar nova linha
+        const novaTarifaRow = document.createElement('div');
+        novaTarifaRow.className = 'tarifaRow';
+        
+        // Criar elementos da linha
+        const descLabel = document.createElement('label');
+        descLabel.textContent = 'Descrição:';
+        
+        const descInput = document.createElement('input');
+        descInput.type = 'text';
+        descInput.className = 'tarifaPendDesc';
+        descInput.name = 'tarifaPendDesc';
+        
+        const valorLabel = document.createElement('label');
+        valorLabel.textContent = 'Valor:';
+        
+        const valorInput = document.createElement('input');
+        valorInput.type = 'text';
+        valorInput.name = 'tarifaPendValor';
+        
+        // Adicionar elementos à linha
+        novaTarifaRow.appendChild(descLabel);
+        novaTarifaRow.appendChild(descInput);
+        novaTarifaRow.appendChild(valorLabel);
+        novaTarifaRow.appendChild(valorInput);
+        
+        // Adicionar linha ao container
+        tarifasInputs.appendChild(novaTarifaRow);
+    });
+    tarifasPendentes.dispatchEvent(new Event('change'));
+}
+
+
+
 
     // Função para configurar o botão de copiar apontamento
-    function setupBotaoCopiarApontamento() {
-        const btnCopiarApontamento = document.getElementById('btnCopiarApontamento');
-        const textareaApontamento = document.getElementById('apontamentoDesbloqueio');
+    // Função para configurar o botão de copiar apontamento
+function setupBotaoCopiarApontamento() {
+    const btnCopiarApontamento = document.getElementById('btnCopiarApontamento');
+    const textareaApontamento = document.getElementById('apontamentoDesbloqueio');
+    
+    if (!btnCopiarApontamento || !textareaApontamento) {
+        console.warn("Elementos para copiar apontamento não encontrados");
+        return;
+    }
+    
+    console.log("Configurando botão de copiar apontamento"); // Log para debug
+    
+    // Remover event listeners anteriores para evitar duplicações
+    btnCopiarApontamento.replaceWith(btnCopiarApontamento.cloneNode(true));
+    
+    // Obter a nova referência após a clonagem
+    const newBtn = document.getElementById('btnCopiarApontamento');
+    
+    // Adicionar o novo event listener
+    newBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        console.log("Botão de copiar apontamento clicado"); // Log para debug
         
-        if (!btnCopiarApontamento || !textareaApontamento) {
-            console.warn("Elementos para copiar apontamento não encontrados");
+        // Verificar se há conteúdo na textarea
+        if (!textareaApontamento.value.trim()) {
+            alert("Não há conteúdo para copiar. Verifique se existem pendências registradas.");
             return;
         }
         
-        btnCopiarApontamento.addEventListener('click', function() {
-            // Verificar se há conteúdo na textarea
-            if (!textareaApontamento.value.trim()) {
-                alert("Não há conteúdo para copiar. Verifique se existem pendências registradas.");
-                return;
+        try {
+            // Selecionar o texto
+            textareaApontamento.select();
+            
+            // Copiar para a área de transferência
+            const copiado = document.execCommand('copy');
+            
+            if (!copiado) {
+                throw new Error("Comando execCommand não funcionou");
             }
             
-            // Copiar o conteúdo da textarea para a área de transferência
-            textareaApontamento.select();
-            document.execCommand('copy');
-            
-            // Mostrar caixa de diálogo orientativa
+            // Mostrar mensagem de sucesso
             alert("Conteúdo para lançar no apontamento pronto!\n\n" +
                   "Criar novo apontamento no REUNI\n" +
                   "Item: INFO - Etapa: Dispensado preenchimento\n" +
                   "Atuação: Operacional - Fase: Desbloqueio\n" +
                   "No campo Descrição Colar conteúdo (CTRL+V)");
-                  
+            
             // Remover a seleção
             window.getSelection().removeAllRanges();
-        });
-    }
+        } catch (err) {
+            console.error("Erro ao tentar copiar:", err);
+            
+            // Método alternativo usando a API Clipboard (mais moderna)
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(textareaApontamento.value)
+                    .then(() => {
+                        alert("Conteúdo para lançar no apontamento pronto!\n\n" +
+                              "Criar novo apontamento no REUNI\n" +
+                              "Item: INFO - Etapa: Dispensado preenchimento\n" +
+                              "Atuação: Operacional - Fase: Desbloqueio\n" +
+                              "No campo Descrição Colar conteúdo (CTRL+V)");
+                    })
+                    .catch(err => {
+                        console.error("Erro na API Clipboard:", err);
+                        alert("Não foi possível copiar o texto automaticamente. Por favor, selecione e copie manualmente (CTRL+C).");
+                    });
+            } else {
+                alert("Não foi possível copiar o texto automaticamente. Por favor, selecione e copie manualmente (CTRL+C).");
+            }
+        }
+    });
+}
 
     // Função para configurar o botão de copiar situação de desbloqueio (Botão 2 da checklist12)
 function setupBotaoCopiarSituacaoDesbloqueio() {

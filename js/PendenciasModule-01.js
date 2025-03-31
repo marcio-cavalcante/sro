@@ -197,7 +197,7 @@ export class PendenciasModule {
     }
 
     configuraVisibilidadeCampos() {
-        // Configurar a visibilidade dos dropdowns de pendências com base nos radios.
+        // Configurar a visibilidade dos dropdowns de pendências com base nos radios
         this.gruposDeSelecao.forEach(grupo => {
             const radios = document.getElementsByName(grupo.nomeGrupoRadio);
             const dropdown = document.getElementById(grupo.idDropdown);
@@ -219,14 +219,11 @@ export class PendenciasModule {
         if (this.elements.primeiroDesbloq && this.elements.ultimoDesbloq) {
             const checklist3 = document.querySelector('.checklist3');
             const checklist4 = document.querySelector('.checklist4');
-            const checklist10 = document.querySelector('.checklist10'); // Adicionamos a checklist10
             
-            if (checklist3 && checklist4 && checklist10) { // Verificamos se a checklist10 existe
+            if (checklist3 && checklist4) {
                 const updateChecklists = () => {
                     checklist3.style.display = this.elements.primeiroDesbloq.checked ? 'flex' : 'none';
                     checklist4.style.display = this.elements.ultimoDesbloq.checked ? 'flex' : 'none';
-                    // Adicionamos regra para checklist10: visível apenas quando ultimoDesbloq estiver marcado
-                    checklist10.style.display = this.elements.ultimoDesbloq.checked ? 'block' : 'none';
                 };
                 
                 this.elements.primeiroDesbloq.addEventListener('change', updateChecklists);
@@ -260,123 +257,33 @@ export class PendenciasModule {
             }
         }
         
-
-
-// Configurar visibilidade de tarifas pendentes
-if (this.elements.tarifasPendentes) {
-    const tarifasInputs = document.getElementById('tarifasInputs');
-    const addTarifaRow = document.getElementById('addTarifaRow');
-    
-    if (tarifasInputs && addTarifaRow) {
-        console.log("Configurando eventos de tarifas pendentes");
-        
-        // Função para atualizar a visibilidade
-        const atualizarVisibilidadeTarifas = () => {
-            const isChecked = this.elements.tarifasPendentes.checked;
-            console.log("Tarifa pendente marcada:", isChecked);
+        // Configurar visibilidade de tarifas pendentes
+        if (this.elements.tarifasPendentes) {
+            const tarifasInputs = document.getElementById('tarifasInputs');
+            const tarifaPendDesc = document.getElementById('tarifaPendDesc');
+            const tarifaPendValor = document.getElementById('tarifaPendValor');
             
-            // Mostrar/ocultar as linhas existentes
-            const rows = tarifasInputs.querySelectorAll('.tarifaRow');
-            rows.forEach(row => {
-                row.style.display = isChecked ? 'none' : '';
-            });
-            
-            // Mostrar/ocultar o botão de adicionar
-            addTarifaRow.style.display = isChecked ? 'none' : '';
-            
-            // Limpar os campos se o checkbox estiver marcado
-            if (isChecked) {
-                // Obter todos os inputs de texto
-                const inputs = tarifasInputs.querySelectorAll('input[type="text"]');
-                inputs.forEach(input => {
-                    input.value = ''; // Limpar o valor
-                });
-                
-                // Excluir todas as linhas adicionais
-                const additionalRows = tarifasInputs.querySelectorAll('.tarifaRow:not(:first-child)');
-                additionalRows.forEach(row => {
-                    row.remove();
+            if (tarifasInputs && tarifaPendDesc && tarifaPendValor) {
+                this.elements.tarifasPendentes.addEventListener('change', () => {
+                    const isChecked = this.elements.tarifasPendentes.checked;
+                    tarifaPendDesc.disabled = isChecked;
+                    tarifaPendValor.disabled = isChecked;
+                    
+                    if (isChecked) {
+                        tarifaPendDesc.value = '';
+                        tarifaPendValor.value = '';
+                        
+                        // Limpar todas as linhas adicionais
+                        const rows = tarifasInputs.querySelectorAll('.tarifaRow:not(:first-child)');
+                        rows.forEach(row => row.remove());
+                    }
                 });
             }
-        };
-        
-        // Recriar funcionalidade do botão de adicionar tarifa
-        addTarifaRow.addEventListener('click', (event) => {
-            event.preventDefault();
-            console.log("Botão de adicionar tarifa clicado");
-            
-            // Criar nova linha
-            const novaTarifaRow = document.createElement('div');
-            novaTarifaRow.className = 'tarifaRow';
-            
-            // Criar elementos da linha
-            const descLabel = document.createElement('label');
-            descLabel.textContent = 'Descrição:';
-            
-            const descInput = document.createElement('input');
-            descInput.type = 'text';
-            descInput.className = 'tarifaPendDesc';
-            descInput.name = 'tarifaPendDesc';
-            
-            const valorLabel = document.createElement('label');
-            valorLabel.textContent = 'Valor:';
-            
-            const valorInput = document.createElement('input');
-            valorInput.type = 'text';
-            valorInput.name = 'tarifaPendValor';
-            
-            // Adicionar elementos à linha
-            novaTarifaRow.appendChild(descLabel);
-            novaTarifaRow.appendChild(descInput);
-            novaTarifaRow.appendChild(valorLabel);
-            novaTarifaRow.appendChild(valorInput);
-            
-            // Adicionar linha ao container
-            tarifasInputs.appendChild(novaTarifaRow);
-        });
-        
-        // Adicionar o evento change ao checkbox
-        this.elements.tarifasPendentes.addEventListener('change', atualizarVisibilidadeTarifas);
-        
-        // Executar no carregamento para definir o estado inicial
-        setTimeout(atualizarVisibilidadeTarifas, 100);
-    } else {
-        console.warn("Elementos de tarifas pendentes não encontrados corretamente");
-    }
-}
-
-
-        // Configurar visibilidade das checklists 11 e 12 baseado na seleção de aptidão para desbloqueio
-        const radiosSim = document.getElementById('simAptoDesbl');
-        const radiosNao = document.getElementById('naoAptoDesbl');
-        const checklist11 = document.querySelector('.checklist11');
-        const checklist12 = document.querySelector('.checklist12');
-        
-        if (radiosSim && radiosNao && checklist11 && checklist12) {
-            // Ocultar inicialmente
-            checklist11.style.display = 'none';
-            checklist12.style.display = 'none';
-            
-            // Configurar listeners
-            radiosSim.addEventListener('change', function() {
-                if (this.checked) {
-                    checklist11.style.display = 'none';
-                    checklist12.style.display = 'block';
-                }
-            });
-            
-            radiosNao.addEventListener('change', function() {
-                if (this.checked) {
-                    checklist11.style.display = 'block';
-                    checklist12.style.display = 'none';
-                }
-            });
         }
     }
 
-    
-     // CORRIGIDO: Método para verificar todas as pendências de uma vez
-     verificarTodasPendencias() {
+    // CORRIGIDO: Método para verificar todas as pendências de uma vez
+    verificarTodasPendencias() {
         // Limpar array de pendências antes de começar
         this.pendencias = [];
         
@@ -395,51 +302,34 @@ if (this.elements.tarifasPendentes) {
             }
         });
         
-// 2. Verificar os dropdowns de pendências
-this.gruposDeSelecao.forEach(grupo => {
-    const radios = document.getElementsByName(grupo.nomeGrupoRadio);
-    // Se não encontrou os radios, pular
-    if (!radios || radios.length === 0) return;
-    
-    const dropdown = document.getElementById(grupo.idDropdown);
-    // Se não encontrou o dropdown, pular
-    if (!dropdown) return;
-    
-    // Verificar se o radio "com pendência" está selecionado
-    const radioComPend = Array.from(radios).find(r => r.checked && r.value === grupo.radioComPendencia);
-    
-    // Se o radio está selecionado e o dropdown tem um valor
-    if (radioComPend && dropdown.value) {
-        const textoPendencia = this.textosPorGrupo[grupo.idDropdown][dropdown.value];
-        if (textoPendencia && textoPendencia.trim() !== '') {
-            this.pendencias.push(textoPendencia);
-        }
-    }
-});
+        // 2. Verificar os dropdowns de pendências
+        this.gruposDeSelecao.forEach(grupo => {
+            const radios = document.getElementsByName(grupo.nomeGrupoRadio);
+            // Se não encontrou os radios, pular
+            if (!radios || radios.length === 0) return;
+            
+            const dropdown = document.getElementById(grupo.idDropdown);
+            // Se não encontrou o dropdown, pular
+            if (!dropdown) return;
+            
+            // Verificar se o radio "com pendência" está selecionado
+            const radioComPend = Array.from(radios).find(r => r.checked && r.value === grupo.radioComPendencia);
+            
+            // Se o radio está selecionado e o dropdown tem um valor
+            if (radioComPend && dropdown.value) {
+                const textoPendencia = this.textosPorGrupo[grupo.idDropdown][dropdown.value];
+                if (textoPendencia && textoPendencia.trim() !== '') {
+                    this.pendencias.push(textoPendencia);
+                }
+            }
+        });
         
-       // 3. Verificar os dropdowns específicos (notaFiscal e tributos)
-       const notaFiscalDropdown = document.getElementById('notaFiscal');
-       if (notaFiscalDropdown && notaFiscalDropdown.value) {
-           const notaFiscalPendencia = this.textosPorGrupo['notaFiscal'][notaFiscalDropdown.value];
-           if (notaFiscalPendencia && notaFiscalPendencia.trim() !== '') {
-               this.pendencias.push(notaFiscalPendencia);
-           }
-       }
-       
-       const tributosDropdown = document.getElementById('tributos');
-       if (tributosDropdown && tributosDropdown.value) {
-           const tributosPendencia = this.textosPorGrupo['tributos'][tributosDropdown.value];
-           if (tributosPendencia && tributosPendencia.trim() !== '') {
-               this.pendencias.push(tributosPendencia);
-           }
-       }
-       
-       // 4. Atualizar textarea com as pendências coletadas
-       this.atualizarTextarea();
-       
-       console.log("Pendências encontradas:", this.pendencias);
-       return this.pendencias;
-   }
+        // 3. Atualizar textarea com as pendências coletadas
+        this.atualizarTextarea();
+        
+        console.log("Pendências encontradas:", this.pendencias);
+        return this.pendencias;
+    }
 
     //Atualização da TEXTAREA que recebe o apontamento com as pendências para desbloqueio
     atualizarTextarea() {

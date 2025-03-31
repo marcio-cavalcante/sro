@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pré-visualização de Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 90%;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .header {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+        }
+        .email-info {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .email-info p {
+            margin: 5px 0;
+        }
+        /* Estilo específico para o campo de destinatários */
+        .email-info #destinatarios {
+            word-break: break-word; /* Quebra palavras longas */
+            display: inline-block;
+            max-width: 100%;
+        }
+        /* Estilo específico para o campo de assunto */
+        .email-info #assunto {
+            word-break: break-word; /* Quebra palavras longas */
+            display: inline-block;
+            max-width: 100%;
+        }
+        .email-body {
+            border: 1px solid #ddd;
+            padding: 20px;
+            background-color: white;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .email-body table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .email-body table td {
+            padding: 5px 10px;
+        }
+        .email-body table tr:not(:last-child) {
+            border-bottom: 1px solid #ddd;
+        }
+        .email-body strong {
+            font-weight: bold;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .success {
+            background-color: #28a745;
+            color: white;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px 4px 0 0;
+            margin-right: 5px;
+            background-color: #f0f0f0;
+        }
+        .tab.active {
+            background-color: white;
+            border-color: #ddd;
+            border-bottom-color: white;
+            margin-bottom: -1px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        #copyMessage {
+            display: none;
+            color: green;
+            margin-top: 10px;
+            padding: 5px;
+            background-color: #e8f5e9;
+            border-radius: 3px;
+            text-align: center;
+        }
+        /* Estilos específicos para o email no formato Word */
+        #previewHTML table {
+            /* border-top: 1px solid #000;
+            border-bottom: 1px solid #000; */
+            margin: 15px 0;
+        }
+        #previewHTML td {
+            padding: 5px 10px;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 90%;">
+        <div class="header">
+            <h1>Pré-visualização de Email</h1>
+            <p>Revise o conteúdo do email antes de enviar.</p>
+        </div>
+        
+        <div class="email-info">
+            <p><strong>Para:</strong> <span id="destinatarios"></span></p>
+            <p><strong>Assunto:</strong> <span id="assunto"></span></p>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" id="tabHTML" onclick="switchTab('HTML')">Visualização HTML</div>
+            <div class="tab" id="tabTexto" onclick="switchTab('Texto')">Texto Simples</div>
+            <div class="tab" id="tabCodigo" onclick="switchTab('Codigo')">Código HTML</div>
+        </div>
+        
+        <div class="tab-content active" id="contentHTML">
+            <div class="email-body" id="previewHTML"></div>
+        </div>
+        
+        <div class="tab-content" id="contentTexto">
+            <div class="email-body">
+                <pre id="previewTexto" style="white-space: pre-wrap; font-family: monospace;"></pre>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="contentCodigo">
+            <div class="email-body">
+                <pre id="previewCodigo" style="white-space: pre-wrap; font-family: monospace; background-color: #f5f5f5; padding: 10px; border-radius: 3px;"></pre>
+            </div>
+        </div>
+        
+        <div id="copyMessage">Copiado para a área de transferência!</div>
+        
+        <div class="buttons">
+            <button class="primary" onclick="abrirOutlook()">Abrir no Outlook</button>
+            <button class="success" onclick="copiarHTML()">Copiar HTML</button>
+            <button class="secondary" onclick="copiarTexto()">Copiar Texto Simples</button>
+        </div>
+    </div>
+
+    <script>
+        // Carregar dados do email armazenados no sessionStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                const emailData = JSON.parse(sessionStorage.getItem('emailData'));
+                if (!emailData) {
+                    alert("Não foram encontrados dados do email para exibir!");
+                    return;
+                }
+                
+                // Preencher os campos com os dados do email
+                const destinatariosElem = document.getElementById('destinatarios');
+                
+                // Formatar os emails com quebras de linha a cada 50 caracteres aproximadamente
+                // ou nas vírgulas para melhorar a legibilidade
+                if (emailData.destinatarios) {
+                    // Quebrar por vírgula e adicionar quebras de linha
+                    const emails = emailData.destinatarios.split(',');
+                    let destinatariosFormatados = '';
+                    
+                    // Adicionar cada email com uma quebra de linha após a vírgula
+                    for (let i = 0; i < emails.length; i++) {
+                        destinatariosFormatados += emails[i].trim();
+                        if (i < emails.length - 1) {
+                            destinatariosFormatados += ',<br>';
+                        }
+                    }
+                    
+                    destinatariosElem.innerHTML = destinatariosFormatados;
+                } else {
+                    destinatariosElem.textContent = '';
+                }
+                
+                document.getElementById('assunto').textContent = emailData.assunto;
+                document.getElementById('previewHTML').innerHTML = emailData.corpoHTML;
+                document.getElementById('previewTexto').textContent = emailData.corpoTexto;
+                
+                // Escapar o HTML para exibir como código
+                document.getElementById('previewCodigo').textContent = emailData.corpoHTML;
+                
+                // Ajustar a largura do contêiner se necessário
+                const container = document.querySelector('.container');
+                if (window.innerWidth > 820) {
+                    container.style.maxWidth = '90%';
+                }
+                
+            } catch (error) {
+                console.error("Erro ao carregar dados do email:", error);
+                alert("Ocorreu um erro ao carregar os dados do email.");
+            }
+        });
+        
+        // Função para trocar entre as abas
+        function switchTab(tab) {
+            // Desativar todas as abas e conteúdos
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            
+            // Ativar a aba selecionada
+            document.getElementById('tab' + tab).classList.add('active');
+            document.getElementById('content' + tab).classList.add('active');
+        }
+        
+        // Função para abrir o Outlook com os dados do email
+        function abrirOutlook() {
+            try {
+                const emailData = JSON.parse(sessionStorage.getItem('emailData'));
+                if (!emailData) {
+                    alert("Dados do email não encontrados!");
+                    return;
+                }
+                
+                // URL mailto (apenas destinatários e assunto)
+                const mailtoUrl = `mailto:${emailData.destinatarios}?subject=${encodeURIComponent(emailData.assunto)}`;
+                
+                // Abrir o cliente de email
+                window.location.href = mailtoUrl;
+                
+            } catch (error) {
+                console.error("Erro ao abrir Outlook:", error);
+                alert("Ocorreu um erro ao tentar abrir o cliente de email.");
+            }
+        }
+        
+        // Função para copiar o conteúdo HTML
+        function copiarHTML() {
+            const emailData = JSON.parse(sessionStorage.getItem('emailData'));
+            if (!emailData) return;
+            
+            // Criar um elemento temporário para copiar o HTML
+            const tempElement = document.createElement('div');
+            tempElement.innerHTML = emailData.corpoHTML;
+            document.body.appendChild(tempElement);
+            
+            // Criar uma seleção e copiar o conteúdo
+            const range = document.createRange();
+            range.selectNode(tempElement);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            
+            // Limpar seleção e remover o elemento temporário
+            window.getSelection().removeAllRanges();
+            document.body.removeChild(tempElement);
+            
+            // Mostrar mensagem de confirmação
+            const copyMessage = document.getElementById('copyMessage');
+            copyMessage.style.display = 'block';
+            copyMessage.textContent = 'HTML copiado para a área de transferência!';
+            setTimeout(() => {
+                copyMessage.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Função para copiar o texto simples
+        function copiarTexto() {
+            const emailData = JSON.parse(sessionStorage.getItem('emailData'));
+            if (!emailData) return;
+            
+            // Criar um elemento temporário para copiar o texto
+            const tempElement = document.createElement('textarea');
+            tempElement.value = emailData.corpoTexto;
+            document.body.appendChild(tempElement);
+            
+            // Selecionar e copiar o texto
+            tempElement.select();
+            document.execCommand('copy');
+            
+            // Remover o elemento temporário
+            document.body.removeChild(tempElement);
+            
+            // Mostrar mensagem de confirmação
+            const copyMessage = document.getElementById('copyMessage');
+            copyMessage.style.display = 'block';
+            copyMessage.textContent = 'Texto simples copiado para a área de transferência!';
+            setTimeout(() => {
+                copyMessage.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

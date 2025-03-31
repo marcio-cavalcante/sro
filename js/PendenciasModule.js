@@ -219,15 +219,28 @@ export class PendenciasModule {
         if (this.elements.primeiroDesbloq && this.elements.ultimoDesbloq) {
             const checklist3 = document.querySelector('.checklist3');
             const checklist4 = document.querySelector('.checklist4');
-            const checklist10 = document.querySelector('.checklist10'); // Adicionamos a checklist10
+            const checklist10 = document.querySelector('.checklist10');
+            const textareaPCF = document.getElementById('prestacaoContasFinal'); // Referência à textarea de PCF
             
-            if (checklist3 && checklist4 && checklist10) { // Verificamos se a checklist10 existe
+            if (checklist3 && checklist4 && checklist10) {
                 const updateChecklists = () => {
                     checklist3.style.display = this.elements.primeiroDesbloq.checked ? 'flex' : 'none';
                     checklist4.style.display = this.elements.ultimoDesbloq.checked ? 'flex' : 'none';
-                    // Adicionamos regra para checklist10: visível apenas quando ultimoDesbloq estiver marcado
                     checklist10.style.display = this.elements.ultimoDesbloq.checked ? 'block' : 'none';
-                };
+                    
+
+            // Garantimos que a mudança de visibilidade não afete a textarea
+            if (textareaPCF) {
+                textareaPCF.style.display = ''; // Removemos qualquer display:none da textarea
+            }
+            
+            // Disparamos evento personalizado quando o último desbloqueio for selecionado
+            if (this.elements.ultimoDesbloq.checked) {
+                const pcfEvent = new CustomEvent('pcf-update-needed');
+                document.dispatchEvent(pcfEvent);
+            }
+        };
+
                 
                 this.elements.primeiroDesbloq.addEventListener('change', updateChecklists);
                 this.elements.intermediarioDesbloq.addEventListener('change', updateChecklists);
@@ -283,36 +296,8 @@ export class PendenciasModule {
                 });
             }
         }
-        
-        // Configurar visibilidade das checklists 11 e 12 baseado na seleção de aptidão para desbloqueio
-        const radiosSim = document.getElementById('simAptoDesbl');
-        const radiosNao = document.getElementById('naoAptoDesbl');
-        const checklist11 = document.querySelector('.checklist11');
-        const checklist12 = document.querySelector('.checklist12');
-        
-        if (radiosSim && radiosNao && checklist11 && checklist12) {
-            // Ocultar inicialmente
-            checklist11.style.display = 'none';
-            checklist12.style.display = 'none';
-            
-            // Configurar listeners
-            radiosSim.addEventListener('change', function() {
-                if (this.checked) {
-                    checklist11.style.display = 'none';
-                    checklist12.style.display = 'block';
-                }
-            });
-            
-            radiosNao.addEventListener('change', function() {
-                if (this.checked) {
-                    checklist11.style.display = 'block';
-                    checklist12.style.display = 'none';
-                }
-            });
-        }
     }
 
-    
      // CORRIGIDO: Método para verificar todas as pendências de uma vez
      verificarTodasPendencias() {
         // Limpar array de pendências antes de começar
