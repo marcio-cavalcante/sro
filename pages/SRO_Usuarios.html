@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRO - Usuários</title>
+    <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+    <link rel="stylesheet" type="text/css" href="../css/estilos_geral.css">
+    <link rel="shortcut icon" href="/media/favicon/favicon.jpg" type="image/x-icon">
+</head>
+
+<body>
+    <header id="cabecalho">
+        <div class="id-cabecalho">
+            <h1>Sistema de Rotinas Operacionais</h1>
+            <p><strong>Módulo de Consulta de Usuários</strong></p>
+        </div>
+    </header>
+    <section id="container">
+        <nav id="menu">
+            <ul>
+                <li><a href="#pagina1">PT</a></li>
+                <li><a href="#pagina2">Contratação</a></li>
+                <li><a href="#pagina3">Suspensiva</a></li>
+                <li><a href="#pagina4">Licitação</a></li>
+                <li><a href="#pagina5">Desbloqueio</a></li>
+                <li><a href="#pagina6">Serv. Extra</a></li>
+                <li><a href="#pagina7">Reprogramação</a></li>
+                <li><a href="#pagina8">PCP</a></li>
+                <li><a href="#pagina9">PCF</a></li>
+                <li><a href="#pagina10">Vigência</a></li>
+            </ul>
+        </nav>
+        <main id="principal">
+            <section class="checklist">
+
+                <!-- AREA PARA ENTRADA DE DADOS -->
+                <div class="checklist5">
+                    <h2>Consulta de Usuários</h2>
+
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="globalSearch">Pesquisa Global:</label>
+                            <input type="text" id="globalSearch" placeholder="Buscar em toda a tabela...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterMatricula">Filtrar Matrícula:</label>
+                            <input type="text" id="filterMatricula" placeholder="Filtrar por Matrícula...">
+                        </div>
+                         <div class="filter-group">
+                            <label for="filterNome">Filtrar Nome:</label>
+                            <input type="text" id="filterNome" placeholder="Filtrar por Nome...">
+                        </div>
+                         <div class="filter-group">
+                            <label for="filterFuncao">Filtrar Função:</label>
+                            <input type="text" id="filterFuncao" placeholder="Filtrar por Função...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterAtuacao">Filtrar Atuação:</label>
+                            <input type="text" id="filterAtuacao" placeholder="Filtrar por Atuação...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterEquipe">Filtrar Equipe:</label>
+                            <input type="text" id="filterEquipe" placeholder="Filtrar por Equipe...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterCoordenador">Filtrar Coordenador:</label>
+                            <input type="text" id="filterCoordenador" placeholder="Filtrar por Coordenador...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterFuncaoChefia">Filtrar Função Chefia:</label>
+                            <input type="text" id="filterFuncaoChefia" placeholder="Filtrar por Função Chefia...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterEmail">Filtrar Email:</label>
+                            <input type="text" id="filterEmail" placeholder="Filtrar por Email...">
+                        </div>
+                    </div>
+                
+                    <div class="table-container">
+                        <table id="dataTableUsuarios">
+                            <thead>
+                                <tr>
+                                    <th>Matrícula</th>
+                                    <th>Nome</th>
+                                    <th>Função</th>
+                                    <th>Atuação</th>
+                                    <th>Equipe</th>
+                                    <th>Coordenador</th>
+                                    <th>Função Chefia</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataTableBodyUsuarios">
+                                <!-- Table rows will be inserted here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </section>
+        </main>
+    </section>
+
+    <footer id="rodape">
+        © 2025 Sistema de Rotinas Operacionais - OGU - GIGOV/JP
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/UsuariosModule/data_usuarios.js"></script>
+    <script src="../js/UsuariosModule/script_usuarios.js"></script>
+</body>
+
+</html>

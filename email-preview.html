@@ -4,141 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pré-visualização de Email</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 90%;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 20px;
-        }
-        .header {
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        .header h1 {
-            margin: 0 0 10px 0;
-            color: #333;
-            font-size: 24px;
-        }
-        .email-info {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-        .email-info p {
-            margin: 5px 0;
-        }
-        /* Estilo específico para o campo de destinatários */
-        .email-info #destinatarios {
-            word-break: break-word; /* Quebra palavras longas */
-            display: inline-block;
-            max-width: 100%;
-        }
-        /* Estilo específico para o campo de assunto */
-        .email-info #assunto {
-            word-break: break-word; /* Quebra palavras longas */
-            display: inline-block;
-            max-width: 100%;
-        }
-        .email-body {
-            border: 1px solid #ddd;
-            padding: 20px;
-            background-color: white;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-        .email-body table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        .email-body table td {
-            padding: 5px 10px;
-        }
-        .email-body table tr:not(:last-child) {
-            border-bottom: 1px solid #ddd;
-        }
-        .email-body strong {
-            font-weight: bold;
-        }
-        .buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .primary {
-            background-color: #007bff;
-            color: white;
-        }
-        .secondary {
-            background-color: #6c757d;
-            color: white;
-        }
-        .success {
-            background-color: #28a745;
-            color: white;
-        }
-        .tabs {
-            display: flex;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #ddd;
-        }
-        .tab {
-            padding: 10px 15px;
-            cursor: pointer;
-            border: 1px solid transparent;
-            border-radius: 4px 4px 0 0;
-            margin-right: 5px;
-            background-color: #f0f0f0;
-        }
-        .tab.active {
-            background-color: white;
-            border-color: #ddd;
-            border-bottom-color: white;
-            margin-bottom: -1px;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        #copyMessage {
-            display: none;
-            color: green;
-            margin-top: 10px;
-            padding: 5px;
-            background-color: #e8f5e9;
-            border-radius: 3px;
-            text-align: center;
-        }
-        /* Estilos específicos para o email no formato Word */
-        #previewHTML table {
-            /* border-top: 1px solid #000;
-            border-bottom: 1px solid #000; */
-            margin: 15px 0;
-        }
-        #previewHTML td {
-            padding: 5px 10px;
-            vertical-align: top;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/estilos_email_preview.css">
+ 
 </head>
 <body>
     <div class="container" style="max-width: 90%;">
@@ -148,14 +15,12 @@
         </div>
         
         <div class="email-info">
-            <p><strong>Para:</strong> <span id="destinatarios"></span></p>
+            <p><strong>Para:</strong> <span id="destinatarios"></span></p><br>
             <p><strong>Assunto:</strong> <span id="assunto"></span></p>
         </div>
         
         <div class="tabs">
-            <div class="tab active" id="tabHTML" onclick="switchTab('HTML')">Visualização HTML</div>
-            <div class="tab" id="tabTexto" onclick="switchTab('Texto')">Texto Simples</div>
-            <div class="tab" id="tabCodigo" onclick="switchTab('Codigo')">Código HTML</div>
+            <div class="tab active" id="tabHTML">Corpo do Email</div>
         </div>
         
         <div class="tab-content active" id="contentHTML">
@@ -178,8 +43,7 @@
         
         <div class="buttons">
             <button class="primary" onclick="abrirOutlook()">Abrir no Outlook</button>
-            <button class="success" onclick="copiarHTML()">Copiar HTML</button>
-            <button class="secondary" onclick="copiarTexto()">Copiar Texto Simples</button>
+            <button class="success" onclick="copiarHTML()">Copiar Corpo do Email</button>
         </div>
     </div>
 
@@ -235,17 +99,6 @@
             }
         });
         
-        // Função para trocar entre as abas
-        function switchTab(tab) {
-            // Desativar todas as abas e conteúdos
-            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            
-            // Ativar a aba selecionada
-            document.getElementById('tab' + tab).classList.add('active');
-            document.getElementById('content' + tab).classList.add('active');
-        }
-        
         // Função para abrir o Outlook com os dados do email
         function abrirOutlook() {
             try {
@@ -255,7 +108,7 @@
                     return;
                 }
                 
-                // URL mailto (apenas destinatários e assunto)
+                // URL mailto (destinatários e assunto)
                 const mailtoUrl = `mailto:${emailData.destinatarios}?subject=${encodeURIComponent(emailData.assunto)}`;
                 
                 // Abrir o cliente de email
@@ -291,37 +144,12 @@
             // Mostrar mensagem de confirmação
             const copyMessage = document.getElementById('copyMessage');
             copyMessage.style.display = 'block';
-            copyMessage.textContent = 'HTML copiado para a área de transferência!';
+            copyMessage.textContent = 'Corpo do email copiado para a área de transferência!';
             setTimeout(() => {
                 copyMessage.style.display = 'none';
             }, 3000);
         }
         
-        // Função para copiar o texto simples
-        function copiarTexto() {
-            const emailData = JSON.parse(sessionStorage.getItem('emailData'));
-            if (!emailData) return;
-            
-            // Criar um elemento temporário para copiar o texto
-            const tempElement = document.createElement('textarea');
-            tempElement.value = emailData.corpoTexto;
-            document.body.appendChild(tempElement);
-            
-            // Selecionar e copiar o texto
-            tempElement.select();
-            document.execCommand('copy');
-            
-            // Remover o elemento temporário
-            document.body.removeChild(tempElement);
-            
-            // Mostrar mensagem de confirmação
-            const copyMessage = document.getElementById('copyMessage');
-            copyMessage.style.display = 'block';
-            copyMessage.textContent = 'Texto simples copiado para a área de transferência!';
-            setTimeout(() => {
-                copyMessage.style.display = 'none';
-            }, 3000);
-        }
     </script>
 </body>
 </html>

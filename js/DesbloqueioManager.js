@@ -3,6 +3,7 @@ import { PendenciasModule } from './PendenciasModule.js';
 import { ValoresModule } from './ValoresModule.js';
 import { enviarEmailPendencias } from './emailModule.js';
 import { PCFModule } from './PCFModule.js';
+import { checagemMinimaApontamentos } from './checagemApontamentos.js';
 
 const DesbloqueioManager = (function() {
     let pendenciasModule;
@@ -27,6 +28,7 @@ const DesbloqueioManager = (function() {
         setupBotaoCopiarApontamentoDesbloqueio()
         setupBotaoCopiarSituacaoDesbloqueio()
         setupBotaoEnviarPendencias();
+        setupBotaoEnviarFasAssinatura();
         // Configurar botão de calcular valores
         // const btnCalcularValores = document.getElementById('btnCalcularValores');
         // if (btnCalcularValores) {
@@ -77,6 +79,8 @@ const DesbloqueioManager = (function() {
                     // Limpar textarea inicialmente
                     textareaApontamento.value = "";
                     
+                    checagemMinimaApontamentos()
+
                     // Alterar visibilidade das divs
                     if (checklist11) checklist11.style.display = 'block';
                     if (checklist12) checklist12.style.display = 'none';
@@ -146,29 +150,22 @@ const DesbloqueioManager = (function() {
         }
     }
     
-    // Função para configurar os listeners da ordem de desbloqueio
+    // Configuração de ORDEM DE DESBLOQUEIO
     function setupOrdemDesbloqueioListeners() {
         const primeiroDesbloq = document.getElementById('primeiroDesbloq');
         const intermediarioDesbloq = document.getElementById('intermediarioDesbloq');
         const ultimoDesbloq = document.getElementById('ultimoDesbloq');
         const parcelaNumeroSelect = document.getElementById('parcelaNumero');
-        
-        if (!primeiroDesbloq || !intermediarioDesbloq || !ultimoDesbloq || !parcelaNumeroSelect) {
-            console.warn("Elementos de ordem de desbloqueio não encontrados");
-            return;
-        }
-        
-        // Função para resetar o dropdown parcelaNumero
+                
+        // Resetar NÚMERO DA PARCELA
         function resetParcelaNumero() {
             parcelaNumeroSelect.innerHTML = '';
             
-            // Adicionar opção padrão
             const optionDefault = document.createElement('option');
             optionDefault.value = '';
             optionDefault.textContent = 'Selecione';
             parcelaNumeroSelect.appendChild(optionDefault);
             
-            // Adicionar números
             for (let i = 1; i <= 100; i++) {
                 const option = document.createElement('option');
                 option.value = i;
@@ -471,6 +468,46 @@ function setupBotaoEnviarPendencias() {
         valores: () => valoresModule
     };
 })();
+
+function setupBotaoEnviarFasAssinatura () {
+    const btnEnviarFasAssinatura = document.getElementById('btnEnviarFasAssinatura');
+    const dialogo = document.getElementById('dialogo');
+    const confirmarBtn = document.getElementById('confirmarBtn');
+    const cancelarBtn = document.getElementById('cancelarBtn');
+
+
+    // Ao clicar no botão para abrir o diálogo
+    btnEnviarFasAssinatura.addEventListener('click', function() {
+        dialogo.showModal(); // Exibe o diálogo
+    });
+
+    // Lógica do botão de confirmação
+    confirmarBtn.addEventListener('click', function () {
+        let selecionado = document.querySelector('input[name="fasPara"]:checked');
+        
+        if (!selecionado) {
+            alert("Por favor, selecione um destinatário.");
+            return;
+        }
+
+        let fasPara = selecionado.value; // Captura o valor escolhido
+        const fasTomador = document.getElementById('tomador').value;
+        const fasOperacao = document.getElementById('operation').value;
+        
+        let fasAssunto = `Solicita Autorização para Desbloqueio (FAS) - ${fasTomador} - Operação ${fasOperacao}`;
+        let fasCorpo = `À\nCoordenação\n\n1. Segue Ficha de Autorização de Saque (FAS) da operação ${fasOperacao} - ${fasTomador}, para sua verificação e assinatura.`;
+    
+        let mailtoLink = `mailto:${fasPara}?subject=${encodeURIComponent(fasAssunto)}&body=${encodeURIComponent(fasCorpo)}`;
+        window.location.href = mailtoLink;
+
+        dialogo.close(); // Fecha o diálogo após o envio
+    });
+
+    // Fechar o diálogo ao clicar no botão de cancelar
+    cancelarBtn.addEventListener('click', function () {
+        dialogo.close(); // Fecha o diálogo ao cancelar
+    });
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     DesbloqueioManager.init();

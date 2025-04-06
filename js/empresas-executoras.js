@@ -10,7 +10,7 @@ function carregarEmpresasExecutoras() {
     }
     
     // Tentar carregar do CSV
-    fetch('Empresas_Executoras.csv')
+    fetch('/Empresas_Executoras.csv')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Erro ao buscar arquivo CSV: ${response.status}`);

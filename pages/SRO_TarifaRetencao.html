@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRO - Retenção Tarifaria</title>
+    <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+    <link rel="shortcut icon" href="/media/favicon/favicon.jpg" type="image/x-icon">
+</head>
+
+<body>
+    <header id="cabecalho">
+        <div class="id-cabecalho">
+            <h1>Sistema de Rotinas Operacionais</h1>
+            <p><strong>Módulo de Cálculo de Retenção Tarifária</strong></p>
+        </div>
+        <div class="insere-operacao">
+            <form id="operacaoForm">
+                <label for="operacao">Operação:</label>
+                <input type="text" id="operacao" name="operacao" placeholder="Operação" required>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </header>
+    <section id="container">
+        <nav id="menu">
+            <ul>
+                <li><a href="#pagina1">PT</a></li>
+                <li><a href="#pagina2">Contratação</a></li>
+                <li><a href="#pagina3">Suspensiva</a></li>
+                <li><a href="#pagina4">Licitação</a></li>
+                <li><a href="#pagina5">Desbloqueio</a></li>
+                <li><a href="#pagina6">Serv. Extra</a></li>
+                <li><a href="#pagina7">Reprogramação</a></li>
+                <li><a href="#pagina8">PCP</a></li>
+                <li><a href="#pagina9">PCF</a></li>
+                <li><a href="#pagina10">Vigência</a></li>
+            </ul>
+        </nav>
+        <main id="principal">
+            <section class="checklist">
+                <!-- DADOS GERAIS -->
+                <div class="checklist1">
+                    <h2>Dados Gerais</h2>
+                    <form id="form-dados">
+                        <div class="form-row">
+                            <label for="operation">Operação:</label>
+                            <input type="text" id="operation" name="operation" readonly>
+                            <label for="convenio">Convênio:</label>
+                            <input type="text" id="convenio" name="convenio" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="tomador">Tomador:</label>
+                            <input type="text" id="tomador" name="tomador" readonly>
+                            <label for="cnpj">CNPJ:</label>
+                            <input type="text" id="cnpj" name="cnpj" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="regramento">Regramento:</label>
+                            <input type="text" id="regramento" name="regramento" readonly>
+                            <label for="assinatura">Assinatura:</label>
+                            <input type="text" id="assinatura" name="assinatura" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="objeto">Objeto:</label>
+                            <input type="text" id="objeto" name="objeto" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="cAgencia">Cod. Agência:</label>
+                            <input type="text" id="cAgencia" name="cAgencia" readonly>
+                            <label for="agencia">Agência:</label>
+                            <input type="text" id="agencia" name="agencia" readonly>
+                            <label for="cCorrente">Conta:</label>
+                            <input type="text" id="cCorrente" name="cCorrente" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="emails">Contato:</label>
+                            <input type="text" id="emails" name="emails" readonly>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="checklist2">
+                    <h2>Análise Documental / Registros</h2>
+                    <div id="analiseDocumental01">
+                        <label for="valorTarifa">Valor Bruto da Tarifa:</label>
+                        <input type="text" name="valorTarifa" id="valorTarifa"><br><br>
+                        <label for="aliquotaTarifa">Alíquota de retenção (%):</label>
+                        <input type="text" name="aliquotaTarifa" id="aliquotaTarifa"><br><br>
+
+                        <form>
+                            <label for="tax">Tipo de Retenção:</label>
+                            <select id="tax" name="tax">
+                                <option value="" selected disabled>Selecione</option>
+                                <option value="IR">IR</option>
+                                <option value="IRPJ">IRPJ</option>
+                                <option value="IRPF">IRPF</option>
+                                <option value="INSS">INSS</option>
+                                <option value="ISSQN">ISSQN</option>
+                                <option value="CSLL">CSLL</option>
+                                <option value="PIS">PIS</option>
+                                <option value="COFINS">COFINS</option>
+                                <option value="PIS e COFINS">PIS e COFINS</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div id="analiseDocumental02">
+                        <label for="preDefinidas"><b>Tarifas Pré-Estabelecidas:</b></label><br>
+                        <select id="preDefinidas" name="preDefinidas">
+                            <option value="" selected disabled>Selecione</option>
+                            <option value="2,40">João Pessoa - 2,4% IR</option>
+                        </select><br><br>
+                        <label for="servico">Serviço prestado:</label>
+                        <input type="text" name="servico" id="servico" placeholder="Ex.: Alteração de Vigência para 31/12/2025." style="width: 100%;"><br><br>
+
+                        <button id="btnConfirma" type="button">Confirma</button>
+                    </div>
+                </div>
+
+                <!-- RESUMO DOS DADOS -->
+                <div class="checklist7">
+                    <h2>Resumo dos Dados</h2>
+                    <label for="valorLiquido">Valor Líquido da GUIA:</label>
+                    <input type="text" name="valorLiquido" id="valorLiquido">
+                    <label for="retencao">Valor da Retenção:</label>
+                    <input type="text" name="retencao" id="retencao"><br><br>
+                    <label for="valorBruto">Valor Bruto (INFORMATIVO):</label>
+                    <input type="text" name="valorBruto" id="valorBruto"><br><br>
+                    <label for="descricaoGuia">Descrição Guia:</label><br>
+                    <textarea name="descricaoGuia" id="descricaoGuia" class="textareaRetencao"></textarea>
+                    <label for="apontamento">Apontamento:</label><br>
+                    <textarea name="apontamento" id="apontamento" class="textareaRetencao"></textarea>
+                </div>
+            </section>
+
+    </section>
+    </main>
+    </section>
+    <footer id="rodape">
+        © 2025 Sistema de Rotinas Operacionais - OGU - GIGOV/JP
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/RetencaoModule/script.js"></script>
+</body>
+</html>

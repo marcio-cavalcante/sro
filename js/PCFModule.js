@@ -71,7 +71,7 @@ export class PCFModule {
         
         // Definir as datas de referência para comparação
         const data20010101 = new Date(2001, 0, 1); // 01/01/2001
-        const data20160831 = new Date(2016, 7, 31); // 31/08/2016
+        const data20161131 = new Date(2016, 11, 31); // 31/12/2016
         const data20170101 = new Date(2017, 0, 1); // 01/01/2017
         const data20181231 = new Date(2018, 11, 31); // 31/12/2018
         const data20190101 = new Date(2019, 0, 1); // 01/01/2019
@@ -81,7 +81,7 @@ export class PCFModule {
         // Determinar qual texto exibir com base na data
         let texto = '';
         
-        if (dataAssinatura >= data20010101 && dataAssinatura <= data20160831) {
+        if (dataAssinatura >= data20010101 && dataAssinatura <= data20161131) {
             texto = "Contrato concluído, com última parcela liberada. Solicitamos que após o pagamento ao fornecedor, seja providenciada a devolução do saldo de repasse e rendimentos e efetivada a prestação de contas final.";
         } else if (dataAssinatura >= data20170101 && dataAssinatura <= data20181231) {
             texto = "Informamos que após a realização do pagamento final, esta entidade tem até 30 dias para realizar a devolução de saldo a União, sob pena de Notificação de Irregularidade, conforme PI nº 424/2016 e IN MPDG nº 002/2018 e as respectivas alterações.";

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRO - Textos Padrão</title>
+    <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+    <link rel="stylesheet" type="text/css" href="../css/estilos_geral.css">
+    <link rel="shortcut icon" href="/media/favicon/favicon.jpg" type="image/x-icon">
+</head>
+
+<body>
+    <header id="cabecalho">
+        <div class="id-cabecalho">
+            <h1>Sistema de Rotinas Operacionais</h1>
+            <p><strong>Módulo de Consulta de Textos Padrão</strong></p>
+        </div>
+    </header>
+    <section id="container">
+        <nav id="menu">
+            <ul>
+                <li><a href="#pagina1">PT</a></li>
+                <li><a href="#pagina2">Contratação</a></li>
+                <li><a href="#pagina3">Suspensiva</a></li>
+                <li><a href="#pagina4">Licitação</a></li>
+                <li><a href="#pagina5">Desbloqueio</a></li>
+                <li><a href="#pagina6">Serv. Extra</a></li>
+                <li><a href="#pagina7">Reprogramação</a></li>
+                <li><a href="#pagina8">PCP</a></li>
+                <li><a href="#pagina9">PCF</a></li>
+                <li><a href="#pagina10">Vigência</a></li>
+            </ul>
+        </nav>
+        <main id="principal">
+            <section class="checklist">
+
+                <!-- AREA PARA ENTRADA DE DADOS -->
+                <div class="checklist5">
+                    <h2>Consulta de Ocorrências</h2>
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="globalSearch">Pesquisa Global:</label>
+                            <input type="text" id="globalSearch" placeholder="Buscar em toda a tabela...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterTitulo">Filtrar Título:</label>
+                            <input type="text" id="filterTitulo" placeholder="Filtrar por Título...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterOcorrencia">Filtrar Ocorrência:</label>
+                            <input type="text" id="filterOcorrencia" placeholder="Filtrar por Ocorrência...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterAcao">Filtrar Ação:</label>
+                            <input type="text" id="filterAcao" placeholder="Filtrar por Ação...">
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>TÍTULO</th>
+                                    <th>OCORRÊNCIA</th>
+                                    <th>AÇÃO</th>
+                                    <th>TEXTO</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataTableBody">
+                                <!-- Injeção de dados via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </section>
+
+    <footer id="rodape">
+        © 2025 Sistema de Rotinas Operacionais - OGU - GIGOV/JP
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/GeralModule/data.js"></script>
+    <script src="../js/GeralModule/script.js"></script>
+</body>
+
+</html>

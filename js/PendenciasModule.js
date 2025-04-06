@@ -5,44 +5,44 @@ export class PendenciasModule {
         this.elements = {};
         this.textosPorGrupo = {
             "pendenciasOfSolicitacaoDesbl": {
-                "Faltando": "Apresentar Ofício de Solicitação de Desbloqueio",
-                "Assinatura Desconforme": "Assinar corretamente o Ofício de Solicitação de Desbloqueio",
-                "Assinatura Não Autenticável": "Corrigir assinatura não autenticável no Ofício de Solicitação de Desbloqueio",
-                "Informações Incompletas": "Completar informações faltantes no Ofício de Solicitação de Desbloqueio",
-                "Nº do CR Incorreto": "Corrigir número do CR no Ofício de Solicitação de Desbloqueio",
+                "Faltando": "OFÍCIO DE SOLICITAÇÃO DE DESBLOQUEIO: Apresentar documento que compõe o kit de medição.",
+                "Assinatura Desconforme": "OFÍCIO DE SOLICITAÇÃO DE DESBLOQUEIO: A assinatura do documento está em desconformidade com as exigências normativas. Solicitamos correção da inconformidade.",
+                "Assinatura Não Autenticável": "OFÍCIO DE SOLICITAÇÃO DE DESBLOQUEIO: A assinatura digital no documento não é autenticável. A autenticidade das assinaturas eletrônicas deve possuir condições de ter sua autenticidade confirmada no âmbito de validadores oficiais ou de plataformas regionais, em sítios oficiais do emissor por meio de códigos verificadores QR Code ou código de barras.",
+                "Informações Incompletas": "OFÍCIO DE SOLICITAÇÃO DE DESBLOQUEIO: O documento apresentado no TransfereGov está com preenchimento incompleto. Deverá ser reapresentado documento corrigido com base nas informações e valores contratados e vigentes no Contrato de Repasse.",
+                "Nº do CR Incorreto": "OFÍCIO DE SOLICITAÇÃO DE DESBLOQUEIO: Documento está referenciando Contrato divergente do processo ora em tratamento.",
                 "Outra": "DIGITAR O APONTAMENTO: Ofício de Solicitação de Desbloqueio"
             },
             "pendenciasRreDesbl": {
-                "Faltando": "Apresentar o RRE - Relatório Resumo do Empreendimento",
-                "Assinatura Desconforme": "Assinar corretamente o RRE",
-                "Assinatura Não Autenticável": "Corrigir assinatura não autenticável no RRE",
-                "Informações Incompletas": "Completar informações faltantes no RRE",
-                "Nº do CR Incorreto": "Corrigir número do CR no RRE",
-                "Dados do CTEF Incorretos": "Corrigir dados do CTEF no RRE",
-                "ART Incorreta": "Corrigir ART no RRE",
-                "Assinaturas Digital e Física": "Corrigir assinaturas digital e física no RRE",
+                "Faltando": "RRE: Apresentar documento que compõe o kit de medição.",
+                "Assinatura Desconforme": "RRE: A assinatura do documento está em desconformidade com as exigências normativas. Solicitamos correção da inconformidade.",
+                "Assinatura Não Autenticável": "RRE: A assinatura digital no documento não é autenticável. A autenticidade das assinaturas eletrônicas deve possuir condições de ter sua autenticidade confirmada no âmbito de validadores oficiais ou de plataformas regionais, em sítios oficiais do emissor por meio de códigos verificadores QR Code ou código de barras.",
+                "Informações Incompletas": "RRE: O documento apresentado no TransfereGov está com preenchimento incompleto. Deverá ser reapresentado documento corrigido com base nas informações e valores contratados e vigentes no Contrato de Repasse.",
+                "Nº do CR Incorreto": "RRE: Documento está referenciando Contrato divergente do processo ora em tratamento.",
+                "Dados do CTEF Incorretos": "RRE: Documento está trazendo dados da empresa executora inconsistentes com os documentos inseridos no TransfereGov.",
+                "ART Incorreta": "RRE: O número da ART de fiscalização diverge do documento apresentado anteriormente. Inserir no TransfereGov a ART de Fiscalização de atualizada ou realizar a correção no documento.",
+                "Assinaturas Digital e Física": "RRE: Documento apresentado não é válido, pois foi assinado usando assinatura digital e manual ao mesmo tempo. Os documentos assinados eletronicamente somente possuem validade: \"- Enquanto digitais, de modo que não há validade jurídica em documentos assinados por uma parte de forma eletrônica e por outra de forma física.\"",
                 "Outra": "DIGITAR O APONTAMENTO: RRE"
             },
             "pendenciasRelFornecedoresDesbl": {
-                "Faltando": "Apresentar a Relação de Fornecedores",
-                "Assinatura Desconforme": "Assinar corretamente a Relação de Fornecedores",
-                "Assinatura Não Autenticável": "Corrigir assinatura não autenticável na Relação de Fornecedores",
-                "Informações Incompletas": "Completar informações faltantes na Relação de Fornecedores",
-                "Nº do CR Incorreto": "Corrigir número do CR na Relação de Fornecedores",
-                "Dados do CTEF Incorretos": "Corrigir dados do CTEF na Relação de Fornecedores",
+                "Faltando": "RELAÇÃO DE FORNECEDORES: Apresentar documento que compõe o kit de medição.",
+                "Assinatura Desconforme": "RELAÇÃO DE FORNECEDORES: A assinatura do documento está em desconformidade com as exigências normativas. Solicitamos correção da inconformidade.",
+                "Assinatura Não Autenticável": "RELAÇÃO DE FORNECEDORES: A assinatura digital no documento não é autenticável. A autenticidade das assinaturas eletrônicas deve possuir condições de ter sua autenticidade confirmada no âmbito de validadores oficiais ou de plataformas regionais, em sítios oficiais do emissor por meio de códigos verificadores QR Code ou código de barras.",
+                "Informações Incompletas": "RELAÇÃO DE FORNECEDORES: O documento apresentado no TransfereGov está com preenchimento incompleto. Deverá ser reapresentado documento corrigido com base nas informações e valores contratados e vigentes no Contrato de Repasse.",
+                "Nº do CR Incorreto": "RELAÇÃO DE FORNECEDORES: Documento está referenciando Contrato divergente do processo ora em tratamento.",
+                "Dados do CTEF Incorretos": "RELAÇÃO DE FORNECEDORES: Documento está trazendo dados da empresa executora inconsistentes com os documentos inseridos no TransfereGov.",
                 "Outra": "DIGITAR O APONTAMENTO: Relação de Fornecedores"
             },
             "pendenciasPleBmDesbl": {
-                "Faltando": "Apresentar o PLE/BM",
-                "Assinatura Desconforme": "Assinar corretamente o PLE/BM",
-                "Assinatura Não Autenticável": "Corrigir assinatura não autenticável no PLE/BM",
-                "Nº do CR Incorreto": "Corrigir número do CR no PLE/BM",
-                "Assinaturas Digital e Física": "Corrigir assinaturas digital e física no PLE/BM",
+                "Faltando": "PLE/BM: Apresentar documento que compõe o kit de medição.",
+                "Assinatura Desconforme": "PLE/BM: A assinatura do documento está em desconformidade com as exigências normativas. Solicitamos correção da inconformidade.",
+                "Assinatura Não Autenticável": "PLE/BM: A assinatura digital no documento não é autenticável. A autenticidade das assinaturas eletrônicas deve possuir condições de ter sua autenticidade confirmada no âmbito de validadores oficiais ou de plataformas regionais, em sítios oficiais do emissor por meio de códigos verificadores QR Code ou código de barras.",
+                "Nº do CR Incorreto": "PLE/BM: Documento está referenciando Contrato divergente do processo ora em tratamento.",
+                "Assinaturas Digital e Física": "PLE/BM: Documento apresentado não é válido, pois foi assinado usando assinatura digital e manual ao mesmo tempo." & "<BR>" & "Os documentos assinados eletronicamente somente possuem validade:" & "<BR>" & "- Enquanto digitais, de modo que não há validade jurídica em documentos assinados por uma parte de forma eletrônica e por outra de forma física.",
                 "Outra": "DIGITAR O APONTAMENTO: PLE/BM"
             },
             "pendenciasPlacaObraDesbl": {
-                "Faltando": "Apresentar o Relatório Fotográfico da Placa de Obra",
-                "Documento Desconforme": "Corrigir Relatório Fotográfico da Placa de Obra desconforme",
+                "Faltando": "Deverá ser realizada a comprovação da existência de Placa de Obra. Reforçando que o Contratado deve afixar a placa de obra em local visível, e mantê-la em bom estado de conservação obrigatoriamente durante todo o período de execução da obra.",
+                "Documento Desconforme": "Corrigir Relatório Fotográfico da Placa de Obra desconforme.",
                 "Outra": "DIGITAR O APONTAMENTO: Relatório Fotográfico da Placa de Obra"
             },
             "notaFiscal": {
@@ -56,6 +56,14 @@ export class PendenciasModule {
                 "Dados Conformes": "",
                 "Dados Divergentes": "Deverá ser verificado o item tributo em Documentos de Liquidação por possuir divegência entre o valor inserido no TransfereGov e o constante do corpo da Nota Fiscal.",
                 "Nao Aplicavel": "",
+            },
+            "pendenciasKitMedicao": {
+                "Valor acumulado inconsistente": "KIT DA MEDIÇÃO: Reapresentar o kit de medição com valor acumulado, levando em consideração ao montante já desbloqueado somando ao executado no período.",
+                "Sem valores acumulados de CTEF anterior": "KIT DA MEDIÇÃO: Os documentos Ofício, BM, PLE e RRE devem ser preenchidos considerando a evolução física financeira do contrato de repasse, portanto, as metas executadas e os valores pagos à(s) empresa(s) anterior(es) devem ser informados nestes documentos a fim de demonstrar a real evolução do CR.",
+                "Valores incorretos": "KIT DA MEDIÇÃO: Corrigir os dados relativos à valores contratados em toda documentação de medição, verificando os valores contratados da operação, Valor de Investimento, Repasse e Contrapartida. Também devem ser verificados os valores vigentes do(s) CTEF(s), Valor Vigente, Repasse, Contrapartida e eventual Saldo a reprogramar.",
+                "Número do CR incorreto": "KIT DA MEDIÇÃO: Kit de Medição inserida no TransfereGov pertencente a outro contrato.",
+                "Valores divergentes": "Os documentos foram inseridos na aba Anexos do PT do Transferegov, tendo em vista que as medições estão de acordo com as parcelas aprovadas na fase da VRPL, faz-se necessário que a inclusão da medição seja realizada diretamente na aba Acompanhamento de Obras, com ateste do Convenente, acompanhado da inserção mínima do Ofício de solicitação de desbloqueio e do RRE na sub-aba Observações.",
+                "Outra": "DIGITAR O APONTAMENTO: PLE/BM"
             }
         };
         this.mensagensRadios = {
@@ -72,7 +80,7 @@ export class PendenciasModule {
             },
             "apontamentosReuni": {
                 sem: "",
-                com: "Atender demais apontamentos listados no Relatório Anexo."
+                com: "Atender demais apontamentos listados no Relatório de Situação do Processo."
             },
             "temParecerTgov": {
                 simParecerTgov: "",
@@ -116,6 +124,10 @@ export class PendenciasModule {
                 simPlacaObra: "",
                 naoPlacaObra: "Apresentar relatório fotográfico comprovando a instalação da placa de obra em conformidade com o manual do Governo Federal vigente. Reforçando que o Contratado deve afixar a placa de obra em local visível, e mantê-la em bom estado de conservação obrigatoriamente durante todo o período de execução da obra."
             },
+            "verSitTitularidade": {
+                simTitularidade: "",
+                naoTitularidade: "Deverá ser regularizado o apontamento referente a titularidade antes da realização do último desbloqueio."
+            },
             "placaInauguracao": {
                 simPlacaInauguracao: "",
                 naoPlacaInauguracao: "Apresentar declaração do Representante Legal do Convenente informando que não haverá instalação de placa de inauguração de obra ou, caso o Convenente opte pela instalação de placa, apresentar registro fotográfico georreferenciado que demonstre a conformidade da placa com o Manual Visual de Placas e Adesivos de Obras."
@@ -126,19 +138,14 @@ export class PendenciasModule {
             },
             "depositoCp": {
                 simDepositoCp: "",
-                naoDepositoCp: "Depositar a contrapartida referente a parcela a ser desbloqueada, conforme discriminado acima, realizando a respectiva classificação no TransfereGov.",
-                parcialDepositoCp: "Depositar o valor complementar da contrapartida, de xxxx,xxx e classificar para possibilitar o desbloqueio da parcela.",
+                naoDepositoCp: "Depositar a contrapartida referente a parcela a ser desbloqueada, conforme discriminado, realizando a respectiva classificação no TransfereGov.",
+                parcialDepositoCp: "Depositar o valor complementar da contrapartida, de (CALCULAR O VALOR DA CP A DEPOSITAR) e classificar para possibilitar o desbloqueio da parcela.",
                 naDepositoCp: ""
             },
             "docLiquidacao": {
                 incDocLiquidacao: "",
                 naoIncDocLiquidacao: "Inserir documentação fiscal e tributária, se for o caso, referente a presente medição na aba Documentos de Liquidação, gerando respectivo Relatório de Execução.",
             }
-
-
-
-
-
         };
         this.gruposDeSelecao = [
             {
@@ -165,7 +172,23 @@ export class PendenciasModule {
                 nomeGrupoRadio: "placaObraDesbl",
                 idDropdown: "pendenciasPlacaObraDesbl",
                 radioComPendencia: "PlacaObraDesbl"
+            },
+            {
+                nomeGrupoRadio: "kitMedicaoDesbl",
+                idDropdown: "pendenciasKitMedicao",
+                radioComPendencia: "pendKitMedicaoDesbl"
+            },
+            {
+                nomeGrupoRadio: "docLiquidacao",
+                idDropdown: "notaFiscal",
+                radioComPendencia: "incDocLiquidacao"
+            },
+            {
+                nomeGrupoRadio: "docLiquidacao",
+                idDropdown: "tributos",
+                radioComPendencia: "incDocLiquidacao"
             }
+
         ];
     }
 
@@ -194,6 +217,8 @@ export class PendenciasModule {
         this.elements.viExecVigente = document.getElementById('viExecVigente');
         this.elements.tarifasPendentes = document.getElementById('tarifasPendentes');
         this.elements.pendenciasOfSolicitacaoDesbl = document.getElementById('pendenciasOfSolicitacaoDesbl');
+        this.elements.repasseDesbloqueado = document.getElementById('repasseDesbloqueado');
+        this.elements.contrapartidaDesbloqueada = document.getElementById('contrapartidaDesbloqueada');
     }
 
     configuraVisibilidadeCampos() {
@@ -419,7 +444,7 @@ this.gruposDeSelecao.forEach(grupo => {
 
             const ctefsValores = this.capturarCtefsNomesValores();
 
-            let textoFinal = `Recebemos a Medição no valor de ${valorMedicao}, para desbloqueio, desde que atendidas as seguintes condições:\n`;
+            let textoFinal = `Recebemos a Medição no valor de R$ ${valorMedicao}, para desbloqueio, desde que atendidas as seguintes condições:\n`;
 
             if (this.pendencias.length > 0) {
                 this.pendencias.forEach(pendencia => {
@@ -430,7 +455,7 @@ this.gruposDeSelecao.forEach(grupo => {
             }
 
             const dadosMedicaoMsg = "\nDados da medição:\n"
-            let dadosMedicaoMsgValores = `Repasse: ${repasseApontamento} - Contrapartida: ${contrapartidaApontamento}\n`
+            let dadosMedicaoMsgValores = `Repasse: R$ ${repasseApontamento} - Contrapartida: R$ ${contrapartidaApontamento}\n`
 
             // Ordem do Desbloqueio
             let ordemDesbloqueioValue = '';
@@ -443,15 +468,34 @@ this.gruposDeSelecao.forEach(grupo => {
             }
             const parcelaNumeroValue = this.elements.parcelaNumero ? this.elements.parcelaNumero.value : '';
 
-            let percentEvolucao = 0;
-            if (this.elements.valorSolicitado && this.elements.viExecVigente) {
-                const valorSolicitadoValue = parseFloat((this.elements.valorSolicitado.value || "0,00").replace(/[^\d,-]/g, '').replace(',', '.'));
-                const viExecVigenteValue = parseFloat((this.elements.viExecVigente.textContent || "0,00").replace(/[^\d,-]/g, '').replace(',', '.'));
 
-                if (!isNaN(valorSolicitadoValue) && !isNaN(viExecVigenteValue) && viExecVigenteValue !== 0) {
-                    percentEvolucao = (valorSolicitadoValue / viExecVigenteValue) * 100;
-                }
-            }
+            let percentEvolucao = 0;
+if (this.elements.valorSolicitado && this.elements.viExecVigente) {
+    const valorSolicitadoValue = parseFloat((this.elements.valorSolicitado.value || "0,00").replace(/[^\d,-]/g, '').replace(',', '.'));
+    const viExecVigenteValue = parseFloat((this.elements.viExecVigente.textContent || "0,00").replace(/[^\d,-]/g, '').replace(',', '.'));
+    
+    // Obter valores de repasse e contrapartida desbloqueados
+    const repasseDesbloqueadoValue = parseFloat((this.elements.repasseDesbloqueado.textContent || "0,00").replace(/[^\d,-]/g, '').replace(',', '.'));
+    const contrapartidaDesbloqueadaValue = parseFloat((this.elements.contrapartidaDesbloqueada.textContent || "0,00").replace(/[^\d,-]/g, '').replace(',', '.'));
+    
+    // Verificar se os valores são números válidos
+    if (!isNaN(valorSolicitadoValue) && !isNaN(viExecVigenteValue) && 
+        !isNaN(repasseDesbloqueadoValue) && !isNaN(contrapartidaDesbloqueadaValue) && 
+        viExecVigenteValue !== 0) {
+        
+        // Calcular o percentual com a nova fórmula
+        percentEvolucao = ((valorSolicitadoValue + repasseDesbloqueadoValue + contrapartidaDesbloqueadaValue) / viExecVigenteValue) * 100;
+    }
+}
+            // let percentEvolucao = 0;
+            // if (this.elements.valorSolicitado && this.elements.viExecVigente) {
+            //     const valorSolicitadoValue = parseFloat((this.elements.valorSolicitado.value || "0,00").replace(/[^\d,-]/g, '').replace(',', '.'));
+            //     const viExecVigenteValue = parseFloat((this.elements.viExecVigente.textContent || "0,00").replace(/[^\d,-]/g, '').replace(',', '.'));
+
+            //     if (!isNaN(valorSolicitadoValue) && !isNaN(viExecVigenteValue) && viExecVigenteValue !== 0) {
+            //         percentEvolucao = (valorSolicitadoValue / viExecVigenteValue) * 100;
+            //     }
+            // }
 
             const percentEvolucaoFormatada = percentEvolucao.toFixed(2);
             const objDesbloqueioValue = this.elements.objDesbloqueio ? this.elements.objDesbloqueio.value : '';
@@ -467,9 +511,9 @@ this.gruposDeSelecao.forEach(grupo => {
             } else {
                 textoFinal += "Nenhuma CTEF/Valor informado.\n";
             }
-            textoFinal += `Ordem do Desbloqueio: ${ordemDesbloqueioValue} - Parcela nº: ${parcelaNumeroValue}\n`;
+            textoFinal += `Ordem de desbloqueio: ${ordemDesbloqueioValue} - Parcela nº: ${parcelaNumeroValue}\n`;
 
-            textoFinal += `Instrumento de desbloqueio: ${objDesbloqueioValue} ${instrumentoNumeroValue}, com evolução de ${percentEvolucaoFormatada}%\n`;
+            textoFinal += `Instrumento de desbloqueio: ${objDesbloqueioValue} ${instrumentoNumeroValue} com evolução de ${percentEvolucaoFormatada}%\n`;
 
             // Verificar se há tarifas pendentes
             if (!this.elements.tarifasPendentes || !this.elements.tarifasPendentes.checked) {

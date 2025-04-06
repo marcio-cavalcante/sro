@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SRO - Sistema de Rotinas Operacionais</title>
+    <title>SRO - Desbloqueio</title>
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
-    <link rel="shortcut icon" href="./media/favicon/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./media/favicon/favicon.jpg" type="image/x-icon">
 </head>
 <body>
     <header id="cabecalho">
         <div class="id-cabecalho">
             <h1>Sistema de Rotinas Operacionais</h1>
+            <p><strong>Módulo Verificação de Valores à Desbloquear</strong></p>
+
+            <!-- <button id="btnEnviarPendencias" type="button">OK</button> -->
         </div>
         <div class="insere-operacao">
             <form id="operacaoForm">
@@ -183,13 +186,18 @@
                         <input type="radio" id="simPos180Dias" name="desbloqueioPos180Dias" value="simPos180Dias">
                         <label for="simPos180Dias">Sim</label>
                         <input type="radio" id="naoPos180Dias" name="desbloqueioPos180Dias" value="naoPos180Dias">
-                        <label for="naoPos180Dias">Não</label><br><br>
+                        <label for="naoPos180Dias">Não</label>
+                        <input type="radio" id="naPos180Dias" name="desbloqueioPos180Dias" value="naPos180Dias">
+                        <label for="naPos180Dias">N/A</label><br><br>
 
                         <label><b>Tem parecer no TGov?</b></label><br>
                         <input type="radio" id="simParecerTgov" name="temParecerTgov" value="simParecerTgov">
                         <label for="simParecerTgov">Sim</label>
                         <input type="radio" id="naoParecerTgov" name="temParecerTgov" value="naoParecerTgov">
-                        <label for="naoParecerTgov">Não</label><br><br>
+                        <label for="naoParecerTgov">Não</label>
+                        <input type="radio" id="naParecerTgov" name="temParecerTgov" value="naParecerTgov">
+                        <label for="naParecerTgov">N/A</label><br><br>
+
                     </div>
 
                     <div id="complementoPrimeiroDesbloqueio">
@@ -271,8 +279,15 @@
                             <input type="radio" id="naoPlacaInauguracao" name="placaInauguracao" value="naoPlacaInauguracao">
                             <label for="naoPlacaInauguracao">Não</label><br>
 
-                            <label for="verSitTitularidade"><b>Verificada Situação da Titularidade:</b></label>
-                            <input type="checkbox" id="verSitTitularidade" name="verSitTitularidade" value="valor"><br><br>
+                            <label for="verSitTitularidade"><b>Verificada Situação da Titularidade:
+                                <!-- <span title="Informações sobre a titularidade">&#x24D8;</span> -->
+                            </b></label><br>
+                            <!-- <input type="checkbox" id="verSitTitularidade" name="verSitTitularidade" value="valor"><br><br> -->
+                            <input type="radio" id="simTitularidade" name="verSitTitularidade" value="simTitularidade">
+                            <label for="simTitularidade">Ok</label>
+                            <input type="radio" id="naoTitularidade" name="verSitTitularidade" value="naoTitularidade">
+                            <label for="naoTitularidade">Pendente</label><br>
+
                         </div>
                     </div>
                 </div>
@@ -391,6 +406,24 @@
                             <option value="Faltando">Faltando</option>
                             <option value="Documento Desconforme">Documento Desconforme</option>
                             <option value="Outra">Outra</option>
+                        </select><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label><b>Verificar se exite pendência relacionada ao Kit de Medição:</b></label>
+                        <input type="radio" id="docOkKitMedicaoDesbl" name="kitMedicaoDesbl" value="docOkKitMedicaoDesbl">
+                        <label for="docOkKitMedicaoDesbl">Documentos OK</label>
+                        <input type="radio" id="pendKitMedicaoDesbl" name="kitMedicaoDesbl" value="pendKitMedicaoDesbl">
+                        <label for="pendKitMedicaoDesbl">Com pendência</label>
+
+                        <select id="pendenciasKitMedicao" name="pendenciasKitMedicao">
+                            <option value="" selected disabled>Se tiver pendência, selecione</option>
+                            <option value="Valor acumulado inconsistente">Valor acumulado inconsistente</option>
+                            <option value="Sem valores acumulados de CTEF anterior">Sem valores acumulados de CTEF anterior</option>
+                            <option value="Valores incorretos">Valores incorretos</option>
+                            <option value="Número do CR incorreto">Número do CR incorreto</option>
+                            <option value="Valores divergentes">Valores divergentes</option>
+                            <option value="Outra">Outra</option>
                         </select>
                     </div>
                 </div>
@@ -498,11 +531,11 @@
                                 <td id="contrapartidaDesbloqueada">-</td>
                                 <td id="contrapartidaSaldoDesbloquear">-</td>
                             </tr>
-                            <tr class="linha-desbloqueio">
+                            <!-- <tr class="linha-desbloqueio">
                                 <td>Investimento</td>
                                 <td id="investimentoDesbloqueado">-</td>
                                 <td id="investimentoSaldoDesbloquear">-</td>
-                            </tr>
+                            </tr> -->
 
 
                         </tbody>
@@ -682,9 +715,11 @@
                     <h2>Pendências / Condicionantes para Desbloqueio</h2>
                     <div class="form-group">
                         <label for="apontamentoDesbloqueio">Apontamentos:</label><br>
-                        <textarea id="apontamentoDesbloqueio" name="apontamentoDesbloqueio" readonly rows="6" cols="60"></textarea>
+                        <textarea id="apontamentoDesbloqueio" name="apontamentoDesbloqueio" readonly rows="15" cols="60"></textarea><br>
+                        <label for="cePendenciaDesbloqueio">Nº da CE para desbloqueio:</label>
+                        <input type="text" class="cePendenciaDesbloqueio" id="cePendenciaDesbloqueio" name="cePendenciaDesbloqueio" value="">
                         <div class="buttons-group">
-                            <button id="btnEnviarPendencias" type="button" class="btn-copiar">Enviar Pendências</button>
+                            <button id="textos" type="button" class="btn-email">Enviar Pendências</button>
                             <button id="btnCopiarApontamento" type="button" class="btn-copiar">Apontamento REUNI</button>
                             <button id="btnCopiarSituacaoAtual" type="button" class="btn-copiar btn-situacao">Situação Atual</button>
                         </div>
@@ -725,19 +760,61 @@
                     </div>
 
                     <div class="buttons-group">
+                        <button id="btnEnviarFasAssinatura" type="button" class="btn-fas">Envia FAS para assinatura</button>
                         <button id="btnCopiarApontamentoPC" type="button" class="btn-copiar">Apontamento REUNI</button>
                         <button id="btnCopiarSituacaoPC" type="button" class="btn-copiar btn-situacao">Situação Atual</button>
                     </div>
+                    <!-- Caixa de diálogo para selecionar coordenação para envio da FAS -->
+                    <dialog id="dialogo">
+                        <form method="dialog">
+                            <fieldset>
+                                <legend>Selecione um destinatário:</legend>
+                                <label>
+                                    <input type="radio" name="fasPara" value="gigovjp08"> gigovjp08
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="fasPara" value="gigovjp09"> gigovjp09
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="fasPara" value="gigovjp10"> gigovjp10
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="fasPara" value="gigovjp11"> gigovjp11
+                                </label><br>
+                            </fieldset>
+                            <button id="confirmarBtn">Confirmar</button>
+                            <button type="button" id="cancelarBtn">Cancelar</button>
 
+                            <!-- <button onclick="dialogo.close()">Cancelar</button> -->
+                        </form>
+                    </dialog>
                 </div>
 
-                 <!-- ANÁLISES PROCESSUAIS -->
+                 <!-- GESTÃO PRODUTIVIDADE -->
                  <div class="checklist13">
-                    <h2>Ações Administrativas</h2>
-                    <!-- O botão de verificar pendências foi removido conforme solicitado -->
+                    <!-- <h2>Gestão da Produtividade</h2>
+                    O botão de verificar pendências foi removido conforme solicitado -->
+                    <section id="gestao-produtividade">
+                        <div class="container">
+                            <h2>Gestão da Produtividade</h2>
+                            <div class="atividade">                                
+                                <label for="hora-inicio">Início:</label>
+                                <input type="text" id="hora-inicio" readonly>
+                                <label for="hora-fim">Fim:</label>
+                                <input type="text" id="hora-fim" readonly>
+                                <label for="tempo-total">Tempo total:</label>
+                                <input type="text" id="tempo-total" readonly>
+                                <button id="registrar-atividade">Finalizar Atividade</button>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    
+
+
                 </div>
 
-                <div class="checklist14">
+                <!-- <div class="checklist14">
                     <h2>Análise Processual Adicional</h2>
                     <p>Resumo do andamento processual.</p>
                 </div>
@@ -745,7 +822,7 @@
                 <div class="checklist15">
                     <h2>Observações Finais</h2>
                     <p>Resumo do andamento processual.</p>
-                </div>
+                </div> -->
             </section>
         </main>
     </section>
@@ -758,5 +835,6 @@
     <script src="./js/DesbloqueioManager.js" type="module"></script>
     <script src="./js/empresas-executoras.js"></script>
     <script src="./js/PCFModule.js" type="module"></script>
+    <script src="./js/texto.js" type="module"></script>
 </body>
 </html>

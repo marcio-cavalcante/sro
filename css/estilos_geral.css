@@ -1,0 +1,108 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap; /* Allow filters to wrap on smaller screens */
+    gap: 15px; /* Space between filter groups */
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #e9e9e9;
+    border-radius: 5px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column; /* Stack label above input */
+    flex-grow: 1; /* Allow groups to grow */
+    min-width: 200px; /* Minimum width for filter groups */
+}
+
+.filter-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.filter-group input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in element's total width/height */
+    width: 100%; /* Make input fill its container */
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Add horizontal scroll if table is too wide */
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+#dataTable {
+    width: 100%;
+    border-collapse: collapse; /* Remove space between borders */
+    table-layout: auto; /* Let browser decide column widths, can be 'fixed' if needed */
+}
+
+#dataTable th,
+#dataTable td {
+    border: 1px solid #ddd;
+    padding: 10px 12px; /* More padding */
+    text-align: left;
+    vertical-align: top; /* Align text to the top */
+    font-size: 0.95em;
+}
+
+/* Style specific columns if needed */
+#dataTable th:nth-child(1), /* TÍTULO */
+#dataTable td:nth-child(1) {
+    /* min-width: 150px; */ /* Example: Set min-width */
+}
+
+#dataTable th:nth-child(2), /* OCORRÊNCIA */
+#dataTable td:nth-child(2) {
+    /* min-width: 250px; */
+}
+
+#dataTable th:nth-child(3), /* AÇÃO */
+#dataTable td:nth-child(3) {
+    /* min-width: 100px; */
+}
+
+#dataTable th:nth-child(4), /* TEXTO */
+#dataTable td:nth-child(4) {
+   /* min-width: 400px; */ /* Give more space to text */
+   word-wrap: break-word; /* Wrap long words */
+   overflow-wrap: break-word; /* Ensure wrapping */
+}
+
+
+#dataTable th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    position: sticky; /* Make header sticky */
+    top: 0; /* Stick to the top */
+    z-index: 1; /* Ensure header is above table content when scrolling */
+}
+
+#dataTable tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Zebra striping for rows */
+}
+
+#dataTable tbody tr:hover {
+    background-color: #e6f7ff; /* Highlight row on hover */
+}
+
+/* Style for no results */
+.no-results td {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    padding: 20px;
+}

@@ -466,6 +466,14 @@ nav li:hover a { border-left-width: 8px; padding-left: 20px; }
 #emails { width: 90%; max-width: 100%; }
 #etiquetasDaOperacao { width: 90%; max-width: 100%; }
 .tarifaPendDesc { width: 60%; max-width: 100%; }
+#listaBeneficiarios { width: 100%; max-width: 100%; }
+.textareaRetencao {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
 
 
 
@@ -754,6 +762,42 @@ textarea {
   background: linear-gradient(135deg, #34c759, #28a745);
 }
 
+/* Estilo específico para o segundo botão */
+.btn-situacao {
+  background: linear-gradient(135deg, #0366d6, #044289);
+}
+
+.btn-situacao:hover {
+  background: linear-gradient(135deg, #2188ff, #0366d6);
+}
+
+/* Estilo específico para botão de ação rápida (botão "fas") */
+.btn-fas {
+  background: linear-gradient(135deg, #ff7f00, #e16b00); /* De laranja para um tom mais quente */
+  margin-top: 15px;
+  display: block;
+  width: auto;
+  margin-left: 0;
+}
+
+.btn-fas:hover {
+  background: linear-gradient(135deg, #ff9e2c, #ff6a00); /* Acentuando o laranja no hover */
+}
+
+/* Estilo específico para botão de email */
+.btn-email {
+  background: linear-gradient(135deg, #b03a2e, #7d2a1b); /* Vermelho escuro e mais fechado */
+  margin-top: 15px;
+  display: block;
+  width: auto;
+  margin-left: 0;
+}
+
+.btn-email:hover {
+  background: linear-gradient(135deg, #e74c3c, #c0392b); /* Acentuando o vermelho no hover */
+}
+
+
 /* Estilo para o grupo de botões */
 .buttons-group {
   display: flex;
@@ -765,13 +809,76 @@ textarea {
   margin: 0;
 }
 
-/* Estilo específico para o segundo botão */
-.btn-situacao {
-  background: linear-gradient(135deg, #0366d6, #044289);
+
+
+/* CAIXA DE DIALOGO DE ENVIO DA FAS */
+/* Estilo geral do diálogo */
+#dialogo {
+  width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* display: block; */
+  z-index: 1000;
 }
 
-.btn-situacao:hover {
-  background: linear-gradient(135deg, #2188ff, #0366d6);
+/* Estilo do formulário dentro do diálogo */
+#dialogo form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilo do fieldset */
+#dialogo fieldset {
+  border: none;
+  margin-bottom: 20px;
+}
+
+#dialogo legend {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  color: #7d2a1b; /* Cor avermelhada escura para o título */
+  font-weight: bold;
+}
+
+/* Estilo dos rótulos de rádio */
+#dialogo label {
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Estilo dos botões */
+#dialogo button {
+  background: linear-gradient(135deg, #b03a2e, #7d2a1b);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s ease;
+}
+
+#dialogo button:hover {
+  background: linear-gradient(135deg, #e74c3c, #c0392b); /* Tom mais vibrante no hover */
+}
+
+/* Estilo do botão cancelar */
+#dialogo button:nth-of-type(2) {
+  background: linear-gradient(135deg, #ff7f00, #e16b00); /* Tom laranja para o botão de cancelar */
+  margin-top: 5px; /* Menor margem entre os botões */
+}
+
+#dialogo button:nth-of-type(2):hover {
+  background: linear-gradient(135deg, #ff9e2c, #ff6a00); /* Efeito hover laranja */
 }
 
 

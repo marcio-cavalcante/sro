@@ -126,9 +126,6 @@ document.getElementById('operacaoForm').addEventListener('submit', function(even
         document.getElementById('cCorrente').value = result.cCorrente || '-';
         document.getElementById('obtv').value = result.obtv || '-';
         document.getElementById('gestor').value = result.gestor || '-';
-        document.getElementById('repasseContrato').innerHTML = formatNumber(result.vr) || '-';
-        document.getElementById('contrapartidaContrato').innerHTML = formatNumber(result.cp1) || '-';
-        document.getElementById('investimentoContrato').innerHTML = formatNumber(result.vi) || '-';
 
         
         //ALTERATIVA ETIQUETAS SEM COR
@@ -154,125 +151,8 @@ etiquetasArray.forEach(etiqueta => {
     container.appendChild(input);
 });
 
-
-//ETIQUETAS
-// const container = document.getElementById("etiquetasDaOperacaoContainer");
-
-// // Mapeamento de grupos e cores
-// const gruposComCores = {
-//     "situação do contrato": "brown",   // Marrom
-//     "características do contrato": "green",  // Verde
-//     // Adicione mais grupos conforme necessário
-// };
-
-// // Definição das etiquetas e seus grupos
-// var etiquetasArray = [
-//     { texto: "Obra Paralisada", grupo: "situação do contrato" },
-//     { texto: "Módulo Paralisadas", grupo: "situação do contrato" },
-//     { texto: "OBTV", grupo: "características do contrato" },
-//     { texto: "CPS 29/2017 - MAPA", grupo: "características do contrato" }
-// ];
-
-// etiquetasArray.forEach(etiqueta => {
-//     const input = document.createElement("input");
-//     input.type = "text";
-//     input.value = etiqueta.texto;
-//     input.readOnly = true;
-//     input.className = "etiqueta-input";
-
-//     // Define a largura com base no tamanho do texto
-//     input.style.width = (etiqueta.texto.length * 10) + "px";
-
-//     // Aplica a cor com base no grupo da etiqueta
-//     const cor = gruposComCores[etiqueta.grupo]; // Busca a cor no mapeamento
-//     if (cor) {
-//         input.style.backgroundColor = cor;
-//         input.style.color = "white"; // Texto branco para melhor contraste
-//         input.style.padding = "5px"; // Adiciona um pequeno espaço interno
-//         input.style.borderRadius = "5px"; // Bordas arredondadas para melhor visualização
-//     }
-
-//     container.appendChild(input);
-// });
-
-
-
-        // Atribuindo valores à tabela de desbloqueio Contrato de Repasse
-        percentRpContrato = (parseFloat(parseToNumber(result.vr)) / parseFloat(parseToNumber(result.vi)) * 100).toFixed(2)
-        document.getElementById('percentRpContrato').innerHTML = percentRpContrato || '-';
-
-        percentCpContrato = (parseFloat(parseToNumber(result.cp1)) / parseFloat(parseToNumber(result.vi)) * 100).toFixed(2)
-        document.getElementById('percentCpContrato').innerHTML = percentCpContrato || '-';
-        
-        // Atribuindo valores à tabela de desbloqueio Execução Vigente
-        document.getElementById('viExecVigente').innerHTML = formatNumber(result.valorExecucaoVigente) || '-';
-        
-        const rpExecVigente = parseToNumber(result.valorExecucaoVigente) - parseToNumber(result.cp1)
-        document.getElementById('rpExecVigente').innerHTML = formatForDisplay(rpExecVigente) || '-';
-        
-        document.getElementById('cpExecVigente').innerHTML = formatNumber(result.cp1) || '-';
-        
-        const saldoReprogramar = parseToNumber(result.vr) - rpExecVigente
-        document.getElementById('saldoExecVigente').innerHTML = formatForDisplay(saldoReprogramar) || '-';
-        
-        percentRpVigente = (rpExecVigente / parseFloat(parseToNumber(result.valorExecucaoVigente)) * 100).toFixed(2)
-        document.getElementById('percentRpVigente').innerHTML = percentRpVigente || '-';
-
-        percentCpVigente = (parseFloat(parseToNumber(result.cp1)) / parseFloat(parseToNumber(result.valorExecucaoVigente)) * 100).toFixed(2)
-        document.getElementById('percentCpVigente').innerHTML = percentCpVigente || '-';
-
-        // Valores atribuidos à tabela de controle de desbloqueios e saldos
-        document.getElementById('repasseDesbloqueado').innerHTML = formatNumber(result.vrDesbloqueado) || '-';
-        document.getElementById('contrapartidaDesbloqueada').innerHTML = formatNumber(result.cpDesbloqueado) || '-';
-
-        saldoRpDesbloquear = parseFloat(parseToNumber(result.vr)) - parseFloat(parseToNumber(result.vrDesbloqueado))
-        document.getElementById('repasseSaldoDesbloquear').innerHTML = formatForDisplay(saldoRpDesbloquear) || '-';
-
-        saldoCpDesbloquear = parseFloat(parseToNumber(result.cp1)) - parseFloat(parseToNumber(result.cpDesbloqueado))
-        document.getElementById('contrapartidaSaldoDesbloquear').innerHTML = formatForDisplay(saldoCpDesbloquear) || '-';
     })
     .catch(error => {
         console.error("Error fetching or processing CSV:", error);
     });
-
-    //GESTAO DA PRODUTIVIDADE
-    window.horaInicio;
-
-    function iniciarContagem() {
-        horaInicio = new Date(); // Registra o horário de início
-        const horaInicioFormatada = horaInicio.toLocaleTimeString("pt-BR");
-        document.getElementById("hora-inicio").value = horaInicioFormatada;
-    }
-    
-    iniciarContagem()
-
-    
-
-  
 });
-
-let horaFim;
-
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("registrar-atividade").addEventListener("click", encerrarContagem);
-  });
-  
-  function encerrarContagem() {
-    console.log("Atividade finalizada!");
-
-    horaFim = new Date(); // Registra o horário de término
-    const horaFimFormatada = horaFim.toLocaleTimeString("pt-BR");
-    document.getElementById("hora-fim").value = horaFimFormatada;
-
-    const timeSpentMs = horaFim - window.horaInicio; // Calcula o tempo em milissegundos
-    const seconds = Math.floor((timeSpentMs / 1000) % 60); // Extrai os segundos
-    const minutes = Math.floor((timeSpentMs / (1000 * 60)) % 60); // Extrai os minutos
-    const hours = Math.floor(timeSpentMs / (1000 * 60 * 60)); // Extrai as horas
-  
-    // Formata o resultado como HH:MM:SS
-    const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    document.getElementById("tempo-total").value = formattedTime;
-
-    console.log(formattedTime);
-  }
-    // Aqui você pode adicionar mais lógica, como salvar dados ou atualizar o DOM

@@ -1,0 +1,110 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap; /* Allow filters to wrap */
+    gap: 15px; /* Space between filter groups */
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #e9e9e9;
+    border-radius: 5px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 180px; /* Adjust min-width as needed for more filters */
+}
+
+.filter-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.filter-group input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Crucial for tables with many columns */
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    max-height: 70vh; /* Optional: Limit table height and make it scrollable vertically */
+    overflow-y: auto; /* Add vertical scroll if max-height is set */
+}
+
+#dataTableUsuarios {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Or 'fixed' if you prefer controlling widths strictly */
+}
+
+#dataTableUsuarios th,
+#dataTableUsuarios td {
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 0.9em; /* Slightly smaller font for more columns */
+    white-space: nowrap; /* Prevent text wrapping initially, rely on horizontal scroll */
+}
+
+/* Optional: Adjust specific column widths if needed */
+#dataTableUsuarios th:nth-child(1), /* Matricula */
+#dataTableUsuarios td:nth-child(1) {
+   /* min-width: 80px; */
+}
+#dataTableUsuarios th:nth-child(2), /* Nome */
+#dataTableUsuarios td:nth-child(2) {
+   /* min-width: 250px; */
+   white-space: normal; /* Allow longer names to wrap */
+}
+#dataTableUsuarios th:nth-child(8), /* Email */
+#dataTableUsuarios td:nth-child(8) {
+   /* min-width: 200px; */
+   white-space: normal; /* Allow emails wrap if needed */
+}
+
+
+#dataTableUsuarios th {
+    background-color: #e0e0e0; /* Slightly darker header */
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 10; /* Ensure header is above content */
+}
+
+#dataTableUsuarios tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#dataTableUsuarios tbody tr:hover {
+    background-color: #e6f7ff;
+}
+
+/* Style for no results */
+.no-results td {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    padding: 20px;
+    white-space: normal; /* Allow no-results text to wrap */
+}

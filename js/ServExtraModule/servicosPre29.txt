@@ -1,0 +1,1082 @@
+[
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 3000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 4500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 1700
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 2400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 3500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": "Serv. não previsto"
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 5000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": "Serv. não previsto"
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 9000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 3000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 4500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 1700
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 2400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 3500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": "Serv. não previsto"
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 5000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": "Serv. não previsto"
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 9000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 9200
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 8300
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 2400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 4200
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 5500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 6500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 7500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 8500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 14900
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Portaria 424/16) - Repasse Contratado >= 750mil",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 9200
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Portaria 424/16) - Repasse Contratado >= 750mil",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 8300
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Portaria 424/16) - Repasse Contratado >= 750mil",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 2400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Portaria 424/16) - Repasse Contratado >= 750mil",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 4200
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Portaria 424/16) - Repasse Contratado >= 750mil",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 5500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Portaria 424/16) - Repasse Contratado >= 750mil",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 6500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Portaria 424/16) - Repasse Contratado >= 750mil",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 7500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Portaria 424/16) - Repasse Contratado >= 750mil",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 8500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Portaria 424/16) - Repasse Contratado >= 750mil",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 14900
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 12100
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 13000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 3000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 7000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 8400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 9600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 10600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 12600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-A (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 25700
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-B (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 33500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-B (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 23000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-B (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 3000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-B (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 7000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-B (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 8400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-B (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 9600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-B (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 10600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-B (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 12600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-B (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 25700
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-C (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 33500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-C (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 23000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-C (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 3000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-C (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 7000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-C (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 8400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-C (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 9600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-C (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 10600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-C (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 12600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III-C (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 25700
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 1300
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 3600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 1700
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 2400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 3500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": "Serv. não previsto"
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": "Serv. não previsto"
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": "Serv. não previsto"
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 2000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 4000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 3600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 2400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 4200
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 5500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 6500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": "Serv. não previsto"
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 8500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PI 424/16 e IN MPDG 002/18)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 4000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PC 033/2023)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 3000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PC 033/2023)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 4500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PC 033/2023)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 1700
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PC 033/2023)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 2400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PC 033/2023)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 3500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PC 033/2023)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 6500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PC 033/2023)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 5000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PC 033/2023)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 8500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (PC 033/2023)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 9000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PC 033/2023)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 9200
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PC 033/2023)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 8300
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PC 033/2023)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 2400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PC 033/2023)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 4200
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PC 033/2023)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 5500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PC 033/2023)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 6500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PC 033/2023)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 7500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PC 033/2023)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 8500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (PC 033/2023)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 14900
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (PC 033/2023)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 12100
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (PC 033/2023)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 13000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (PC 033/2023)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 3000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (PC 033/2023)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 7000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (PC 033/2023)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 8400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (PC 033/2023)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 9600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (PC 033/2023)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 10600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (PC 033/2023)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 12600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (PC 033/2023)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 25700
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PC 033/2023)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 33500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PC 033/2023)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 23000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PC 033/2023)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 3000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PC 033/2023)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 7000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PC 033/2023)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 8400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PC 033/2023)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 9600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PC 033/2023)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 10600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PC 033/2023)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 12600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível IV (PC 033/2023)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 25700
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PC 033/2023)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 33500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PC 033/2023)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 23000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PC 033/2023)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 3000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PC 033/2023)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 7000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PC 033/2023)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 8400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PC 033/2023)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 9600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PC 033/2023)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 10600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PC 033/2023)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 12600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível V (PC 033/2023)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 25700
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR inferior a R$750.000,00",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 1300
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR inferior a R$750.000,00",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 3600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR inferior a R$750.000,00",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 1700
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR inferior a R$750.000,00",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 2400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR inferior a R$750.000,00",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 3500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR inferior a R$750.000,00",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 6500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR inferior a R$750.000,00",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": "Serv. não previsto"
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR inferior a R$750.000,00",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 8500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR inferior a R$750.000,00",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 2000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR a partir de R$750.000,00",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 4000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR a partir de R$750.000,00",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 3600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR a partir de R$750.000,00",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 2400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR a partir de R$750.000,00",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 4200
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR a partir de R$750.000,00",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 5500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR a partir de R$750.000,00",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 6500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR a partir de R$750.000,00",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": "Serv. não previsto"
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR a partir de R$750.000,00",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 8500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível VI (PC 033/2023) VR a partir de R$750.000,00",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 4000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Regime Simplificado (Novo PAC)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 3000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Regime Simplificado (Novo PAC)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 4500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Regime Simplificado (Novo PAC)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 1700
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Regime Simplificado (Novo PAC)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 2400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Regime Simplificado (Novo PAC)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 3500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Regime Simplificado (Novo PAC)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 6500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Regime Simplificado (Novo PAC)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 5000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Regime Simplificado (Novo PAC)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 8500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Regime Simplificado (Novo PAC)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 9000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (Novo PAC)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 9200
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (Novo PAC)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 8300
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (Novo PAC)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 2400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (Novo PAC)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 4200
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (Novo PAC)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 5500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (Novo PAC)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 6500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (Novo PAC)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 7500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (Novo PAC)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 8500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível I (Novo PAC)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 14900
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Novo PAC)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 12100
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Novo PAC)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 13000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Novo PAC)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 3000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Novo PAC)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 7000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Novo PAC)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 8400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Novo PAC)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 9600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Novo PAC)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 10600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Novo PAC)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 12600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível II (Novo PAC)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 25700
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (Novo PAC)",
+      "servico": "EGTE4 - Verificação do Resultado do Processo Licitatório",
+      "valor": 33500
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (Novo PAC)",
+      "servico": "EGTE9 - Visita de campo",
+      "valor": 23000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (Novo PAC)",
+      "servico": "EGTE8.1 - Alteração de cronograma / eventograma",
+      "valor": 3000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (Novo PAC)",
+      "servico": "EGTE8.2 - Atualização de orçamento",
+      "valor": 7000
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (Novo PAC)",
+      "servico": "EGTE8.3 - Exclusão de meta",
+      "valor": 8400
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (Novo PAC)",
+      "servico": "EGTE8.4 - Ajustes no projeto",
+      "valor": 9600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (Novo PAC)",
+      "servico": "EGTE8.5 - Reprogramação de Remanescente de obra",
+      "valor": 10600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (Novo PAC)",
+      "servico": "EGTE8.6 - Inclusão de meta",
+      "valor": 12600
+    },
+    {
+      "tabela": "pre29",
+      "regramento": "Nível III (Novo PAC)",
+      "servico": "EGTE8.7 - Alteração de escopo",
+      "valor": 25700
+    }
+  ]

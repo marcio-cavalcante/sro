@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRO - Condições Desbloqueio</title>
+    <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+    <link rel="shortcut icon" href="/media/favicon/favicon.jpg" type="image/x-icon">
+</head>
+<body>
+    <header id="cabecalho">
+        <div class="id-cabecalho">
+            <h1>Sistema de Rotinas Operacionais</h1>
+            <p><strong>Módulo Verificação das Condições de Desbloqueio</strong></p>
+        </div>
+        <div class="insere-operacao">
+            <form id="operacaoForm">
+                <label for="operacao">Operação:</label>
+                <input type="text" id="operacao" name="operacao" placeholder="Operação" required>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </header>
+    <section id="container">
+        <nav id="menu">
+            <ul>
+                <li><a href="#pagina1">PT</a></li>
+                <li><a href="#pagina2">Contratação</a></li>
+                <li><a href="#pagina3">Suspensiva</a></li>
+                <li><a href="#pagina4">Licitação</a></li>
+                <li><a href="#pagina5">Desbloqueio</a></li>
+                <li><a href="#pagina6">Serv. Extra</a></li>
+                <li><a href="#pagina7">Reprogramação</a></li>
+                <li><a href="#pagina8">PCP</a></li>
+                <li><a href="#pagina9">PCF</a></li>
+                <li><a href="#pagina10">Vigência</a></li>
+            </ul>
+        </nav>
+        <main id="principal">
+            <section class="checklist">
+                <!-- DADOS GERAIS -->
+                <div class="checklist1">
+                    <h2>Dados Gerais</h2>
+                    <form id="form-dados">
+                        <div class="form-row">
+                            <label for="operation">Operação:</label>
+                            <input type="text" id="operation" name="operation" readonly>
+                            <label for="convenio">Convênio:</label>
+                            <input type="text" id="convenio" name="convenio" readonly>
+                        </div>
+                        
+                        <div class="form-row">
+                            <label for="tomador">Tomador:</label>
+                            <input type="text" id="tomador" name="tomador" readonly>
+                            <label for="cnpj">CNPJ:</label>
+                            <input type="text" id="cnpj" name="cnpj" readonly>
+                        </div>
+                        
+                        <div class="form-row">
+                            <label for="regramento">Regramento:</label>
+                            <input type="text" id="regramento" name="regramento" readonly>
+                            <label for="assinatura">Assinatura:</label>
+                            <input type="text" id="assinatura" name="assinatura" readonly>
+                        </div>
+                        
+                        <div class="form-row">
+                            <label for="objeto">Objeto:</label>
+                            <input type="text" id="objeto" name="objeto" readonly>
+                        </div>
+                        
+                        <div class="form-row">
+                            <label for="vi">VI:</label>
+                            <input type="text" id="vi" name="vi" readonly>
+                            <label for="rp">RP:</label>
+                            <input type="text" id="rp" name="rp" readonly>
+                            <label for="cp">CP:</label>
+                            <input type="text" id="cp" name="cp" readonly>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="cAgencia">Cod. Agência:</label>
+                            <input type="text" id="cAgencia" name="cAgencia" readonly>
+                            <label for="agencia">Agência:</label>
+                            <input type="text" id="agencia" name="agencia" readonly>
+                            <label for="cCorrente">Conta:</label>
+                            <input type="text" id="cCorrente" name="cCorrente" readonly>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="obtv">OBTV:</label>
+                            <input type="text" id="obtv" name="obtv" readonly>
+                            <label for="gestor">Gestor:</label>
+                            <input type="text" id="gestor" name="gestor" readonly>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="emails">Contato:</label>
+                            <input type="text" id="emails" name="emails" readonly>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="etiquetasDaOperacao">Etiquetas:</label>
+                            <div id="etiquetasDaOperacaoContainer"></div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- NÃO USAR -->
+                <!-- <div class="checklist2">
+                    <h2>Análise Documental / Registros</h2>                     
+                </div> -->
+
+                <!-- NÃO USAR -->
+                <!-- <div class="checklist3">
+                    <h2>Análise Complementar - Primeiro Desbloqueio</h2>
+                </div> -->
+
+                <!-- NÃO USAR -->
+                <!-- <div class="checklist4">
+                    <h2>Análise Complementar - Último Desbloqueio</h2>
+                </div> -->
+
+
+
+                <!-- AREA PARA COLAR OS APONTAMENTOS -->
+                <div class="checklist5">
+                    <h2>Checagem dos Apontamentos</h2>
+
+                        <label for="pendencias">Cole o apontamento "Pendência para Desbloqueio":</label><br>
+                        <textarea id="pendencias" name="pendencias" rows="20" cols="150" placeholder="Cole aqui o apontamento da pendência para desbloqueio conforme foi gerado."></textarea>
+                        <div class="buttons-group">
+                            <button id="btnChecarPendencias" type="button" class="btn-copiar">Checar</button>
+                        </div>
+                
+                </div>
+
+                <!-- ANÁLISE DOS APONTAMENTOS -->
+                <div class="checklist6">
+                    <h2>Verificação dos Apontamentos</h2>
+                    <div id="linhasPendencias"></div>
+                </div>
+
+
+
+                <!-- ANÁLISE DOS VALORES PARA DESBLOQUEIO -->
+                <div class="checklist7">
+                    <h2>Verificação de Tarifas Pendentes</h2>
+                    <div id="linhasTarifas"></div>
+                    </div>
+    
+                    
+                    <!-- TARIFAS PENDENTES -->
+                    <div class="checklist8">
+                        <h2>Dados para Preenchimento da FAS</h2>
+                        <div id="listaCtef"></div><br>
+                        <hr><br>
+    
+                        <div>
+                            <label for="ordemDesbloqueio">Ordem de Desbloqueio:</label>
+                            <input type="text" name="ordemDesbloqueio" id="ordemDesbloqueio" readonly>
+                            <label for="parcelaNumero">Parcela nº:</label>
+                            <input type="text" name="parcelaNumero" id="parcelaNumero" readonly><br><br>
+                            <label for="instrumentoDesbloqueio">Instrumento do Desbloqueio:</label>
+                            <input type="text" name="instrumentoDesbloqueio" id="instrumentoDesbloqueio" readonly>
+                            <label for="evolucaoContrato">Evolução:</label>
+                            <input type="text" name="evolucaoContrato" id="evolucaoContrato" readonly><br><br>
+                            <hr>
+                        </div>
+    
+                        <div>
+                            <label><strong>Valores a desbloquear</strong></label><br>
+                            <label for="viDesbloquear">Valor Total (R$):</label>
+                            <input type="text" name="viDesbloquear" id="viDesbloquear" readonly><br><br>
+                            <label for="rpDesbloquear">Repasse (R$):</label>
+                            <input type="text" name="rpDesbloquear" id="rpDesbloquear" readonly>
+                            <label for="cpDesbloquear">Contrapartida (R$):</label>
+                            <input type="text" name="cpDesbloquear" id="cpDesbloquear" readonly>
+                            
+                        </div>
+
+
+                    </div>
+    
+                    <!-- ANÁLISE DAS CONDIÇÕES DE DESBLOQUEIO -->
+                    <div class="checklist9">
+                        <h2>Análise das Condições de Desbloqueio</h2>
+    
+                        <div class="form-group">
+                            <label><b>Preenchido Relatório de Execução 'Documentos de Liquidação Incluidos'?</b></label>
+                            <div class="radio-group">
+                                <input type="radio" id="simRelatorioExecucao" name="relatorioExecucao" value="simRelatorioExecucao">
+                                <label for="simRelatorioExecucao">Sim</label>
+                                <input type="radio" id="naoRelatorioExecucao" name="relatorioExecucao" value="naoRelatorioExecucao">
+                                <label for="naoRelatorioExecucao">Não</label>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label><b>Depósito da Contrapartida:</b></label>
+                            <div class="radio-group">
+                                <input type="radio" id="simDepositoCp" name="depositoCp" value="simDepositoCp">
+                                <label for="simDepositoCp">Sim</label>
+                                <input type="radio" id="naoDepositoCp" name="depositoCp" value="naoDepositoCp">
+                                <label for="naoDepositoCp">Não depositada</label>
+                                <input type="radio" id="parcialDepositoCp" name="depositoCp" value="parcialDepositoCp">
+                                <label for="parcialDepositoCp">Depositada parcial</label>
+                                <input type="radio" id="naDepositoCp" name="depositoCp" value="naDepositoCp">
+                                <label for="naDepositoCp">n/a</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><b>Documentos de Liquidação:</b></label>
+                            <div class="radio-group">
+                                <input type="radio" id="incDocLiquidacao" name="docLiquidacao" value="incDocLiquidacao">
+                                <label for="incDocLiquidacao">Incluídos</label>
+                                <input type="radio" id="naoIncDocLiquidacao" name="docLiquidacao" value="naoIncDocLiquidacao">
+                                <label for="naoIncDocLiquidacao">Não incluídos</label>
+                            </div>
+                        </div>
+    
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="notaFiscal"><b>Nota Fiscal:</b></label>
+                                <select id="notaFiscal" name="notaFiscal">
+                                    <option value="" selected disabled>Escolha uma opção</option>
+                                    <option value="Documento Conforme">Documento Conforme</option>
+                                    <option value="Dados Com Divergencia">Dados com Divergência</option>
+                                    <option value="Nao Autenticavel">Não Autenticável</option>
+                                    <option value="Outras Pendencias">Outras Pendências</option>
+                                    <option value="Nao Aplicavel">N/A</option>
+                                </select>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="tributos"><b>Tributos:</b></label>
+                                <select id="tributos" name="tributos">
+                                    <option value="" selected disabled>Escolha uma opção</option>
+                                    <option value="Dados Conformes">Dados Conformes</option>
+                                    <option value="Dados Divergentes">Dados Divergentes</option>
+                                    <option value="Nao Aplicavel">N/A</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+    
+                        <div class="form-group">
+                            <label><b>Aprova Relatório de Execução:</b></label>
+                            <div class="radio-group">
+                                <input type="radio" id="simAprovaRelExec" name="aprovaRelExec" value="simAprovaRelExec">
+                                <label for="simAprovaRelExec">Sim</label>
+                                <input type="radio" id="naoAprovaRelExec" name="aprovaRelExec" value="naoAprovaRelExec">
+                                <label for="naoAprovaRelExec">Não</label>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label><b>Medição apta a desbloqueio:</b></label>
+                            <div class="radio-group">
+                                <input type="radio" id="simAptoDesbl" name="aptoDesbl" value="simAptoDesbl">
+                                <label for="simAptoDesbl">Sim</label>
+                                <input type="radio" id="naoAptoDesbl" name="aptoDesbl" value="naoAptoDesbl">
+                                <label for="naoAptoDesbl">Não</label>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                <!-- PENDÊNCIAS / CONDICIONANTES PARA DESBLOQUEIO -->
+                <!-- <div class="checklist11">
+                    <h2>Pendências / Condicionantes para Desbloqueio</h2>
+                    <div class="form-group">
+                        <label for="apontamentoDesbloqueio">Apontamentos:</label><br>
+                        <textarea id="apontamentoDesbloqueio" name="apontamentoDesbloqueio" readonly rows="15" cols="60"></textarea><br>
+                        <label for="cePendenciaDesbloqueio">Nº da CE para desbloqueio:</label>
+                        <input type="text" class="cePendenciaDesbloqueio" id="cePendenciaDesbloqueio" name="cePendenciaDesbloqueio" value="">
+                        <div class="buttons-group">
+                            <button id="textos" type="button" class="btn-copiar">Enviar Pendências</button>
+                            <button id="btnCopiarApontamento" type="button" class="btn-copiar">Apontamento REUNI</button>
+                            <button id="btnCopiarSituacaoAtual" type="button" class="btn-copiar btn-situacao">Situação Atual</button>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- PROCEDIMENTOS PÓS ANÁLISES -->
+                <div class="checklist12">
+                    <h2>Procedimentos Pós Análises</h2>
+                    <div class="form-group">
+                        <label for="prepararFas">Preparar FAS / CE de desbloqueio</label>
+                        <input type="checkbox" id="prepararFas" name="prepararFas" value="valor">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="efetuarDesbloqueio">Efetuar desbloqueio</label>
+                        <input type="checkbox" id="efetuarDesbloqueio" name="efetuarDesbloqueio" value="valor">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="enviaCeDesbl">Enviar CE de desbloqueio ao Tomador</label>
+                        <input type="checkbox" id="enviaCeDesbl" name="enviaCeDesbl" value="valor">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="numeroCeDesbl">Número da CE gerada no REUNI:</label>
+                        <input type="text" id="numeroCeDesbl" name="numeroCeDesbl" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="atualizaDados">Atualizar apontamentos, Situação atual e Etiquetas</label>
+                        <input type="checkbox" id="atualizaDados" name="atualizaDados" value="valor">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="arquivarDocs">Arquivar documentos / Dossiê digital</label>
+                        <input type="checkbox" id="arquivarDocs" name="arquivarDocs" value="valor">
+                    </div>
+
+                    <div class="buttons-group">
+                        <button id="btnEnviarFasAssinatura" type="button" class="btn-fas">Envia FAS para assinatura</button>
+                        <button id="btnCopiarApontamentoPC" type="button" class="btn-copiar">Apontamento REUNI</button>
+                        <button id="btnCopiarSituacaoPC" type="button" class="btn-copiar btn-situacao">Situação Atual</button>
+                    </div>
+                    <!-- Caixa de diálogo para selecionar coordenação para envio da FAS -->
+                    <dialog id="dialogo">
+                        <form method="dialog">
+                            <fieldset>
+                                <legend>Selecione um destinatário:</legend>
+                                <label>
+                                    <input type="radio" name="fasPara" value="gigovjp08"> gigovjp08
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="fasPara" value="gigovjp09"> gigovjp09
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="fasPara" value="gigovjp10"> gigovjp10
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="fasPara" value="gigovjp11"> gigovjp11
+                                </label><br>
+                            </fieldset>
+                            <button id="confirmarBtn">Confirmar</button>
+                            <button type="button" id="cancelarBtn">Cancelar</button>
+
+                            <!-- <button onclick="dialogo.close()">Cancelar</button> -->
+                        </form>
+                    </dialog>
+
+                </div>
+
+                                    <!-- PRESTAÇÃO DE CONTAS FINAL -->
+                                    <div class="checklist10" style="display: none;">
+                                        <h2>Prestação de Contas Final</h2>
+                                        <div class="form-group">
+                                            <label for="prestacaoContasFinal">Instruções para Prestação de Contas Final:</label><br>
+                                            <textarea id="prestacaoContasFinal" name="prestacaoContasFinal" readonly rows="5" cols="60"></textarea>
+                                            <div class="buttons-group">
+                                                <button id="btnCopiarPCF" type="button" class="btn-copiar">Copiar Apontamento de PCF</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+                 <!-- GESTÃO PRODUTIVIDADE -->
+                 <div class="checklist13">
+                    <!-- <h2>Gestão da Produtividade</h2>
+                    O botão de verificar pendências foi removido conforme solicitado -->
+                    <section id="gestao-produtividade">
+                        <div class="container">
+                            <h2>Gestão da Produtividade</h2>
+                            <div class="atividade">
+                                
+                                    <label for="hora-inicio">Início:</label>
+                                    <input type="text" id="hora-inicio" readonly>
+                               
+                                    <label for="hora-fim">Fim:</label>
+                                    <input type="text" id="hora-fim" readonly>
+                                
+                               
+                                    <label for="tempo-total">Tempo total:</label>
+                                    <input type="text" id="tempo-total" readonly>
+                                <button id="registrar-atividade">Finalizar Atividade</button>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    
+
+
+                </div>
+
+                <!-- <div class="checklist14">
+                    <h2>Análise Processual Adicional</h2>
+                    <p>Resumo do andamento processual.</p>
+                </div>
+
+                <div class="checklist15">
+                    <h2>Observações Finais</h2>
+                    <p>Resumo do andamento processual.</p>
+                </div> -->
+            </section>
+        </main>
+    </section>
+    <footer id="rodape">
+        © 2025 Sistema de Rotinas Operacionais - OGU - GIGOV/JP
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/CondicoesModule/script.js"></script>
+    <!-- <script src="../js/DesbloqueioManager.js" type="module"></script> -->
+    <!-- <script src="../js/empresas-executoras.js"></script> -->
+    <!-- <script src="../js/PCFModule.js" type="module"></script> -->
+    <!-- <script src="../js/texto.js" type="module"></script> -->
+    <script src="../js/CondicoesModule/CondicoesDesbl.js"></script>
+</body>
+</html>

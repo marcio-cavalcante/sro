@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRO - Consulta Operação</title>
+    <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+    <link rel="shortcut icon" href="/media/favicon/favicon.jpg" type="image/x-icon">
+</head>
+
+<body>
+    <header id="cabecalho">
+        <div class="id-cabecalho">
+            <h1>Sistema de Rotinas Operacionais</h1>
+            <p><strong>Módulo de Consulta de Dados das Operações</strong></p>
+        </div>
+        <div class="insere-operacao">
+            <form id="operacaoForm">
+                <label for="operacao">Operação:</label>
+                <input type="text" id="operacao" name="operacao" placeholder="Operação" required>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </header>
+    <section id="container">
+        <nav id="menu">
+            <ul>
+                <li><a href="#pagina1">PT</a></li>
+                <li><a href="#pagina2">Contratação</a></li>
+                <li><a href="#pagina3">Suspensiva</a></li>
+                <li><a href="#pagina4">Licitação</a></li>
+                <li><a href="#pagina5">Desbloqueio</a></li>
+                <li><a href="#pagina6">Serv. Extra</a></li>
+                <li><a href="#pagina7">Reprogramação</a></li>
+                <li><a href="#pagina8">PCP</a></li>
+                <li><a href="#pagina9">PCF</a></li>
+                <li><a href="#pagina10">Vigência</a></li>
+            </ul>
+        </nav>
+        <main id="principal">
+            <section class="checklist">
+                <!-- DADOS GERAIS -->
+                <div class="checklist1">
+                    <h2>Dados Gerais</h2>
+                    <form id="form-dados">
+                        <div class="form-row">
+                            <label for="operation">Operação:</label>
+                            <input type="text" id="operation" name="operation" readonly>
+                            <label for="convenio">Convênio:</label>
+                            <input type="text" id="convenio" name="convenio" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="tomador">Tomador:</label>
+                            <input type="text" id="tomador" name="tomador" readonly>
+                            <label for="cnpj">CNPJ:</label>
+                            <input type="text" id="cnpj" name="cnpj" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="regramento">Regramento:</label>
+                            <input type="text" id="regramento" name="regramento" readonly>
+                            <label for="assinatura">Assinatura:</label>
+                            <input type="text" id="assinatura" name="assinatura" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="objeto">Objeto:</label>
+                            <input type="text" id="objeto" name="objeto" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="vi">VI:</label>
+                            <input type="text" id="vi" name="vi" readonly>
+                            <label for="rp">RP:</label>
+                            <input type="text" id="rp" name="rp" readonly>
+                            <label for="cp">CP:</label>
+                            <input type="text" id="cp" name="cp" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="cAgencia">Cod. Agência:</label>
+                            <input type="text" id="cAgencia" name="cAgencia" readonly>
+                            <label for="agencia">Agência:</label>
+                            <input type="text" id="agencia" name="agencia" readonly>
+                            <label for="cCorrente">Conta:</label>
+                            <input type="text" id="cCorrente" name="cCorrente" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="obtv">OBTV:</label>
+                            <input type="text" id="obtv" name="obtv" readonly>
+                            <label for="gestor">Gestor:</label>
+                            <input type="text" id="gestor" name="gestor" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="emails">Contato:</label>
+                            <input type="text" id="emails" name="emails" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="etiquetasDaOperacao">Etiquetas:</label>
+                            <div id="etiquetasDaOperacaoContainer"></div>
+                        </div>
+                    </form>
+                </div>
+          
+            </section>
+        </main>
+    </section>
+    <footer id="rodape">
+        © 2025 Sistema de Rotinas Operacionais - OGU - GIGOV/JP
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/ConsultaOpModule/script.js"></script>
+</body>
+
+</html>
